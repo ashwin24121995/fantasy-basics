@@ -38,72 +38,257 @@ function StaticPageLayout({ title, children }: StaticPageProps) {
 
 export function AboutPage() {
   return (
-    <StaticPageLayout title="About Fantasy Basics">
-      <div className="space-y-6">
-        <section>
-          <h2 className="text-2xl font-bold mb-4">Welcome to Fantasy Basics</h2>
-          <p>
-            Fantasy Basics is India's premier fantasy cricket platform, brought to you by{" "}
-            <strong>KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</strong>. We are dedicated to providing cricket
-            enthusiasts with an engaging, fair, and entertaining fantasy sports experience.
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-semibold mb-3">Our Mission</h3>
-          <p>
-            Our mission is to make fantasy cricket accessible to everyone while maintaining the highest standards of
-            fairness, transparency, and responsible gaming. We believe in creating a platform where cricket knowledge
-            and strategy bring fun and entertainment—without any real money involved.
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-semibold mb-3">Why Choose Fantasy Basics?</h3>
-          <ul className="list-disc pl-6 space-y-2">
-            <li>
-              <strong>100% Real Data:</strong> All match data, player statistics, and scores are sourced from reliable
-              cricket APIs
-            </li>
-            <li>
-              <strong>100% Free:</strong> No entry fees, no real money, no cash prizes—just pure cricket fun
-            </li>
-            <li>
-              <strong>Fair Play Guaranteed:</strong> We ensure transparent scoring and contest management
-            </li>
-            <li>
-              <strong>Real-time Updates:</strong> Get live scores and fantasy points as matches progress
-            </li>
-            <li>
-              <strong>User-Friendly Interface:</strong> Easy team creation and contest participation
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-semibold mb-3">Company Information</h3>
-          <p>
-            <strong>Company Name:</strong> KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED
-            <br />
-            <strong>Registration:</strong> Registered in Karnataka, India
-            <br />
-            <strong>Website:</strong> www.fantasybasics.com
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-semibold mb-3">Compliance & Regulations</h3>
-          <p>
-            Fantasy Basics is a free-to-play entertainment platform that operates in full compliance with Indian laws. We
-            strictly adhere to age restrictions (18+ only) and geographic restrictions as mandated by law. No real money or cash prizes are involved.
-          </p>
-          <p className="mt-2">
-            <strong>Note:</strong> Fantasy sports are not available in Telangana, Andhra Pradesh, Assam, and Odisha as
-            per state regulations.
-          </p>
-        </section>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Navigation activePage="about" />
+      
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-r from-primary via-primary/90 to-secondary py-20 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full">
+          <div className="absolute top-0 right-0 w-32 h-full bg-secondary transform skew-x-[-12deg] translate-x-16 opacity-60"></div>
+          <div className="absolute top-0 right-24 w-24 h-full bg-white transform skew-x-[-12deg] translate-x-16 opacity-20"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <h1 className="text-5xl font-bold text-white mb-4">About Fantasy Basics</h1>
+          <p className="text-xl text-white/90 max-w-2xl">India's Premier Free-to-Play Fantasy Cricket Platform</p>
+        </div>
       </div>
-    </StaticPageLayout>
+
+      {/* Stats Section */}
+      <div className="container mx-auto px-4 -mt-12 relative z-20 mb-12">
+        <div className="grid md:grid-cols-4 gap-6">
+          <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-primary">
+            <div className="text-4xl font-bold text-primary mb-2">100%</div>
+            <div className="text-gray-600 font-medium">Free to Play</div>
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-secondary">
+            <div className="text-4xl font-bold text-secondary mb-2">Real-Time</div>
+            <div className="text-gray-600 font-medium">Live Scores</div>
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-primary">
+            <div className="text-4xl font-bold text-primary mb-2">18+</div>
+            <div className="text-gray-600 font-medium">Age Verified</div>
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-secondary">
+            <div className="text-4xl font-bold text-secondary mb-2">Fair</div>
+            <div className="text-gray-600 font-medium">Transparent Scoring</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 pb-16">
+        <div className="max-w-5xl mx-auto space-y-12">
+          
+          {/* Our Story */}
+          <section className="bg-white rounded-lg shadow-md p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-8 bg-primary"></div>
+              <h2 className="text-3xl font-bold text-gray-900">Our Story</h2>
+            </div>
+            <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
+              <p>
+                Fantasy Basics was born from a simple idea: to make fantasy cricket accessible, transparent, and enjoyable for every cricket enthusiast in India. Founded by <strong>KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</strong>, a registered company in Karnataka, India, we set out to create a platform that celebrates cricket knowledge and strategic thinking without the complications of real money transactions.
+              </p>
+              <p>
+                Our journey began with a commitment to transparency and fairness. We recognized that many cricket fans wanted to test their cricket knowledge and compete with friends, but were hesitant about platforms involving real money. Fantasy Basics fills that gap by offering a completely free, skill-based gaming experience where the only currency is your cricket expertise.
+              </p>
+              <p>
+                Today, Fantasy Basics stands as a testament to our belief that entertainment and skill-based competition can thrive without monetary incentives. We integrate real-time data from trusted cricket APIs, ensuring every statistic, every score, and every fantasy point is accurate and verifiable.
+              </p>
+            </div>
+          </section>
+
+          {/* Mission & Vision */}
+          <section className="bg-white rounded-lg shadow-md p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-8 bg-secondary"></div>
+              <h2 className="text-3xl font-bold text-gray-900">Our Mission & Vision</h2>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-primary mb-3">Mission</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  To democratize fantasy cricket by providing a 100% free, transparent, and engaging platform where cricket enthusiasts can showcase their knowledge, compete with peers, and celebrate the sport they love—without any financial barriers or risks.
+                </p>
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-secondary mb-3">Vision</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  To become India's most trusted and beloved free fantasy cricket platform, fostering a community of passionate cricket fans who value skill, strategy, and sportsmanship over monetary gains.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Why Choose Us */}
+          <section className="bg-white rounded-lg shadow-md p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-8 bg-primary"></div>
+              <h2 className="text-3xl font-bold text-gray-900">Why Choose Fantasy Basics?</h2>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <span className="text-2xl font-bold text-primary">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2">100% Real Data</h4>
+                  <p className="text-gray-600 text-sm">All match data, player statistics, and scores are sourced directly from Cricket Data API, ensuring accuracy and reliability in every contest.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+                  <span className="text-2xl font-bold text-secondary">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2">100% Free Forever</h4>
+                  <p className="text-gray-600 text-sm">No entry fees, no hidden charges, no real money, and no cash prizes. Just pure cricket entertainment and bragging rights among friends.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <span className="text-2xl font-bold text-primary">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2">Fair Play Guaranteed</h4>
+                  <p className="text-gray-600 text-sm">Transparent scoring system, clear contest rules, and equal opportunities for all participants. No favoritism, no manipulation.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+                  <span className="text-2xl font-bold text-secondary">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2">Real-Time Updates</h4>
+                  <p className="text-gray-600 text-sm">Live scorecard updates, instant fantasy points calculation, and real-time leaderboards so you never miss a moment of action.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <span className="text-2xl font-bold text-primary">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2">User-Friendly Interface</h4>
+                  <p className="text-gray-600 text-sm">Intuitive team builder, easy contest selection, and seamless navigation designed for cricket fans of all technical skill levels.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center">
+                  <span className="text-2xl font-bold text-secondary">✓</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-gray-900 mb-2">Responsible Gaming</h4>
+                  <p className="text-gray-600 text-sm">Age verification (18+), geographic restrictions compliance, and educational resources to promote healthy gaming habits.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Company Information */}
+          <section className="bg-white rounded-lg shadow-md p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-8 bg-secondary"></div>
+              <h2 className="text-3xl font-bold text-gray-900">Company Information</h2>
+            </div>
+            <div className="bg-gray-50 rounded-lg p-6 space-y-3">
+              <div className="flex flex-wrap gap-x-8 gap-y-3">
+                <div>
+                  <div className="text-sm text-gray-500 mb-1">Company Name</div>
+                  <div className="font-bold text-gray-900">KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</div>
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500 mb-1">Registration</div>
+                  <div className="font-bold text-gray-900">Registered in Karnataka, India</div>
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500 mb-1">Website</div>
+                  <div className="font-bold text-primary">www.fantasybasics.com</div>
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500 mb-1">Platform Type</div>
+                  <div className="font-bold text-gray-900">Free-to-Play Entertainment</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Compliance & Regulations */}
+          <section className="bg-white rounded-lg shadow-md p-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-1 h-8 bg-primary"></div>
+              <h2 className="text-3xl font-bold text-gray-900">Compliance & Regulations</h2>
+            </div>
+            <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
+              <p>
+                Fantasy Basics operates as a <strong>free-to-play entertainment platform</strong> in full compliance with Indian laws and regulations. We take our legal responsibilities seriously and have implemented robust systems to ensure adherence to all applicable rules.
+              </p>
+              <div className="bg-yellow-50 border-l-4 border-secondary p-6 rounded-r-lg">
+                <h4 className="font-bold text-gray-900 mb-3">Age Restriction</h4>
+                <p className="text-gray-700 mb-0">
+                  All users must be <strong>18 years or older</strong> to register and participate on Fantasy Basics. We verify age during registration and maintain strict enforcement of this policy.
+                </p>
+              </div>
+              <div className="bg-red-50 border-l-4 border-primary p-6 rounded-r-lg">
+                <h4 className="font-bold text-gray-900 mb-3">Geographic Restrictions</h4>
+                <p className="text-gray-700 mb-2">
+                  In compliance with state regulations, fantasy sports are <strong>not available</strong> to residents of the following states:
+                </p>
+                <ul className="list-disc pl-6 mb-0">
+                  <li>Telangana</li>
+                  <li>Andhra Pradesh</li>
+                  <li>Assam</li>
+                  <li>Odisha</li>
+                </ul>
+                <p className="text-gray-700 mt-3 mb-0">
+                  Users from these states will not be able to register or participate in contests on our platform.
+                </p>
+              </div>
+              <div className="bg-green-50 border-l-4 border-secondary p-6 rounded-r-lg">
+                <h4 className="font-bold text-gray-900 mb-3">No Real Money Involved</h4>
+                <p className="text-gray-700 mb-0">
+                  Fantasy Basics is a <strong>100% free platform</strong>. There are no entry fees, no real money transactions, and no cash prizes. All contests are free to enter, and participation is purely for entertainment and skill demonstration purposes.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Our Commitment */}
+          <section className="bg-gradient-to-r from-primary to-secondary rounded-lg shadow-md p-8 text-white">
+            <h2 className="text-3xl font-bold mb-6">Our Commitment to You</h2>
+            <div className="space-y-4 text-white/95">
+              <p className="text-lg">
+                At Fantasy Basics, we are committed to providing a safe, fair, and enjoyable fantasy cricket experience. We promise:
+              </p>
+              <ul className="space-y-3 pl-6">
+                <li className="flex gap-3">
+                  <span className="flex-shrink-0">•</span>
+                  <span><strong>Transparency:</strong> Clear rules, visible scoring systems, and honest communication at all times.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex-shrink-0">•</span>
+                  <span><strong>Data Privacy:</strong> Your personal information is protected and never shared with third parties without consent.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex-shrink-0">•</span>
+                  <span><strong>Responsible Gaming:</strong> Resources and support to ensure fantasy cricket remains fun and never becomes problematic.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex-shrink-0">•</span>
+                  <span><strong>Continuous Improvement:</strong> Regular updates, new features, and responsive customer support to enhance your experience.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="flex-shrink-0">•</span>
+                  <span><strong>Community First:</strong> Building a positive, respectful community of cricket enthusiasts who share our passion for the game.</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      </div>
+      
+      <Footer />
+    </div>
   );
 }
 
