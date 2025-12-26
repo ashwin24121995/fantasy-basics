@@ -212,7 +212,7 @@ async function makeApiRequest<T>(
         apikey: CRICKET_API_KEY,
         ...params,
       },
-      timeout: 10000,
+      timeout: 60000, // 60 seconds - increased from 10s to handle API delays
     });
 
     if (response.data.status !== "success") {
@@ -261,7 +261,7 @@ export async function getCurrentMatches(): Promise<CurrentMatch[]> {
             apikey: CRICKET_API_KEY,
             offset,
           },
-          timeout: 10000,
+          timeout: 60000, // 60 seconds - increased from 10s for parallel requests
         })
       );
     }
@@ -365,11 +365,22 @@ export function getUpcomingMatches(matches: CurrentMatch[]): CurrentMatch[] {
 }
 
 /**
- * Get live matches
+ * Get live matches (matches that started recently and haven't ended)
  */
 export function getLiveMatches(matches: CurrentMatch[]): CurrentMatch[] {
+  const now = new Date();
+  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  
   return matches
-    .filter((match) => match.matchStarted && !match.matchEnded)
+    .filter((match) => {
+      // Match must be started but not ended
+      if (!match.matchStarted || match.matchEnded) return false;
+      
+      // Match date must be within last 7 days (not months/years ago)
+      // This filters out abandoned matches while keeping multi-day Test matches
+      const matchDate = new Date(match.dateTimeGMT);
+      return matchDate >= sevenDaysAgo;
+    })
     .sort((a, b) => {
       // Sort by start time (earliest first for live matches)
       return new Date(a.dateTimeGMT).getTime() - new Date(b.dateTimeGMT).getTime();

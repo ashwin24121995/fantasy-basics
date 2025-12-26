@@ -574,10 +574,14 @@
 - [ ] Test all buttons work correctly
 
 
-## Footer Visibility Issue - RESOLVED ✅
+## Footer Visibility Issue - NEEDS FIX 🔧
 - [x] Check matches page footer on fantasybasics.com
-- [x] Footer IS visible - no issue found
-- [x] Footer has correct styling (bg-dark-navy, white text)
+- [x] ISSUE CONFIRMED: Footer is NOT visible on production
+- [ ] Footer links (About Us, How to Play, FAQ, etc.) are missing
+- [ ] Investigate CSS/layout issue causing footer to be hidden
+- [ ] Fix footer visibility
+- [ ] Test footer shows correctly on all pages
+- [ ] Deploy fix to production
 
 ## Match Sorting Issue - FIXED ✅
 - [x] Matches were not sorted by date (showing in random order)
@@ -586,4 +590,46 @@
 - [x] Sort completed matches by date (most recent first)
 - [x] Test match sorting on all tabs - Verified working correctly
 - [x] Write unit tests for match sorting (8/8 passing)
+- [ ] Deploy fix to production
+
+## Matches Not Loading on Production - CRITICAL 🔥
+- [x] ISSUE CONFIRMED: fantasybasics.com shows "Loading live matches..." indefinitely
+- [x] All tabs show 0 matches (UPCOMING (0), LIVE (0), COMPLETED (0))
+- [x] Console shows: "Cricket API Error: timeout of 10000ms exceeded"
+- [ ] Increase API timeout from 10s to 30s or 60s
+- [ ] Add retry logic for failed API requests
+- [ ] Add better error handling and error messages
+- [ ] Test matches load correctly after fix
+- [ ] Deploy fix to production
+
+
+## Team Creation Authentication Requirement - ALREADY IMPLEMENTED ✅
+- [x] Check current CREATE TEAM button behavior on matches page
+- [x] Authentication check ALREADY EXISTS on CREATE TEAM buttons
+- [x] Code redirects to login if not authenticated (lines 243-247 in Matches.tsx)
+- [x] If authenticated, redirects to team creation page
+- [x] Authentication flow working correctly: CREATE TEAM → login (if not authenticated) → team creation
+- [x] No changes needed - feature already working as requested
+
+
+## API Timeout Fix & Footer Visibility - FIXED ✅ (December 27, 2025)
+- [x] Increased Cricket API timeout from 10s to 60s in cricketApi.ts (both occurrences)
+- [x] Tested in development - matches now load correctly (62 upcoming, 15 live, 298 completed)
+- [x] Footer now visible at bottom of page (was hidden due to no content loading)
+- [x] Root cause: Multi-page API fetching (15 pages) needs more time than 10s
+- [x] Solution: 60-second timeout allows all pages to fetch successfully
+- [ ] Deploy timeout fix to GitHub for Railway auto-deployment
+- [ ] Test on production (fantasybasics.com) after deployment
+
+
+## Incorrect LIVE Match Classification - FIXED ✅ (December 27, 2025)
+- [x] Issue identified: 15 matches showing as "LIVE" but their dates are not today
+- [x] First attempt: Added strict TODAY-only filter (too strict)
+- [x] Problem: Showed 0 live matches even when there might be real ones
+- [x] Solution: Use 7-day window filter
+- [x] Logic: Match is LIVE if matchStarted=true AND matchEnded=false AND date within last 7 days
+- [x] This filters out old abandoned matches while keeping multi-day Test matches
+- [x] Tested with actual API data - working correctly
+- [x] Shows "No Live Matches" message when genuinely no live matches
+- [x] Write unit tests for live match filtering (9/9 passing)
 - [ ] Deploy fix to production
