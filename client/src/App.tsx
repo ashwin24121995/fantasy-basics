@@ -5,12 +5,31 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Matches from "./pages/Matches";
+import MatchDetail from "./pages/MatchDetail";
+import TeamBuilder from "./pages/TeamBuilder";
+import LiveMatch from "./pages/LiveMatch";
+import Dashboard from "./pages/Dashboard";
+import { AboutPage, HowToPlayPage, FAQPage, TermsPage, PrivacyPage, ResponsibleGamingPage, FairPlayPage, ContactPage } from "./pages/StaticPages";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path="/matches" component={Matches} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/about" component={AboutPage} />
+      <Route path="/how-to-play" component={HowToPlayPage} />
+      <Route path="/faq" component={FAQPage} />
+      <Route path="/terms" component={TermsPage} />
+      <Route path="/privacy" component={PrivacyPage} />
+      <Route path="/responsible-gaming" component={ResponsibleGamingPage} />
+      <Route path="/fair-play" component={FairPlayPage} />
+      <Route path="/contact" component={ContactPage} />
+      <Route path="/matches/:matchId/team-builder" component={TeamBuilder} />
+      <Route path="/matches/:matchId/live" component={LiveMatch} />
+      <Route path="/matches/:matchId" component={MatchDetail} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
