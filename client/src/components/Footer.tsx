@@ -124,7 +124,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 pt-6 mt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400 text-center md:text-left">
-              © 2024 Kavera by KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED. All Rights Reserved.
+              © 2025 Kavera by KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED. All Rights Reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500">
               <span className="px-3 py-1 bg-gray-800 rounded-full">Age Verified (18+)</span>

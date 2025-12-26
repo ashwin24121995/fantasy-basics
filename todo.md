@@ -349,3 +349,19 @@
 - [x] Fix "LOGIN TO FANTASY BASICS" text on login page (now shows "LOGIN TO KAVERA")
 - [ ] Fix login/registration form submission issue (forms not submitting - tRPC client issue)
 - [x] Push fixes to GitHub
+
+## Fix Copyright Year and Authentication UI
+- [ ] Change copyright year from 2024 to 2025 in footer
+- [ ] Fix login/register buttons not working in navigation
+- [ ] Implement authentication-based navigation (show DASHBOARD/LOGOUT when logged in, LOGIN/REGISTER when not logged in)
+- [ ] Update all pages to show different UI based on authentication state
+
+## Complete Fantasy Cricket Workflow
+- [x] Add "Create Team" button to matches page (only for logged-in users)
+- [x] Build Team Creation page with player selection (11 players, budget constraints)
+- [x] Build Contest Selection page (join public/private contests)
+- [x] Build My Teams page (view all created teams) - Already exists in Dashboard
+- [x] Enhance Live Match page with real-time points tracking - Already has 30s auto-refresh
+- [ ] Build Leaderboard page (contest rankings)
+- [ ] Test complete flow: Matches → Create Team → Join Contest → Live Match → Leaderboard
+- [ ] Push changes to GitHub
