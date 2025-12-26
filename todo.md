@@ -244,3 +244,22 @@
 - [ ] Update navigation to remove login/profile buttons
 - [ ] Test application without Manus dependencies
 - [ ] Push to GitHub and verify Railway deployment works
+
+## Cricket API Not Working on Railway
+- [ ] Check Railway deployment logs for API errors
+- [ ] Test Cricket API connection from Railway environment
+- [ ] Verify CRICKET_API_KEY is correctly set in Railway
+- [ ] Check if API endpoint is accessible from Railway servers
+- [ ] Fix any CORS or network issues
+- [ ] Verify matches are fetched and displayed correctly
+- [ ] Deploy fix to Railway and test production
+
+## Website Audit & Fixes
+- [x] Audit entire website (all pages) and document all issues
+- [x] Fix contact page hero section background missing (Already working - no fix needed)
+- [x] Fix contact page footer CSS missing (Already working - no fix needed)
+- [x] Redesign footer with better design
+- [x] Fix all CSS and styling issues across all pages
+- [x] Fix any broken links or navigation issues
+- [x] Test all pages thoroughly
+- [ ] Deploy fixes to GitHub
