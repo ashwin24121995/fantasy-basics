@@ -357,14 +357,29 @@ export default function Matches() {
                           </div>
                         )}
 
-                        {/* Action Button */}
-                        <Button 
-                          className="w-full bg-primary hover:bg-primary/90 text-white font-bold"
-                          onClick={() => window.location.href = `/matches/${match.id}/live`}
-                        >
-                          <TrendingUp className="w-4 h-4 mr-2" />
-                          WATCH LIVE
-                        </Button>
+                        {/* Action Buttons */}
+                        <div className="flex gap-2">
+                          <Button 
+                            className="flex-1 bg-primary hover:bg-primary/90 text-white font-bold"
+                            onClick={() => {
+                              if (!isAuthenticated) {
+                                window.location.href = getLoginUrl();
+                              } else {
+                                window.location.href = `/create-team/${match.id}`;
+                              }
+                            }}
+                          >
+                            CREATE TEAM
+                          </Button>
+                          <Button 
+                            variant="outline"
+                            className="flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold"
+                            onClick={() => window.location.href = `/matches/${match.id}/live`}
+                          >
+                            <TrendingUp className="w-4 h-4 mr-2" />
+                            WATCH LIVE
+                          </Button>
+                        </div>
                       </CardContent>
                     </Card>
                   ))}

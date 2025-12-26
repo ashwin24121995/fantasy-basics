@@ -365,3 +365,10 @@
 - [ ] Build Leaderboard page (contest rankings)
 - [ ] Test complete flow: Matches → Create Team → Join Contest → Live Match → Leaderboard
 - [x] Push changes to GitHub
+
+## CRITICAL FIXES - Production Issues
+- [x] Add CREATE TEAM button to Matches page (added to LIVE matches section)
+- [x] Fix LOGIN button in Navigation - uses window.location.href = "/login"
+- [x] Fix REGISTER NOW button in Navigation - uses window.location.href = "/register"
+- [ ] Implement authentication state detection - Navigation should show DASHBOARD/LOGOUT when user is logged in (requires tRPC fix)
+- [ ] Test all buttons work correctly on production after Railway deployment
