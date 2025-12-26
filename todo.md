@@ -522,3 +522,53 @@
 - [ ] Implement auto-refresh for live updates
 - [ ] Test live match tracking with mock data
 - [ ] Write unit tests for points calculation
+
+
+## Production Website Testing & Error Fixing - IN PROGRESS 🔧
+- [ ] Test registration on fantasybasics.com
+- [ ] Test login on fantasybasics.com
+- [ ] Document all errors encountered
+- [ ] Fix database connection issues
+- [ ] Fix authentication errors
+- [ ] Test team creation flow
+- [ ] Test navigation after login
+- [ ] Verify all features work without errors
+- [ ] Deploy fixes to GitHub
+- [ ] Final verification on production
+
+
+## Cricket API Integration Fix - IN PROGRESS 🔧
+- [ ] Check current Cricket API configuration
+- [ ] Update API credentials with cricketdata.org account
+- [ ] Test API connection and match fetching
+- [ ] Fix upcoming matches not showing
+- [ ] Verify live match data works
+
+## Website Content Cleanup - IN PROGRESS 🔧
+- [ ] Remove company name mentions from website
+- [ ] Remove API mentions from website
+- [ ] Update footer and about sections
+- [ ] Keep branding as "Kavera" only
+
+
+## Upcoming Matches Not Showing - FIXED ✅
+- [x] Check raw API response - currentMatches only returns TODAY's matches
+- [x] Compared with khelosmart.com - they show 64 upcoming matches (future dates)
+- [x] Identified issue: currentMatches API endpoint doesn't return FUTURE matches
+- [x] Research Cricket API for upcoming/future matches endpoint
+- [x] Implemented multi-page fetching from /matches endpoint (15 pages = 375 matches)
+- [x] Updated match filtering to include future matches
+- [x] Test that upcoming matches display correctly - NOW SHOWING 62 UPCOMING MATCHES!
+- [x] Parallel fetching for better performance
+- [x] 60-second caching to reduce API calls
+- [ ] Write unit tests for multi-page match fetching
+- [ ] Deploy fix to production
+
+## Fix All Non-Working Buttons - IN PROGRESS 🔧
+- [ ] Audit all buttons on homepage
+- [ ] Audit all buttons on matches page
+- [ ] Audit all buttons on other pages
+- [ ] Fix Create Team buttons
+- [ ] Fix navigation buttons
+- [ ] Fix CTA buttons
+- [ ] Test all buttons work correctly

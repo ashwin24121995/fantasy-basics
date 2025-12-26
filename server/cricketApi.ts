@@ -234,11 +234,62 @@ async function makeApiRequest<T>(
 }
 
 /**
- * Get current matches (upcoming, live, and recent)
- * Cache for 30 seconds for live matches
+ * Get all matches (upcoming, live, and recent)
+ * Uses /matches endpoint with multiple pages to include future matches
+ * Cache for 60 seconds
  */
 export async function getCurrentMatches(): Promise<CurrentMatch[]> {
-  return makeApiRequest<CurrentMatch[]>("currentMatches", {}, 30);
+  const cacheKey = "all_matches_multi_page";
+  
+  // Check cache first
+  const cachedData = cache.get<CurrentMatch[]>(cacheKey);
+  if (cachedData) {
+    return cachedData;
+  }
+
+  try {
+    const allMatches: CurrentMatch[] = [];
+    const pagesToFetch = 15; // Fetch 15 pages (375 matches) to ensure we get upcoming matches
+    
+    // Fetch multiple pages in parallel for better performance
+    const promises = [];
+    for (let page = 0; page < pagesToFetch; page++) {
+      const offset = page * 25;
+      promises.push(
+        axios.get<CricketApiResponse<CurrentMatch[]>>(`${CRICKET_API_BASE_URL}/matches`, {
+          params: {
+            apikey: CRICKET_API_KEY,
+            offset,
+          },
+          timeout: 10000,
+        })
+      );
+    }
+
+    const responses = await Promise.all(promises);
+    
+    // Combine all matches
+    for (const response of responses) {
+      if (response.data.status === "success" && response.data.data) {
+        allMatches.push(...response.data.data);
+      }
+    }
+
+    // Remove duplicates based on match ID
+    const uniqueMatches = Array.from(
+      new Map(allMatches.map(match => [match.id, match])).values()
+    );
+
+    // Cache the combined results
+    cache.set(cacheKey, uniqueMatches, 60);
+    
+    return uniqueMatches;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(`Cricket API Error: ${error.message}`);
+    }
+    throw error;
+  }
 }
 
 /**
@@ -302,12 +353,9 @@ export function filterMatchesByState(
  * Get upcoming matches (today and future)
  */
 export function getUpcomingMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  const now = new Date();
   return matches.filter((match) => {
-    const matchDate = new Date(match.dateTimeGMT);
-    // Match is upcoming if it hasn't started yet and is in the future
-    const isUpcoming = !match.matchStarted && matchDate >= now;
-    return isUpcoming;
+    // Match is upcoming if it hasn't started yet
+    return !match.matchStarted;
   });
 }
 

@@ -20,17 +20,8 @@ export const matchRouter = router({
       
       // Cache matches in database
       for (const match of matches) {
-        // Derive match state from matchStarted/matchEnded if ms is not provided
-        let matchState: "fixture" | "live" | "result";
-        if (match.ms) {
-          matchState = match.ms;
-        } else if (match.matchEnded) {
-          matchState = "result";
-        } else if (match.matchStarted) {
-          matchState = "live";
-        } else {
-          matchState = "fixture";
-        }
+        // Use ms field for match state, default to 'fixture' if not provided
+        const matchState: "fixture" | "live" | "result" = match.ms || "fixture";
         
         await upsertMatch({
           id: match.id,
@@ -115,7 +106,7 @@ export const matchRouter = router({
           dateTimeGMT: new Date(apiMatch.dateTimeGMT),
           venue: apiMatch.venue || null,
           status: apiMatch.status,
-          matchState: apiMatch.matchStarted ? (apiMatch.matchEnded ? "result" : "live") : "fixture",
+          matchState: "fixture", // Will be updated when match data is available
           team1: apiMatch.teamInfo[0]?.name || null,
           team2: apiMatch.teamInfo[1]?.name || null,
           team1Img: apiMatch.teamInfo[0]?.img || null,
