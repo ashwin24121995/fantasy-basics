@@ -230,3 +230,17 @@
 - [x] Fix Invalid URL error by adding fallback for missing OAuth env vars
 - [ ] Create .env.example file documenting all required environment variables
 - [ ] Push fix to GitHub for Railway redeployment
+
+## Remove All Manus Dependencies for Railway
+- [ ] Remove Manus OAuth authentication system
+- [ ] Remove Manus-specific environment variables from server/_core/env.ts
+- [ ] Remove Manus runtime plugin from vite.config.ts
+- [ ] Remove server/_core/oauth.ts and related OAuth files
+- [ ] Update database configuration for Railway MySQL
+- [ ] Make all routes public (remove protectedProcedure requirements)
+- [ ] Update tRPC routers to remove auth context dependencies
+- [ ] Remove login/logout functionality from UI
+- [ ] Remove useAuth hook and auth-related components
+- [ ] Update navigation to remove login/profile buttons
+- [ ] Test application without Manus dependencies
+- [ ] Push to GitHub and verify Railway deployment works
