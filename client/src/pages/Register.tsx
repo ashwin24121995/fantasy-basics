@@ -19,6 +19,25 @@ export function Register() {
     confirmPassword: "",
   });
 
+  // Password strength calculation
+  const calculatePasswordStrength = (password: string): { strength: number; label: string; color: string } => {
+    if (!password) return { strength: 0, label: "", color: "" };
+    
+    let strength = 0;
+    if (password.length >= 8) strength += 25;
+    if (password.length >= 12) strength += 15;
+    if (/[a-z]/.test(password)) strength += 15;
+    if (/[A-Z]/.test(password)) strength += 15;
+    if (/[0-9]/.test(password)) strength += 15;
+    if (/[^a-zA-Z0-9]/.test(password)) strength += 15;
+    
+    if (strength < 40) return { strength, label: "Weak", color: "bg-red-500" };
+    if (strength < 70) return { strength, label: "Medium", color: "bg-yellow-500" };
+    return { strength, label: "Strong", color: "bg-green-500" };
+  };
+
+  const passwordStrength = calculatePasswordStrength(formData.password);
+
   const registerMutation = trpc.auth.register.useMutation({
     onSuccess: () => {
       toast.success("Registration successful! Redirecting...");
@@ -161,6 +180,54 @@ export function Register() {
                     disabled={registerMutation.isPending}
                     className="mt-1.5"
                   />
+                  {formData.password && (
+                    <div className="mt-2">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-xs text-slate-600">Password Strength:</span>
+                        <span className={`text-xs font-semibold ${
+                          passwordStrength.label === "Weak" ? "text-red-600" :
+                          passwordStrength.label === "Medium" ? "text-yellow-600" :
+                          "text-green-600"
+                        }`}>{passwordStrength.label}</span>
+                      </div>
+                      <div className="w-full bg-slate-200 rounded-full h-2">
+                        <div 
+                          className={`h-2 rounded-full transition-all duration-300 ${passwordStrength.color}`}
+                          style={{ width: `${passwordStrength.strength}%` }}
+                        ></div>
+                      </div>
+                      <div className="mt-2 text-xs text-slate-600 space-y-1">
+                        <div className="flex items-center gap-1">
+                          {formData.password.length >= 8 ? 
+                            <CheckCircle2 className="w-3 h-3 text-green-600" /> : 
+                            <span className="w-3 h-3 rounded-full border border-slate-300"></span>
+                          }
+                          <span>At least 8 characters</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {/[A-Z]/.test(formData.password) ? 
+                            <CheckCircle2 className="w-3 h-3 text-green-600" /> : 
+                            <span className="w-3 h-3 rounded-full border border-slate-300"></span>
+                          }
+                          <span>One uppercase letter</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {/[0-9]/.test(formData.password) ? 
+                            <CheckCircle2 className="w-3 h-3 text-green-600" /> : 
+                            <span className="w-3 h-3 rounded-full border border-slate-300"></span>
+                          }
+                          <span>One number</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {/[^a-zA-Z0-9]/.test(formData.password) ? 
+                            <CheckCircle2 className="w-3 h-3 text-green-600" /> : 
+                            <span className="w-3 h-3 rounded-full border border-slate-300"></span>
+                          }
+                          <span>One special character</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div>
