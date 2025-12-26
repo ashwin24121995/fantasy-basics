@@ -214,7 +214,7 @@ export default function Dashboard() {
                         )}
                       </div>
                       <CardDescription>
-                        Entry Fee: {parseFloat(entry.entryFee) === 0 ? "FREE" : `₹${entry.entryFee}`}
+                        Free Contest
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -223,12 +223,6 @@ export default function Dashboard() {
                           <span className="text-muted-foreground">Team ID:</span>
                           <span className="font-medium">#{entry.userTeamId}</span>
                         </div>
-                        {parseFloat(entry.winnings) > 0 && (
-                          <div className="flex justify-between text-sm">
-                            <span className="text-muted-foreground">Winnings:</span>
-                            <span className="font-bold text-accent">₹{entry.winnings}</span>
-                          </div>
-                        )}
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Joined:</span>
                           <span className="font-medium">

@@ -176,22 +176,15 @@ export default function MatchDetail() {
                         {contest.description && <CardDescription>{contest.description}</CardDescription>}
                       </div>
                       <div className="text-right">
-                        <div className="flex items-center gap-2 text-accent">
-                          <Trophy className="h-5 w-5" />
-                          <span className="text-2xl font-bold">₹{contest.prizePool}</span>
-                        </div>
-                        <p className="text-sm text-muted-foreground">Prize Pool</p>
+                        <Badge variant="secondary" className="text-lg px-4 py-2">
+                          <Trophy className="h-5 w-5 mr-2" />
+                          Free Contest
+                        </Badge>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid md:grid-cols-3 gap-4 mb-4">
-                      <div>
-                        <p className="text-sm text-muted-foreground">Entry Fee</p>
-                        <p className="text-lg font-semibold">
-                          {parseFloat(contest.entryFee) === 0 ? "FREE" : `₹${contest.entryFee}`}
-                        </p>
-                      </div>
+                    <div className="grid md:grid-cols-2 gap-4 mb-4">
                       <div>
                         <p className="text-sm text-muted-foreground">Spots Left</p>
                         <p className="text-lg font-semibold flex items-center gap-1">

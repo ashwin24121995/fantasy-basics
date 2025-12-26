@@ -49,7 +49,7 @@ export function AboutPage() {
           <p>
             Our mission is to make fantasy cricket accessible to everyone while maintaining the highest standards of
             fairness, transparency, and responsible gaming. We believe in creating a platform where cricket knowledge
-            and strategy are rewarded.
+            and strategy bring fun and entertainment—without any real money involved.
           </p>
         </section>
 
@@ -61,7 +61,7 @@ export function AboutPage() {
               cricket APIs
             </li>
             <li>
-              <strong>Free to Play:</strong> Enjoy fantasy cricket without any entry fees
+              <strong>100% Free:</strong> No entry fees, no real money, no cash prizes—just pure cricket fun
             </li>
             <li>
               <strong>Fair Play Guaranteed:</strong> We ensure transparent scoring and contest management
@@ -89,8 +89,8 @@ export function AboutPage() {
         <section>
           <h3 className="text-xl font-semibold mb-3">Compliance & Regulations</h3>
           <p>
-            Fantasy Basics operates in full compliance with Indian laws and regulations governing fantasy sports. We
-            strictly adhere to age restrictions (18+ only) and geographic restrictions as mandated by law.
+            Fantasy Basics is a free-to-play entertainment platform that operates in full compliance with Indian laws. We
+            strictly adhere to age restrictions (18+ only) and geographic restrictions as mandated by law. No real money or cash prizes are involved.
           </p>
           <p className="mt-2">
             <strong>Note:</strong> Fantasy sports are not available in Telangana, Andhra Pradesh, Assam, and Odisha as
@@ -109,8 +109,8 @@ export function HowToPlayPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Getting Started with Fantasy Basics</h2>
           <p>
-            Fantasy cricket is a game of skill where you create a virtual team of real cricket players and earn points
-            based on their performance in actual matches. Here's how to get started:
+            Fantasy cricket is a free game of skill where you create a virtual team of real cricket players and earn points
+            based on their performance in actual matches. It's 100% free with no real money or cash prizes involved—just pure cricket entertainment. Here's how to get started:
           </p>
         </section>
 
@@ -136,11 +136,12 @@ export function HowToPlayPage() {
 
         <section>
           <h3 className="text-xl font-semibold mb-3">Step 3: Join a Contest</h3>
-          <p>Each match has multiple contests with different entry fees and prize pools. Choose a contest that suits you:</p>
+          <p>Each match has multiple free contests you can join. Choose a contest that suits you:</p>
           <ul className="list-disc pl-6 space-y-1">
-            <li>Free contests (no entry fee)</li>
-            <li>Check the prize pool and number of participants</li>
+            <li>All contests are 100% free (no entry fee)</li>
+            <li>Check the number of participants</li>
             <li>Review contest rules and scoring system</li>
+            <li>Compete for fun and bragging rights—no cash prizes</li>
           </ul>
         </section>
 
@@ -213,7 +214,7 @@ export function FAQPage() {
         <section>
           <h3 className="text-xl font-semibold mb-2">Is it free to play?</h3>
           <p>
-            Yes! Fantasy Basics offers free contests where you can play without any entry fee and still win prizes.
+            Yes! Fantasy Basics is 100% free to play. There are no entry fees, no real money involved, and no cash prizes. It's purely for entertainment and fun competition.
           </p>
         </section>
 
@@ -250,8 +251,8 @@ export function FAQPage() {
         </section>
 
         <section>
-          <h3 className="text-xl font-semibold mb-2">When are winners announced?</h3>
-          <p>Winners are announced after the match is completed and all fantasy points are calculated and verified.</p>
+          <h3 className="text-xl font-semibold mb-2">How do I know who won?</h3>
+          <p>Contest rankings are displayed after the match is completed and all fantasy points are calculated. Remember, this is for fun and bragging rights only—no cash prizes are awarded.</p>
         </section>
 
         <section>
@@ -280,8 +281,8 @@ export function TermsPage() {
         <section>
           <p className="text-sm text-muted-foreground mb-4">Last Updated: December 26, 2025</p>
           <p>
-            Welcome to Fantasy Basics. By accessing and using our platform, you agree to be bound by these Terms and
-            Conditions. Please read them carefully.
+            Welcome to Fantasy Basics, a free-to-play fantasy cricket entertainment platform. By accessing and using our platform, you agree to be bound by these Terms and
+            Conditions. Please read them carefully. This platform involves NO real money, NO entry fees, and NO cash prizes.
           </p>
         </section>
 
@@ -319,10 +320,12 @@ export function TermsPage() {
         <section>
           <h3 className="text-xl font-semibold mb-3">4. Contest Rules</h3>
           <ul className="list-disc pl-6 space-y-2">
+            <li>All contests are 100% free with no entry fees</li>
+            <li>No real money or cash prizes are awarded</li>
             <li>Teams must be created before the match starts</li>
             <li>Once a match begins, teams cannot be edited</li>
             <li>Points are awarded based on actual player performance</li>
-            <li>Contest results are final and binding</li>
+            <li>Contest results are for entertainment purposes only</li>
           </ul>
         </section>
 
@@ -500,31 +503,30 @@ export function ResponsibleGamingPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Our Commitment to Responsible Gaming</h2>
           <p>
-            At Fantasy Basics, we are committed to promoting responsible gaming practices. Fantasy sports should be
-            entertaining and enjoyable, not a source of financial stress or addiction.
+            At Fantasy Basics, we are committed to promoting responsible gaming practices. Fantasy Basics is a 100% free-to-play entertainment platform with no real money, no entry fees, and no cash prizes. Fantasy sports should be
+            entertaining and enjoyable, played purely for fun.
           </p>
         </section>
 
         <section>
           <h3 className="text-xl font-semibold mb-3">Play Responsibly</h3>
           <ul className="list-disc pl-6 space-y-2">
-            <li>Set a budget and stick to it</li>
-            <li>Play for entertainment, not as a source of income</li>
+            <li>Play for entertainment and fun only</li>
             <li>Take regular breaks from gaming</li>
-            <li>Don't chase losses</li>
             <li>Be aware of the time you spend on the platform</li>
+            <li>Remember: no real money is involved, it's just for fun</li>
+            <li>Maintain a healthy balance with other activities</li>
           </ul>
         </section>
 
         <section>
           <h3 className="text-xl font-semibold mb-3">Warning Signs</h3>
-          <p>Be aware of these warning signs of problem gaming:</p>
+          <p>Be aware of these warning signs of excessive gaming:</p>
           <ul className="list-disc pl-6 space-y-1">
-            <li>Spending more time or money than intended</li>
+            <li>Spending excessive time on the platform</li>
             <li>Neglecting work, family, or personal responsibilities</li>
-            <li>Borrowing money to play</li>
             <li>Feeling anxious or irritable when not playing</li>
-            <li>Lying about gaming activities</li>
+            <li>Gaming interfering with daily life</li>
           </ul>
         </section>
 

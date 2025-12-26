@@ -41,8 +41,7 @@ export const contestRouter = router({
         matchId: z.string(),
         name: z.string(),
         description: z.string().optional(),
-        entryFee: z.number().min(0),
-        prizePool: z.number().min(0),
+
         maxEntries: z.number().min(1),
         startTime: z.string(), // ISO date string
       })
@@ -53,8 +52,7 @@ export const contestRouter = router({
           matchId: input.matchId,
           name: input.name,
           description: input.description || null,
-          entryFee: input.entryFee.toString(),
-          prizePool: input.prizePool.toString(),
+
           maxEntries: input.maxEntries,
           currentEntries: 0,
           status: "upcoming",
@@ -100,9 +98,7 @@ export const contestRouter = router({
           userId: ctx.user.id,
           contestId: input.contestId,
           userTeamId: input.userTeamId,
-          entryFee: contest.entryFee,
           finalRank: null,
-          winnings: "0",
         });
 
         // Update contest entries count

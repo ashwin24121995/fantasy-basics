@@ -101,8 +101,6 @@ export const contests = mysqlTable("contests", {
   description: text("description"),
   
   // Contest details
-  entryFee: decimal("entryFee", { precision: 10, scale: 2 }).default("0.00").notNull(),
-  prizePool: decimal("prizePool", { precision: 10, scale: 2 }).notNull(),
   maxEntries: int("maxEntries").notNull(),
   currentEntries: int("currentEntries").default(0).notNull(),
   
@@ -183,12 +181,8 @@ export const userContests = mysqlTable("user_contests", {
   contestId: int("contestId").notNull(),
   userTeamId: int("userTeamId").notNull(),
   
-  // Entry details
-  entryFee: decimal("entryFee", { precision: 10, scale: 2 }).notNull(),
-  
   // Results
   finalRank: int("finalRank"),
-  winnings: decimal("winnings", { precision: 10, scale: 2 }).default("0.00").notNull(),
   
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 }, (table) => ({

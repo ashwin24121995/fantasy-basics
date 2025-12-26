@@ -309,12 +309,11 @@ export async function getUserContestsByContest(contestId: number) {
   return db.select().from(userContests).where(eq(userContests.contestId, contestId));
 }
 
-export async function updateUserContestResult(entryId: number, rank: number, winnings: number) {
+export async function updateUserContestResult(entryId: number, rank: number) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
   await db.update(userContests).set({ 
-    finalRank: rank, 
-    winnings: winnings.toString() 
+    finalRank: rank
   }).where(eq(userContests.id, entryId));
 }

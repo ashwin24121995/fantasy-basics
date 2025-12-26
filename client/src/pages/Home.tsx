@@ -89,10 +89,10 @@ export default function Home() {
         <div className="container relative py-20 md:py-32">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Play Fantasy Cricket. Win Real Prizes.
+              Play Fantasy Cricket. 100% Free. Pure Fun.
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90">
-              Create your dream team, compete with friends, and win exciting prizes in India's most engaging fantasy cricket platform.
+              Create your dream team, compete with friends, and enjoy India's most engaging fantasy cricket platform. Completely free to play with no real money involved.
             </p>
             <div className="flex flex-wrap gap-4">
               {isAuthenticated ? (
@@ -271,11 +271,11 @@ export default function Home() {
             <Card className="text-center">
               <CardHeader>
                 <Trophy className="h-12 w-12 text-accent mx-auto mb-4" />
-                <CardTitle>Win Big Prizes</CardTitle>
+                <CardTitle>100% Free to Play</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Compete in free contests and win exciting prizes based on your team's performance.
+                  Enjoy fantasy cricket with no entry fees, no real money, just pure entertainment and competition.
                 </p>
               </CardContent>
             </Card>
