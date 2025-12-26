@@ -215,4 +215,7 @@
 - [x] Show match date/time and format (T20/ODI/Test)
 - [x] Add View All button to navigate to full matches page
 - [x] Fix button navigation issues on all match cards (View All button works, match card buttons need card-level onClick)
-- [ ] Test homepage and matches page, then create checkpoint
+- [x] Test homepage and matches page, then create checkpoint
+
+## GitHub Deployment
+- [ ] Push latest changes to GitHub repository
