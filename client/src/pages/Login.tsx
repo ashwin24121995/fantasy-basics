@@ -53,7 +53,7 @@ export function Login() {
               <h1 className="text-5xl md:text-6xl font-black text-white mb-4">
                 LOGIN TO
                 <br />
-                <span className="text-yellow-400">FANTASY BASICS</span>
+                <span className="text-yellow-400">KAVERA</span>
               </h1>
               <p className="text-slate-300 text-lg max-w-xl">
                 Continue your fantasy cricket journey! Access your teams, track your performance, and compete with players across India—completely free.

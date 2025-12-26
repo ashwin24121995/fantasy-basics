@@ -108,12 +108,12 @@ export default function Footer() {
               <li className="flex items-center gap-2 text-gray-400">
                 <ExternalLink className="w-4 h-4 flex-shrink-0 text-secondary" />
                 <a 
-                  href="https://www.kavera.in" 
+                  href="https://www.fantasybasics.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-secondary transition-colors"
                 >
-                  www.kavera.in
+                  www.fantasybasics.com
                 </a>
               </li>
             </ul>

@@ -202,7 +202,7 @@ export function AboutPage() {
                 </div>
                 <div>
                   <div className="text-sm text-gray-500 mb-1">Website</div>
-                  <div className="font-bold text-primary">www.kavera.in</div>
+                  <div className="font-bold text-primary">www.fantasybasics.com</div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500 mb-1">Platform Type</div>
@@ -828,7 +828,7 @@ export function ContactPage() {
               <strong>Company Name:</strong> KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED
             </p>
             <p>
-              <strong>Website:</strong> www.kavera.in
+              <strong>Website:</strong> www.fantasybasics.com
             </p>
             <p>
               <strong>Location:</strong> Karnataka, India

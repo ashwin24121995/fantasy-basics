@@ -265,7 +265,7 @@ export default function TermsPage() {
                 Email: <a href="/contact" className="text-primary hover:underline">Contact Us Form</a>
               </p>
               <p className="text-gray-700">
-                Website: <a href="https://www.kavera.in" className="text-primary hover:underline">www.kavera.in</a>
+                Website: <a href="https://www.fantasybasics.com" className="text-primary hover:underline">www.fantasybasics.com</a>
               </p>
             </div>
           </section>

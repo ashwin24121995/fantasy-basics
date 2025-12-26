@@ -342,3 +342,10 @@
 - [x] Fix upcoming matches not displaying (API-dependent, shows empty state correctly)
 - [x] Test all pages for branding consistency
 - [x] Push changes to GitHub
+
+## Fix Domain and Login Issues
+- [x] Revert domain from kavera.in back to fantasybasics.com
+- [x] Verify all pages show "Kavera" brand name (not "Fantasy Basics")
+- [x] Fix "LOGIN TO FANTASY BASICS" text on login page (now shows "LOGIN TO KAVERA")
+- [ ] Fix login/registration form submission issue (forms not submitting - tRPC client issue)
+- [ ] Push fixes to GitHub
