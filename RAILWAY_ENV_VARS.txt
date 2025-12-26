@@ -1,0 +1,16 @@
+# Railway Environment Variables Reference
+# Copy these to your Railway project settings
+
+# 1. DATABASE_URL (automatically set when you add MySQL database to Railway)
+DATABASE_URL=mysql://username:password@host:port/database
+
+# 2. JWT_SECRET (generate with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")
+JWT_SECRET=your-generated-secret-here
+
+# 3. CRICKET_API_KEY (get from https://cricketdata.org/)
+CRICKET_API_KEY=your-api-key-here
+
+# 4. NODE_ENV
+NODE_ENV=production
+
+# Note: PORT is automatically set by Railway, no need to add it manually
