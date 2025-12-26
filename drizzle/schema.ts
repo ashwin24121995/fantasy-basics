@@ -192,3 +192,29 @@ export const userContests = mysqlTable("user_contests", {
 
 export type UserContest = typeof userContests.$inferSelect;
 export type InsertUserContest = typeof userContests.$inferInsert;
+
+// ============================================
+// CONTACT FORM SUBMISSIONS TABLE
+// ============================================
+export const contactSubmissions = mysqlTable("contact_submissions", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  subject: varchar("subject", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  
+  // Status tracking
+  status: mysqlEnum("status", ["new", "in_progress", "resolved"]).default("new").notNull(),
+  
+  // User association (optional - if logged in)
+  userId: int("userId"),
+  
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => ({
+  statusIdx: index("status_idx").on(table.status),
+  emailIdx: index("email_idx").on(table.email),
+}));
+
+export type ContactSubmission = typeof contactSubmissions.$inferSelect;
+export type InsertContactSubmission = typeof contactSubmissions.$inferInsert;

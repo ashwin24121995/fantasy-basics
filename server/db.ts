@@ -14,7 +14,9 @@ import {
   players,
   InsertPlayer,
   userContests,
-  InsertUserContest
+  InsertUserContest,
+  contactSubmissions,
+  InsertContactSubmission
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -316,4 +318,22 @@ export async function updateUserContestResult(entryId: number, rank: number) {
   await db.update(userContests).set({ 
     finalRank: rank
   }).where(eq(userContests.id, entryId));
+}
+
+// ============================================
+// CONTACT FORM FUNCTIONS
+// ============================================
+
+export async function submitContactForm(data: Omit<InsertContactSubmission, 'createdAt' | 'updatedAt' | 'status'>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const result = await db.insert(contactSubmissions).values({
+    ...data,
+    status: 'new'
+  });
+  
+  return {
+    id: result[0].insertId
+  };
 }

@@ -10,9 +10,14 @@ import MatchDetail from "./pages/MatchDetail";
 import TeamBuilder from "./pages/TeamBuilder";
 import LiveMatch from "./pages/LiveMatch";
 import Dashboard from "./pages/Dashboard";
-import { AboutPage, TermsPage, PrivacyPage, ResponsibleGamingPage, FairPlayPage, ContactPage } from "./pages/StaticPages";
+import { AboutPage } from "./pages/StaticPages";
+import FairPlayPage from "./pages/FairPlay";
+import ResponsibleGamingPage from "./pages/ResponsibleGaming";
+import ContactPage from "./pages/Contact";
 import HowToPlayPage from "./pages/HowToPlay";
 import FAQPage from "./pages/FAQ";
+import TermsPage from "./pages/Terms";
+import PrivacyPage from "./pages/Privacy";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes

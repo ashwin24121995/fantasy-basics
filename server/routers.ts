@@ -8,6 +8,7 @@ import { isStateRestricted, calculateAge, MINIMUM_AGE, INDIAN_STATES } from "../
 import { matchRouter } from "./matchRouter";
 import { contestRouter } from "./contestRouter";
 import { teamRouter } from "./teamRouter";
+import { submitContactForm } from "./db";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -86,6 +87,34 @@ export const appRouter = router({
         needsStateSelection: ctx.user.state === null,
       };
     }),
+  }),
+
+  // Contact form submission
+  contact: router({
+    submit: publicProcedure
+      .input(
+        z.object({
+          name: z.string().min(2, "Name must be at least 2 characters"),
+          email: z.string().email("Invalid email address"),
+          subject: z.string().min(5, "Subject must be at least 5 characters"),
+          message: z.string().min(10, "Message must be at least 10 characters"),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        // Submit contact form to database
+        const submission = await submitContactForm({
+          name: input.name,
+          email: input.email,
+          subject: input.subject,
+          message: input.message,
+          userId: ctx.user?.id || null,
+        });
+
+        return {
+          success: true,
+          submissionId: submission.id,
+        };
+      }),
   }),
 });
 

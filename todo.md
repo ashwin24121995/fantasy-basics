@@ -150,10 +150,11 @@
 ## All Static Pages Deep Redesign
 - [x] Redesign How to Play page with step-by-step guide, scoring system, rules
 - [x] Redesign FAQ page with comprehensive Q&A organized by categories
-- [ ] Redesign Terms & Conditions page with detailed legal terms
-- [ ] Redesign Privacy Policy page with complete data protection information
-- [ ] Redesign Contact Us page with functional contact form
-- [ ] Redesign Responsible Gaming page with guidelines and resources
-- [ ] Redesign Fair Play page with fairness policies and transparency
-- [ ] Apply red/yellow angular design to all pages
-- [ ] Test all pages and create checkpoint
+- [x] Create comprehensive Terms & Conditions page with legal terms
+- [x] Create comprehensive Privacy Policy page with data protection info
+- [x] Create Contact Us page with functional form and database storage
+- [x] Create Responsible Gaming page with guidelines and resources
+- [x] Create Fair Play page with fairness policies and anti-cheating measures
+- [x] Add contact form submission to database schema
+- [x] Create contact form tRPC endpoint
+- [x] Test all pages and create final checkpoint
