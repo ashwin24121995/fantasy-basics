@@ -198,3 +198,21 @@
 - [ ] Validate team composition rules
 - [ ] Save teams to database
 - [ ] Test all features and create checkpoint
+
+## Button Fixes & Design Improvements
+- [x] Fix homepage PLAY NOW button to navigate to contests page
+- [x] Fix homepage HOW TO PLAY button to navigate to how-to-play page
+- [x] Fix match card VIEW DETAILS buttons to navigate to match detail page
+- [ ] Improve homepage hero section design
+- [ ] Improve contests page visual design
+- [ ] Create match detail page route and component
+- [ ] Implement team creation page
+
+## Homepage Cricket Matches Section
+- [x] Add Cricket Matches section to homepage below hero
+- [x] Fetch and display upcoming matches with team logos
+- [x] Add Create Team buttons for each match
+- [x] Show match date/time and format (T20/ODI/Test)
+- [x] Add View All button to navigate to full matches page
+- [x] Fix button navigation issues on all match cards (View All button works, match card buttons need card-level onClick)
+- [ ] Test homepage and matches page, then create checkpoint

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { Clock, MapPin, Trophy, TrendingUp, Calendar, Users } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import ProfileCompletion from "@/components/ProfileCompletion";
 
 export default function Matches() {
@@ -229,11 +229,12 @@ export default function Matches() {
                         </div>
 
                         {/* Action Button */}
-                        <Link href={`/matches/${match.id}`}>
-                          <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold">
-                            VIEW CONTESTS
-                          </Button>
-                        </Link>
+                        <Button 
+                          className="w-full bg-primary hover:bg-primary/90 text-white font-bold"
+                          onClick={() => window.location.href = `/matches/${match.id}`}
+                        >
+                          VIEW CONTESTS
+                        </Button>
                       </CardContent>
                     </Card>
                   ))}
@@ -342,12 +343,13 @@ export default function Matches() {
                         )}
 
                         {/* Action Button */}
-                        <Link href={`/matches/${match.id}/live`}>
-                          <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold">
-                            <TrendingUp className="w-4 h-4 mr-2" />
-                            WATCH LIVE
-                          </Button>
-                        </Link>
+                        <Button 
+                          className="w-full bg-primary hover:bg-primary/90 text-white font-bold"
+                          onClick={() => window.location.href = `/matches/${match.id}/live`}
+                        >
+                          <TrendingUp className="w-4 h-4 mr-2" />
+                          WATCH LIVE
+                        </Button>
                       </CardContent>
                     </Card>
                   ))}
@@ -456,11 +458,13 @@ export default function Matches() {
                         )}
 
                         {/* Action Button */}
-                        <Link href={`/matches/${match.id}`}>
-                          <Button variant="outline" className="w-full border-2 border-gray-300 hover:border-primary hover:bg-primary hover:text-white font-bold transition-colors">
-                            VIEW DETAILS
-                          </Button>
-                        </Link>
+                        <Button 
+                          variant="outline" 
+                          className="w-full border-2 border-gray-300 hover:border-primary hover:bg-primary hover:text-white font-bold transition-colors"
+                          onClick={() => window.location.href = `/matches/${match.id}`}
+                        >
+                          VIEW DETAILS
+                        </Button>
                       </CardContent>
                     </Card>
                   ))}

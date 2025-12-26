@@ -64,15 +64,14 @@ export default function Home() {
               >
                 {isAuthenticated ? "PLAY NOW" : "START PLAYING FREE"}
               </Button>
-              <Link href="/how-to-play">
-                <Button 
-                  size="lg"
-                  variant="outline"
-                  className="bg-transparent border-4 border-white text-white hover:bg-white hover:text-primary font-bold text-lg px-8 py-6"
-                >
-                  HOW TO PLAY
-                </Button>
-              </Link>
+              <Button 
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-4 border-white text-white hover:bg-white hover:text-primary font-bold text-lg px-8 py-6"
+                onClick={() => window.location.href = "/how-to-play"}
+              >
+                HOW TO PLAY
+              </Button>
             </div>
             
             {/* Trust Indicators */}
@@ -95,6 +94,111 @@ export default function Home() {
         
         {/* Angular Bottom Cut */}
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-white" style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 50%)' }}></div>
+      </section>
+
+      {/* Cricket Matches Section */}
+      <section className="py-16 bg-gray-50 relative">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-2">
+                Cricket Matches
+              </h2>
+              <p className="text-gray-600">Create your fantasy team for upcoming matches</p>
+            </div>
+            <Button 
+              variant="outline" 
+              className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold"
+              onClick={() => window.location.href = "/matches"}
+            >
+              View All →
+            </Button>
+          </div>
+
+          {matchesLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} className="animate-pulse">
+                  <CardContent className="p-6">
+                    <div className="h-32 bg-gray-200 rounded mb-4"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-10 bg-gray-200 rounded"></div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : upcomingMatches && upcomingMatches.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {upcomingMatches.slice(0, 6).map((match: any) => (
+                <Card key={match.id} className="border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all cursor-pointer" onClick={() => window.location.href = `/matches/${match.id}`}>
+                  <CardContent className="p-6">
+                    {/* Match Format Badge */}
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                        {match.matchType || 'T20'}
+                      </span>
+                      <span className="text-xs text-gray-500">{match.seriesName || 'Cricket Match'}</span>
+                    </div>
+
+                    {/* Teams */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex flex-col items-center flex-1">
+                        <div className="w-16 h-16 mb-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg">
+                          {match.teamAShort || match.teamA?.substring(0, 3).toUpperCase()}
+                        </div>
+                        <span className="text-sm font-bold text-center line-clamp-1">{match.teamA}</span>
+                      </div>
+                      
+                      <div className="px-4 text-center">
+                        <span className="text-gray-400 font-bold text-lg">VS</span>
+                        <div className="text-xs text-gray-500 mt-1">{match.matchType || 'T20'}</div>
+                      </div>
+                      
+                      <div className="flex flex-col items-center flex-1">
+                        <div className="w-16 h-16 mb-2 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg">
+                          {match.teamBShort || match.teamB?.substring(0, 3).toUpperCase()}
+                        </div>
+                        <span className="text-sm font-bold text-center line-clamp-1">{match.teamB}</span>
+                      </div>
+                    </div>
+
+                    {/* Match Time */}
+                    <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-4">
+                      <Clock className="w-4 h-4" />
+                      <span>{new Date(match.dateTimeGMT).toLocaleString('en-IN', { 
+                        month: 'short', 
+                        day: 'numeric', 
+                        year: 'numeric',
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                      })}</span>
+                    </div>
+
+                    {/* Create Team Button */}
+                    <Button 
+                      className="w-full bg-green-600 hover:bg-green-700 text-white font-bold"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.location.href = isAuthenticated ? `/matches/${match.id}/create-team` : getLoginUrl();
+                      }}
+                    >
+                      <Trophy className="w-4 h-4 mr-2" />
+                      Create Team
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card className="p-12 text-center border-2 border-dashed">
+              <Trophy className="w-16 h-16 mx-auto mb-4 text-gray-400" />
+              <h3 className="text-xl font-bold mb-2">No Upcoming Matches</h3>
+              <p className="text-gray-600 mb-4">
+                There are no upcoming matches at the moment. Check back soon for new contests!
+              </p>
+            </Card>
+          )}
+        </div>
       </section>
 
       {/* Why Choose Fantasy Basics Section */}
