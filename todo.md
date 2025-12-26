@@ -185,3 +185,16 @@
 - [x] Improve contest cards with better information display
 - [x] Add loading states and error handling
 - [x] Test contests page and create checkpoint
+
+## Match Detail & Team Creation Features
+- [x] Fetch detailed match data with squads and player information (Squad API working, returns array of teams with players)
+- [ ] Implement real-time live scoring with auto-refresh (30 second intervals)
+- [ ] Create match detail page showing full match information
+- [ ] Add squad display with player roles and stats
+- [ ] Build team creation interface with player selection
+- [ ] Implement player selection logic (11 players, budget constraints)
+- [ ] Add captain and vice-captain selection
+- [ ] Show player points and statistics
+- [ ] Validate team composition rules
+- [ ] Save teams to database
+- [ ] Test all features and create checkpoint
