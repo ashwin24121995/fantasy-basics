@@ -150,16 +150,51 @@ export default function CreateTeam() {
     return wkCount >= 1 && batCount >= 3 && allCount >= 1 && bowlCount >= 3;
   };
   
+  // Team creation mutation
+  const createTeamMutation = trpc.teams.createTeam.useMutation({
+    onSuccess: (data) => {
+      toast.success("Team created successfully!");
+      // Navigate to contest selection
+      window.location.href = `/contests/${matchId}`;
+    },
+    onError: (error) => {
+      toast.error(error.message || "Failed to create team");
+    },
+  });
+  
   const handleSaveTeam = () => {
     if (!canSaveTeam()) {
       toast.error("Please complete your team selection");
       return;
     }
     
-    toast.success("Team created successfully!");
-    // In real app, save team to backend
-    // Navigate to contest selection
-    window.location.href = `/contests/${matchId}`;
+    if (!matchId) {
+      toast.error("Match ID is required");
+      return;
+    }
+    
+    // Prepare team data for backend
+    const teamPlayers = selectedPlayers.map(player => ({
+      playerId: player.id,
+      playerName: player.name,
+      role: player.role,
+      credits: player.credits,
+      isCaptain: player.id === captain,
+      isViceCaptain: player.id === viceCaptain,
+    }));
+    
+    // Call backend API to create team
+    createTeamMutation.mutate({
+      contestId: 1, // TODO: Get actual contest ID when contest selection is implemented
+      matchId,
+      teamName: `${match?.team1} vs ${match?.team2} - Team`,
+      players: teamPlayers.map(p => ({
+        playerId: p.playerId,
+        role: p.role,
+      })),
+      captainId: captain!,
+      viceCaptainId: viceCaptain!,
+    });
   };
   
   if (matchLoading) {
@@ -238,10 +273,11 @@ export default function CreateTeam() {
                 </div>
               </div>
             </div>
+            
             <Button 
               onClick={handleSaveTeam}
-              disabled={!canSaveTeam()}
-              className="bg-primary hover:bg-primary/90 text-white font-bold px-8"
+              disabled={!canSaveTeam() || createTeamMutation.isPending}
+              className="w-full bg-primary hover:bg-primary/90 text-white font-bold px-8"
             >
               Save Team & Continue
             </Button>
