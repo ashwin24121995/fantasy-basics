@@ -329,3 +329,16 @@
 - [x] Remove old logo files
 - [x] Test logo display on all pages
 - [x] Push changes to GitHub
+
+## Rebrand to KAVERA
+- [x] Replace Fantasy Basics logo with KAVERA logo in public directory
+- [x] Update Navigation component to use KAVERA logo
+- [x] Update Footer component to use KAVERA logo  
+- [x] Update favicon to KAVERA logo
+- [x] Replace all "Fantasy Basics" text with "Kavera" across all pages
+- [x] Update page titles (HTML title tags)
+- [x] Update meta descriptions
+- [x] Verify company name is "KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED"
+- [x] Fix upcoming matches not displaying (API-dependent, shows empty state correctly)
+- [x] Test all pages for branding consistency
+- [ ] Push changes to GitHub

@@ -14,7 +14,7 @@ export default function TermsPage() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-5xl font-bold text-white mb-4">Terms & Conditions</h1>
-          <p className="text-xl text-white/90 max-w-2xl">Please read these terms carefully before using Fantasy Basics</p>
+          <p className="text-xl text-white/90 max-w-2xl">Please read these terms carefully before using Kavera</p>
         </div>
       </div>
 
@@ -36,13 +36,13 @@ export default function TermsPage() {
           <section className="mb-10">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">1. Introduction</h2>
             <p className="text-gray-700 mb-4">
-              Welcome to Fantasy Basics, a free-to-play fantasy cricket platform operated by <strong>KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</strong>, a company registered under the laws of India with its registered office in Karnataka, India.
+              Welcome to Kavera, a free-to-play fantasy cricket platform operated by <strong>KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</strong>, a company registered under the laws of India with its registered office in Karnataka, India.
             </p>
             <p className="text-gray-700 mb-4">
-              These Terms and Conditions ("Terms") govern your access to and use of the Fantasy Basics website and services (collectively, the "Platform"). By accessing or using the Platform, you agree to be bound by these Terms. If you do not agree with these Terms, please do not use the Platform.
+              These Terms and Conditions ("Terms") govern your access to and use of the Kavera website and services (collectively, the "Platform"). By accessing or using the Platform, you agree to be bound by these Terms. If you do not agree with these Terms, please do not use the Platform.
             </p>
             <p className="text-gray-700">
-              Fantasy Basics is a <strong>100% free entertainment platform</strong> with no real money transactions, no entry fees, and no cash prizes. All contests are free to join, and users compete purely for rankings, entertainment, and friendly competition.
+              Kavera is a <strong>100% free entertainment platform</strong> with no real money transactions, no entry fees, and no cash prizes. All contests are free to join, and users compete purely for rankings, entertainment, and friendly competition.
             </p>
           </section>
 
@@ -56,7 +56,7 @@ export default function TermsPage() {
 
             <h3 className="text-xl font-semibold text-gray-800 mb-3">2.2 Geographic Restrictions</h3>
             <p className="text-gray-700 mb-4">
-              Fantasy Basics is available only to residents of India, <strong>except</strong> residents of the following states where fantasy sports are legally restricted:
+              Kavera is available only to residents of India, <strong>except</strong> residents of the following states where fantasy sports are legally restricted:
             </p>
             <ul className="list-disc list-inside text-gray-700 mb-4 ml-4">
               <li>Telangana</li>
@@ -98,7 +98,7 @@ export default function TermsPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">4. Platform Services</h2>
             <h3 className="text-xl font-semibold text-gray-800 mb-3">4.1 Free-to-Play Model</h3>
             <p className="text-gray-700 mb-4">
-              Fantasy Basics is a <strong>100% free-to-play platform</strong>. There are:
+              Kavera is a <strong>100% free-to-play platform</strong>. There are:
             </p>
             <ul className="list-disc list-inside text-gray-700 mb-4 ml-4">
               <li><strong>No entry fees</strong> to join contests</li>
@@ -164,7 +164,7 @@ export default function TermsPage() {
 
             <h3 className="text-xl font-semibold text-gray-800 mb-3">6.3 Trademarks</h3>
             <p className="text-gray-700">
-              "Fantasy Basics" and all related logos, trademarks, and service marks are the property of KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED. You may not use these marks without our prior written permission.
+              "Kavera" and all related logos, trademarks, and service marks are the property of KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED. You may not use these marks without our prior written permission.
             </p>
           </section>
 
@@ -265,7 +265,7 @@ export default function TermsPage() {
                 Email: <a href="/contact" className="text-primary hover:underline">Contact Us Form</a>
               </p>
               <p className="text-gray-700">
-                Website: <a href="https://www.fantasybasics.com" className="text-primary hover:underline">www.fantasybasics.com</a>
+                Website: <a href="https://www.kavera.in" className="text-primary hover:underline">www.kavera.in</a>
               </p>
             </div>
           </section>

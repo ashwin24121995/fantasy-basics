@@ -36,7 +36,7 @@ export default function PrivacyPage() {
           <section className="mb-10">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">1. Introduction</h2>
             <p className="text-gray-700 mb-4">
-              Welcome to Fantasy Basics. This Privacy Policy explains how <strong>KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</strong> ("we," "us," or "our") collects, uses, stores, and protects your personal information when you use our fantasy cricket platform ("Platform").
+              Welcome to Kavera. This Privacy Policy explains how <strong>KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</strong> ("we," "us," or "our") collects, uses, stores, and protects your personal information when you use our fantasy cricket platform ("Platform").
             </p>
             <p className="text-gray-700 mb-4">
               We are committed to protecting your privacy and ensuring the security of your personal data in compliance with applicable Indian data protection laws, including the Information Technology Act, 2000, and the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011.
@@ -257,7 +257,7 @@ export default function PrivacyPage() {
               The Platform may contain links to third-party websites or services (e.g., Cricket Data API, social media platforms). We are not responsible for the privacy practices or content of these third-party sites.
             </p>
             <p className="text-gray-700">
-              We encourage you to review the privacy policies of any third-party websites or services you visit. This Privacy Policy applies only to information collected by Fantasy Basics.
+              We encourage you to review the privacy policies of any third-party websites or services you visit. This Privacy Policy applies only to information collected by Kavera.
             </p>
           </section>
 
@@ -296,7 +296,7 @@ export default function PrivacyPage() {
                 Email: <a href="/contact" className="text-primary hover:underline">Contact Us Form</a>
               </p>
               <p className="text-gray-700">
-                Website: <a href="https://www.fantasybasics.com" className="text-primary hover:underline">www.fantasybasics.com</a>
+                Website: <a href="https://www.kavera.in" className="text-primary hover:underline">www.kavera.in</a>
               </p>
             </div>
           </section>

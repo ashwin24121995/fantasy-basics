@@ -66,7 +66,7 @@ export default function MatchDetail() {
       <nav className="bg-white relative z-50 shadow-md">
         <div className="container mx-auto px-4 py-0 flex items-center justify-between">
           <Link href="/" className="py-4">
-            <img src="/logo-new.webp" alt="Fantasy Basics" className="h-14 w-auto cursor-pointer" />
+            <img src="/kavera-logo.png" alt="Kavera" className="h-14 w-auto cursor-pointer" />
           </Link>
           
           <div className="hidden md:flex items-stretch h-16">
@@ -349,7 +349,7 @@ export default function MatchDetail() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-wrap justify-between gap-8 mb-8">
             <div className="flex-1 min-w-[200px]">
-              <img src="/logo-new.webp" alt="Fantasy Basics" className="h-12 w-auto mb-4" />
+              <img src="/kavera-logo.png" alt="Kavera" className="h-12 w-auto mb-4" />
               <p className="text-gray-400 text-sm max-w-xs">
                 100% free fantasy cricket platform for entertainment purposes only.
               </p>
@@ -380,7 +380,7 @@ export default function MatchDetail() {
           
           <div className="border-t border-gray-800 pt-6">
             <div className="flex flex-wrap justify-between items-center gap-4 text-sm text-gray-400">
-              <p>© 2024 Fantasy Basics. All Rights Reserved. | KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED, Karnataka, India</p>
+              <p>© 2024 Kavera. All Rights Reserved. | KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED, Karnataka, India</p>
             </div>
             <p className="mt-3 text-xs text-gray-500">
               Legal Disclosure: This is a skill-based gaming platform for entertainment purposes only. Participants must be 18+ years old. Not available in Telangana, Andhra Pradesh, Assam, and Odisha.

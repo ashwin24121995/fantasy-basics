@@ -170,8 +170,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800 mb-2">Website</h3>
                   <p className="text-gray-700">
-                    <a href="https://www.fantasybasics.com" className="text-primary hover:underline">
-                      www.fantasybasics.com
+                    <a href="https://www.kavera.in" className="text-primary hover:underline">
+                      www.kavera.in
                     </a>
                   </p>
                 </div>

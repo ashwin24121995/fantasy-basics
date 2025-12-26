@@ -17,10 +17,10 @@ export default function Footer() {
           {/* Brand section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <img src="/logo-new.webp" alt="Fantasy Basics" className="h-10 w-auto" />
+              <img src="/kavera-logo.png" alt="Kavera" className="h-10 w-auto" />
             </div>
             <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-              India's #1 free fantasy cricket platform. Build your dream team, compete with friends, and prove your cricket knowledge!
+              India's #1 free fantasy cricket platform by KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED. Build your dream team, compete with friends, and prove your cricket knowledge!
             </p>
             <div className="flex items-center gap-2 text-secondary text-sm">
               <Trophy className="w-4 h-4" />
@@ -108,12 +108,12 @@ export default function Footer() {
               <li className="flex items-center gap-2 text-gray-400">
                 <ExternalLink className="w-4 h-4 flex-shrink-0 text-secondary" />
                 <a 
-                  href="https://www.fantasybasics.com" 
+                  href="https://www.kavera.in" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-secondary transition-colors"
                 >
-                  www.fantasybasics.com
+                  www.kavera.in
                 </a>
               </li>
             </ul>
@@ -124,7 +124,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 pt-6 mt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-400 text-center md:text-left">
-              © 2024 Fantasy Basics. All Rights Reserved.
+              © 2024 Kavera by KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED. All Rights Reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-xs text-gray-500">
               <span className="px-3 py-1 bg-gray-800 rounded-full">Age Verified (18+)</span>

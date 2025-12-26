@@ -201,12 +201,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Fantasy Basics Section */}
+      {/* Why Choose Kavera Section */}
       <section className="py-20 bg-white relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black mb-4 text-primary">
-              WHY CHOOSE FANTASY BASICS?
+              WHY CHOOSE KAVERA?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               India's most transparent and user-friendly free fantasy cricket platform. We're different because we put cricket knowledge and fair play first.
@@ -224,7 +224,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-2xl font-black mb-3 text-gray-900">100% Free to Play</h3>
                   <p className="text-gray-600 leading-relaxed">
-                    No entry fees, no hidden charges, no real money transactions. Fantasy Basics is completely free forever. Create unlimited teams, join unlimited contests, and compete purely for the love of cricket and bragging rights among friends.
+                    No entry fees, no hidden charges, no real money transactions. Kavera is completely free forever. Create unlimited teams, join unlimited contests, and compete purely for the love of cricket and bragging rights among friends.
                   </p>
                 </CardContent>
               </Card>
@@ -326,7 +326,7 @@ export default function Home() {
               HOW IT WORKS
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Getting started with Fantasy Basics is simple. Follow these four easy steps to start your fantasy cricket journey.
+              Getting started with Kavera is simple. Follow these four easy steps to start your fantasy cricket journey.
             </p>
           </div>
           

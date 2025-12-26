@@ -19,16 +19,16 @@ const faqCategories: FAQCategory[] = [
     icon: "🚀",
     faqs: [
       {
-        question: "What is Fantasy Basics?",
-        answer: "Fantasy Basics is a 100% free fantasy cricket platform where you create virtual teams of real cricket players and compete based on their actual performance in live matches. It's a game of skill that tests your cricket knowledge and strategic thinking. There are no entry fees, no real money transactions, and no cash prizes—just pure cricket entertainment and friendly competition."
+        question: "What is Kavera?",
+        answer: "Kavera is a 100% free fantasy cricket platform where you create virtual teams of real cricket players and compete based on their actual performance in live matches. It's a game of skill that tests your cricket knowledge and strategic thinking. There are no entry fees, no real money transactions, and no cash prizes—just pure cricket entertainment and friendly competition."
       },
       {
-        question: "Is Fantasy Basics really free?",
-        answer: "Yes, absolutely! Fantasy Basics is 100% free to play. There are no entry fees, no hidden charges, no in-app purchases, and no real money involved at any point. All contests are free to join, and you compete purely for fun, rankings, and bragging rights among friends. We will never ask you for payment information or charge you anything."
+        question: "Is Kavera really free?",
+        answer: "Yes, absolutely! Kavera is 100% free to play. There are no entry fees, no hidden charges, no in-app purchases, and no real money involved at any point. All contests are free to join, and you compete purely for fun, rankings, and bragging rights among friends. We will never ask you for payment information or charge you anything."
       },
       {
-        question: "Who can play on Fantasy Basics?",
-        answer: "Anyone who is 18 years or older and resides in India can play on Fantasy Basics, except residents of four states where fantasy sports are restricted: Telangana, Andhra Pradesh, Assam, and Odisha. During registration, you'll need to verify your age and select your state of residence."
+        question: "Who can play on Kavera?",
+        answer: "Anyone who is 18 years or older and resides in India can play on Kavera, except residents of four states where fantasy sports are restricted: Telangana, Andhra Pradesh, Assam, and Odisha. During registration, you'll need to verify your age and select your state of residence."
       },
       {
         question: "How do I create an account?",
@@ -36,7 +36,7 @@ const faqCategories: FAQCategory[] = [
       },
       {
         question: "Do I need to download an app?",
-        answer: "No app download is required! Fantasy Basics is a web-based platform that works perfectly on any device—desktop, laptop, tablet, or mobile phone. Simply visit our website from any browser and start playing instantly."
+        answer: "No app download is required! Kavera is a web-based platform that works perfectly on any device—desktop, laptop, tablet, or mobile phone. Simply visit our website from any browser and start playing instantly."
       }
     ]
   },
@@ -98,7 +98,7 @@ const faqCategories: FAQCategory[] = [
     faqs: [
       {
         question: "What types of contests are available?",
-        answer: "All contests on Fantasy Basics are free contests with varying participant sizes. You'll find small contests (50-100 participants), medium contests (100-500 participants), and large contests (500-1000+ participants). The contest size affects the level of competition—smaller contests are easier to rank high in, while larger contests offer more competitive challenges. All contests are 100% free to join."
+        answer: "All contests on Kavera are free contests with varying participant sizes. You'll find small contests (50-100 participants), medium contests (100-500 participants), and large contests (500-1000+ participants). The contest size affects the level of competition—smaller contests are easier to rank high in, while larger contests offer more competitive challenges. All contests are 100% free to join."
       },
       {
         question: "How do I win a contest?",
@@ -150,7 +150,7 @@ const faqCategories: FAQCategory[] = [
     faqs: [
       {
         question: "Which browsers are supported?",
-        answer: "Fantasy Basics works on all modern web browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, and Opera. For the best experience, we recommend using the latest version of your preferred browser. The platform is fully responsive and works seamlessly on desktop, laptop, tablet, and mobile devices."
+        answer: "Kavera works on all modern web browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, and Opera. For the best experience, we recommend using the latest version of your preferred browser. The platform is fully responsive and works seamlessly on desktop, laptop, tablet, and mobile devices."
       },
       {
         question: "Why are live scores not updating?",
@@ -162,7 +162,7 @@ const faqCategories: FAQCategory[] = [
       },
       {
         question: "How do I report a bug or issue?",
-        answer: "If you encounter any technical issues, bugs, or problems while using Fantasy Basics, please report them through our Contact Us page. Provide as much detail as possible: what you were doing when the issue occurred, what browser/device you're using, and any error messages you saw. We'll investigate and resolve the issue as quickly as possible."
+        answer: "If you encounter any technical issues, bugs, or problems while using Kavera, please report them through our Contact Us page. Provide as much detail as possible: what you were doing when the issue occurred, what browser/device you're using, and any error messages you saw. We'll investigate and resolve the issue as quickly as possible."
       },
       {
         question: "How can I contact customer support?",
@@ -176,10 +176,10 @@ const faqCategories: FAQCategory[] = [
     faqs: [
       {
         question: "Is fantasy cricket legal in India?",
-        answer: "Yes, fantasy cricket is legal in India as it is recognized as a game of skill, not chance. However, it is restricted in four states: Telangana, Andhra Pradesh, Assam, and Odisha. Fantasy Basics operates in full compliance with Indian laws and regulations. Since we don't involve any real money transactions, we operate as a free entertainment platform."
+        answer: "Yes, fantasy cricket is legal in India as it is recognized as a game of skill, not chance. However, it is restricted in four states: Telangana, Andhra Pradesh, Assam, and Odisha. Kavera operates in full compliance with Indian laws and regulations. Since we don't involve any real money transactions, we operate as a free entertainment platform."
       },
       {
-        question: "What are the main rules of Fantasy Basics?",
+        question: "What are the main rules of Kavera?",
         answer: "The main rules are: (1) You must be 18+ years old. (2) You cannot be a resident of Telangana, Andhra Pradesh, Assam, or Odisha. (3) You can only create teams from players in the actual match squads. (4) Teams must follow composition rules (3-6 batsmen, 3-6 bowlers, 1-4 all-rounders, 1-4 wicket-keepers). (5) You must select one Captain and one Vice-Captain. (6) Teams are locked once the match starts. For complete rules, please read our Terms & Conditions and Fair Play Policy."
       },
       {
@@ -234,7 +234,7 @@ export default function FAQPage() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-5xl font-bold text-white mb-4">Frequently Asked Questions</h1>
-          <p className="text-xl text-white/90 max-w-2xl">Find answers to common questions about Fantasy Basics</p>
+          <p className="text-xl text-white/90 max-w-2xl">Find answers to common questions about Kavera</p>
         </div>
       </div>
 
@@ -246,7 +246,7 @@ export default function FAQPage() {
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Have a Question?</h2>
             <p className="text-gray-700 max-w-3xl mx-auto">
-              We've compiled answers to the most common questions about Fantasy Basics. Browse through the categories below to find what you're looking for. If you can't find your answer, feel free to contact us through our Contact Us page.
+              We've compiled answers to the most common questions about Kavera. Browse through the categories below to find what you're looking for. If you can't find your answer, feel free to contact us through our Contact Us page.
             </p>
           </div>
 

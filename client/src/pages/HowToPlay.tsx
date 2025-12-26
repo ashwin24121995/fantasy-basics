@@ -14,7 +14,7 @@ export default function HowToPlayPage() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-5xl font-bold text-white mb-4">How to Play Fantasy Cricket</h1>
-          <p className="text-xl text-white/90 max-w-2xl">Your Complete Guide to Playing on Fantasy Basics</p>
+          <p className="text-xl text-white/90 max-w-2xl">Your Complete Guide to Playing on Kavera</p>
         </div>
       </div>
 
@@ -33,7 +33,7 @@ export default function HowToPlayPage() {
                 Fantasy cricket is a <strong>free game of skill</strong> where you create a virtual team of real cricket players and earn points based on their actual performance in live matches. It's a test of your cricket knowledge, strategic thinking, and ability to predict player performance.
               </p>
               <p>
-                On Fantasy Basics, it's <strong>100% free</strong> with no entry fees, no real money transactions, and no cash prizes. You compete purely for entertainment, bragging rights among friends, and the satisfaction of proving your cricket expertise.
+                On Kavera, it's <strong>100% free</strong> with no entry fees, no real money transactions, and no cash prizes. You compete purely for entertainment, bragging rights among friends, and the satisfaction of proving your cricket expertise.
               </p>
             </div>
           </section>
@@ -144,7 +144,7 @@ export default function HowToPlayPage() {
                 <div className="bg-yellow-50 border-l-4 border-secondary p-6 rounded-r-lg mb-4">
                   <h4 className="font-bold text-gray-900 mb-2">100% Free - No Entry Fees</h4>
                   <p className="text-gray-700">
-                    All contests on Fantasy Basics are completely free. There are no entry fees, no hidden charges, and no real money involved. Simply click "Join Contest" and you're in!
+                    All contests on Kavera are completely free. There are no entry fees, no hidden charges, and no real money involved. Simply click "Join Contest" and you're in!
                   </p>
                 </div>
                 <div className="space-y-3">

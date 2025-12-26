@@ -29,13 +29,13 @@ export default function FairPlayPage() {
               <h2 className="text-3xl font-bold text-gray-900">Our Commitment to Fair Play</h2>
             </div>
             <p className="text-gray-700 mb-4">
-              At Fantasy Basics, <strong>fair play</strong> is the foundation of everything we do. We are committed to providing a level playing field for all users, where skill, knowledge, and strategy determine success—not cheating, manipulation, or unfair advantages.
+              At Kavera, <strong>fair play</strong> is the foundation of everything we do. We are committed to providing a level playing field for all users, where skill, knowledge, and strategy determine success—not cheating, manipulation, or unfair advantages.
             </p>
             <p className="text-gray-700 mb-4">
               This Fair Play Policy outlines our principles, rules, and enforcement mechanisms to ensure that every contest is conducted with integrity, transparency, and respect for all participants.
             </p>
             <p className="text-gray-700">
-              By using Fantasy Basics, you agree to abide by this Fair Play Policy. Violations may result in account suspension or permanent ban.
+              By using Kavera, you agree to abide by this Fair Play Policy. Violations may result in account suspension or permanent ban.
             </p>
           </section>
 
@@ -187,7 +187,7 @@ export default function FairPlayPage() {
               <h2 className="text-3xl font-bold text-gray-900">How We Ensure Fair Play</h2>
             </div>
             <p className="text-gray-700 mb-6">
-              Fantasy Basics employs multiple measures to detect, prevent, and address unfair practices:
+              Kavera employs multiple measures to detect, prevent, and address unfair practices:
             </p>
 
             <div className="space-y-6">
@@ -284,7 +284,7 @@ export default function FairPlayPage() {
             </div>
 
             <p className="text-gray-700 mt-6">
-              All enforcement decisions are made at the sole discretion of Fantasy Basics. We reserve the right to investigate any activity and take appropriate action without prior notice.
+              All enforcement decisions are made at the sole discretion of Kavera. We reserve the right to investigate any activity and take appropriate action without prior notice.
             </p>
           </section>
 
@@ -340,7 +340,7 @@ export default function FairPlayPage() {
 
             <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded">
               <p className="text-gray-700">
-                <strong>Thank you for helping us maintain a fair and transparent platform!</strong> Your vigilance ensures that Fantasy Basics remains a safe and enjoyable space for all cricket enthusiasts.
+                <strong>Thank you for helping us maintain a fair and transparent platform!</strong> Your vigilance ensures that Kavera remains a safe and enjoyable space for all cricket enthusiasts.
               </p>
             </div>
           </section>
@@ -349,7 +349,7 @@ export default function FairPlayPage() {
           <section className="bg-gradient-to-r from-primary to-secondary rounded-lg shadow-md p-8 text-white">
             <h2 className="text-3xl font-bold mb-4">Our Commitment to You</h2>
             <p className="text-white/90 mb-4">
-              At Fantasy Basics, fair play is not just a policy—it's a promise. We are committed to:
+              At Kavera, fair play is not just a policy—it's a promise. We are committed to:
             </p>
             <ul className="space-y-2 text-white/90 mb-4">
               <li className="flex items-start">

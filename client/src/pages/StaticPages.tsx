@@ -48,7 +48,7 @@ export function AboutPage() {
           <div className="absolute top-0 right-24 w-24 h-full bg-white transform skew-x-[-12deg] translate-x-16 opacity-20"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <h1 className="text-5xl font-bold text-white mb-4">About Fantasy Basics</h1>
+          <h1 className="text-5xl font-bold text-white mb-4">About Kavera</h1>
           <p className="text-xl text-white/90 max-w-2xl">India's Premier Free-to-Play Fantasy Cricket Platform</p>
         </div>
       </div>
@@ -87,13 +87,13 @@ export function AboutPage() {
             </div>
             <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
               <p>
-                Fantasy Basics was born from a simple idea: to make fantasy cricket accessible, transparent, and enjoyable for every cricket enthusiast in India. Founded by <strong>KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</strong>, a registered company in Karnataka, India, we set out to create a platform that celebrates cricket knowledge and strategic thinking without the complications of real money transactions.
+                Kavera was born from a simple idea: to make fantasy cricket accessible, transparent, and enjoyable for every cricket enthusiast in India. Founded by <strong>KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</strong>, a registered company in Karnataka, India, we set out to create a platform that celebrates cricket knowledge and strategic thinking without the complications of real money transactions.
               </p>
               <p>
-                Our journey began with a commitment to transparency and fairness. We recognized that many cricket fans wanted to test their cricket knowledge and compete with friends, but were hesitant about platforms involving real money. Fantasy Basics fills that gap by offering a completely free, skill-based gaming experience where the only currency is your cricket expertise.
+                Our journey began with a commitment to transparency and fairness. We recognized that many cricket fans wanted to test their cricket knowledge and compete with friends, but were hesitant about platforms involving real money. Kavera fills that gap by offering a completely free, skill-based gaming experience where the only currency is your cricket expertise.
               </p>
               <p>
-                Today, Fantasy Basics stands as a testament to our belief that entertainment and skill-based competition can thrive without monetary incentives. We integrate real-time data from trusted cricket APIs, ensuring every statistic, every score, and every fantasy point is accurate and verifiable.
+                Today, Kavera stands as a testament to our belief that entertainment and skill-based competition can thrive without monetary incentives. We integrate real-time data from trusted cricket APIs, ensuring every statistic, every score, and every fantasy point is accurate and verifiable.
               </p>
             </div>
           </section>
@@ -124,7 +124,7 @@ export function AboutPage() {
           <section className="bg-white rounded-lg shadow-md p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-1 h-8 bg-primary"></div>
-              <h2 className="text-3xl font-bold text-gray-900">Why Choose Fantasy Basics?</h2>
+              <h2 className="text-3xl font-bold text-gray-900">Why Choose Kavera?</h2>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="flex gap-4">
@@ -202,7 +202,7 @@ export function AboutPage() {
                 </div>
                 <div>
                   <div className="text-sm text-gray-500 mb-1">Website</div>
-                  <div className="font-bold text-primary">www.fantasybasics.com</div>
+                  <div className="font-bold text-primary">www.kavera.in</div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500 mb-1">Platform Type</div>
@@ -220,12 +220,12 @@ export function AboutPage() {
             </div>
             <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
               <p>
-                Fantasy Basics operates as a <strong>free-to-play entertainment platform</strong> in full compliance with Indian laws and regulations. We take our legal responsibilities seriously and have implemented robust systems to ensure adherence to all applicable rules.
+                Kavera operates as a <strong>free-to-play entertainment platform</strong> in full compliance with Indian laws and regulations. We take our legal responsibilities seriously and have implemented robust systems to ensure adherence to all applicable rules.
               </p>
               <div className="bg-yellow-50 border-l-4 border-secondary p-6 rounded-r-lg">
                 <h4 className="font-bold text-gray-900 mb-3">Age Restriction</h4>
                 <p className="text-gray-700 mb-0">
-                  All users must be <strong>18 years or older</strong> to register and participate on Fantasy Basics. We verify age during registration and maintain strict enforcement of this policy.
+                  All users must be <strong>18 years or older</strong> to register and participate on Kavera. We verify age during registration and maintain strict enforcement of this policy.
                 </p>
               </div>
               <div className="bg-red-50 border-l-4 border-primary p-6 rounded-r-lg">
@@ -246,7 +246,7 @@ export function AboutPage() {
               <div className="bg-green-50 border-l-4 border-secondary p-6 rounded-r-lg">
                 <h4 className="font-bold text-gray-900 mb-3">No Real Money Involved</h4>
                 <p className="text-gray-700 mb-0">
-                  Fantasy Basics is a <strong>100% free platform</strong>. There are no entry fees, no real money transactions, and no cash prizes. All contests are free to enter, and participation is purely for entertainment and skill demonstration purposes.
+                  Kavera is a <strong>100% free platform</strong>. There are no entry fees, no real money transactions, and no cash prizes. All contests are free to enter, and participation is purely for entertainment and skill demonstration purposes.
                 </p>
               </div>
             </div>
@@ -257,7 +257,7 @@ export function AboutPage() {
             <h2 className="text-3xl font-bold mb-6">Our Commitment to You</h2>
             <div className="space-y-4 text-white/95">
               <p className="text-lg">
-                At Fantasy Basics, we are committed to providing a safe, fair, and enjoyable fantasy cricket experience. We promise:
+                At Kavera, we are committed to providing a safe, fair, and enjoyable fantasy cricket experience. We promise:
               </p>
               <ul className="space-y-3 pl-6">
                 <li className="flex gap-3">
@@ -297,7 +297,7 @@ export function HowToPlayPage() {
     <StaticPageLayout title="How to Play">
       <div className="space-y-6">
         <section>
-          <h2 className="text-2xl font-bold mb-4">Getting Started with Fantasy Basics</h2>
+          <h2 className="text-2xl font-bold mb-4">Getting Started with Kavera</h2>
           <p>
             Fantasy cricket is a free game of skill where you create a virtual team of real cricket players and earn points
             based on their performance in actual matches. It's 100% free with no real money or cash prizes involved—just pure cricket entertainment. Here's how to get started:
@@ -394,9 +394,9 @@ export function FAQPage() {
     <StaticPageLayout title="Frequently Asked Questions">
       <div className="space-y-6">
         <section>
-          <h3 className="text-xl font-semibold mb-2">What is Fantasy Basics?</h3>
+          <h3 className="text-xl font-semibold mb-2">What is Kavera?</h3>
           <p>
-            Fantasy Basics is a fantasy cricket platform where you can create virtual teams of real cricket players and
+            Kavera is a fantasy cricket platform where you can create virtual teams of real cricket players and
             compete based on their actual performance in matches.
           </p>
         </section>
@@ -404,7 +404,7 @@ export function FAQPage() {
         <section>
           <h3 className="text-xl font-semibold mb-2">Is it free to play?</h3>
           <p>
-            Yes! Fantasy Basics is 100% free to play. There are no entry fees, no real money involved, and no cash prizes. It's purely for entertainment and fun competition.
+            Yes! Kavera is 100% free to play. There are no entry fees, no real money involved, and no cash prizes. It's purely for entertainment and fun competition.
           </p>
         </section>
 
@@ -471,7 +471,7 @@ export function TermsPage() {
         <section>
           <p className="text-sm text-muted-foreground mb-4">Last Updated: December 26, 2025</p>
           <p>
-            Welcome to Fantasy Basics, a free-to-play fantasy cricket entertainment platform. By accessing and using our platform, you agree to be bound by these Terms and
+            Welcome to Kavera, a free-to-play fantasy cricket entertainment platform. By accessing and using our platform, you agree to be bound by these Terms and
             Conditions. Please read them carefully. This platform involves NO real money, NO entry fees, and NO cash prizes.
           </p>
         </section>
@@ -479,7 +479,7 @@ export function TermsPage() {
         <section>
           <h3 className="text-xl font-semibold mb-3">1. Acceptance of Terms</h3>
           <p>
-            By registering an account and using Fantasy Basics, you accept and agree to be bound by these Terms and
+            By registering an account and using Kavera, you accept and agree to be bound by these Terms and
             Conditions and our Privacy Policy.
           </p>
         </section>
@@ -534,7 +534,7 @@ export function TermsPage() {
         <section>
           <h3 className="text-xl font-semibold mb-3">6. Intellectual Property</h3>
           <p>
-            All content on Fantasy Basics, including logos, text, graphics, and software, is the property of KAVERAMMA
+            All content on Kavera, including logos, text, graphics, and software, is the property of KAVERAMMA
             COFFEE CURING WORKS PRIVATE LIMITED and is protected by copyright laws.
           </p>
         </section>
@@ -542,7 +542,7 @@ export function TermsPage() {
         <section>
           <h3 className="text-xl font-semibold mb-3">7. Limitation of Liability</h3>
           <p>
-            Fantasy Basics and KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED shall not be liable for any indirect,
+            Kavera and KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED shall not be liable for any indirect,
             incidental, or consequential damages arising from your use of the platform.
           </p>
         </section>
@@ -574,7 +574,7 @@ export function PrivacyPage() {
         <section>
           <p className="text-sm text-muted-foreground mb-4">Last Updated: December 26, 2025</p>
           <p>
-            At Fantasy Basics, we are committed to protecting your privacy. This Privacy Policy explains how we collect,
+            At Kavera, we are committed to protecting your privacy. This Privacy Policy explains how we collect,
             use, and safeguard your personal information.
           </p>
         </section>
@@ -693,7 +693,7 @@ export function ResponsibleGamingPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Our Commitment to Responsible Gaming</h2>
           <p>
-            At Fantasy Basics, we are committed to promoting responsible gaming practices. Fantasy Basics is a 100% free-to-play entertainment platform with no real money, no entry fees, and no cash prizes. Fantasy sports should be
+            At Kavera, we are committed to promoting responsible gaming practices. Kavera is a 100% free-to-play entertainment platform with no real money, no entry fees, and no cash prizes. Fantasy sports should be
             entertaining and enjoyable, played purely for fun.
           </p>
         </section>
@@ -723,7 +723,7 @@ export function ResponsibleGamingPage() {
         <section>
           <h3 className="text-xl font-semibold mb-3">Age Restrictions</h3>
           <p>
-            Fantasy Basics is strictly for users 18 years and older. We verify age during registration and take measures
+            Kavera is strictly for users 18 years and older. We verify age during registration and take measures
             to prevent underage access.
           </p>
         </section>
@@ -755,7 +755,7 @@ export function FairPlayPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Our Commitment to Fair Play</h2>
           <p>
-            Fantasy Basics is built on the principles of fairness, transparency, and integrity. We ensure that all users
+            Kavera is built on the principles of fairness, transparency, and integrity. We ensure that all users
             have an equal opportunity to compete and win based on their cricket knowledge and strategy.
           </p>
         </section>
@@ -828,7 +828,7 @@ export function ContactPage() {
               <strong>Company Name:</strong> KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED
             </p>
             <p>
-              <strong>Website:</strong> www.fantasybasics.com
+              <strong>Website:</strong> www.kavera.in
             </p>
             <p>
               <strong>Location:</strong> Karnataka, India

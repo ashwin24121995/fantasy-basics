@@ -29,7 +29,7 @@ export default function ResponsibleGamingPage() {
               <h2 className="text-3xl font-bold text-gray-900">Our Commitment to Responsible Gaming</h2>
             </div>
             <p className="text-gray-700 mb-4">
-              At Fantasy Basics, we are committed to promoting <strong>responsible gaming practices</strong> and ensuring that our platform remains a safe, healthy, and enjoyable space for all cricket enthusiasts. While our platform is <strong>100% free</strong> with no real money involved, we recognize that even skill-based gaming can become problematic if not approached responsibly.
+              At Kavera, we are committed to promoting <strong>responsible gaming practices</strong> and ensuring that our platform remains a safe, healthy, and enjoyable space for all cricket enthusiasts. While our platform is <strong>100% free</strong> with no real money involved, we recognize that even skill-based gaming can become problematic if not approached responsibly.
             </p>
             <p className="text-gray-700">
               This page outlines our responsible gaming principles, provides guidelines for healthy participation, and offers resources for users who may need support.
@@ -94,7 +94,7 @@ export default function ResponsibleGamingPage() {
             
             <h3 className="text-xl font-semibold text-gray-800 mb-4">1. Set Time Limits</h3>
             <p className="text-gray-700 mb-4">
-              Decide in advance how much time you will spend on Fantasy Basics each day or week. Use timers or reminders to help you stick to your limits. If you find yourself spending more time than planned, take a break.
+              Decide in advance how much time you will spend on Kavera each day or week. Use timers or reminders to help you stick to your limits. If you find yourself spending more time than planned, take a break.
             </p>
 
             <h3 className="text-xl font-semibold text-gray-800 mb-4">2. Take Regular Breaks</h3>
@@ -104,7 +104,7 @@ export default function ResponsibleGamingPage() {
 
             <h3 className="text-xl font-semibold text-gray-800 mb-4">3. Keep It Fun</h3>
             <p className="text-gray-700 mb-4">
-              Remember that Fantasy Basics is a <strong>free entertainment platform</strong>. There are no real prizes or financial rewards. If you find yourself feeling frustrated, angry, or overly competitive, it may be time to take a step back.
+              Remember that Kavera is a <strong>free entertainment platform</strong>. There are no real prizes or financial rewards. If you find yourself feeling frustrated, angry, or overly competitive, it may be time to take a step back.
             </p>
 
             <h3 className="text-xl font-semibold text-gray-800 mb-4">4. Don't Let It Interfere with Life</h3>
@@ -130,12 +130,12 @@ export default function ResponsibleGamingPage() {
               <h2 className="text-3xl font-bold text-gray-900">Recognizing Problem Gaming</h2>
             </div>
             <p className="text-gray-700 mb-4">
-              While Fantasy Basics does not involve real money, it's still important to recognize signs of problematic gaming behavior. Ask yourself:
+              While Kavera does not involve real money, it's still important to recognize signs of problematic gaming behavior. Ask yourself:
             </p>
             <ul className="space-y-3 text-gray-700 mb-6">
               <li className="flex items-start">
                 <span className="text-primary font-bold mr-3">•</span>
-                <span>Do you spend more time on Fantasy Basics than you intended?</span>
+                <span>Do you spend more time on Kavera than you intended?</span>
               </li>
               <li className="flex items-start">
                 <span className="text-primary font-bold mr-3">•</span>
@@ -170,7 +170,7 @@ export default function ResponsibleGamingPage() {
               <h2 className="text-3xl font-bold text-gray-900">Self-Exclusion and Account Management</h2>
             </div>
             <p className="text-gray-700 mb-4">
-              If you feel that you need to take a break from Fantasy Basics, you have the following options:
+              If you feel that you need to take a break from Kavera, you have the following options:
             </p>
 
             <h3 className="text-xl font-semibold text-gray-800 mb-3">Temporary Break</h3>
@@ -255,14 +255,14 @@ export default function ResponsibleGamingPage() {
               <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded">
                 <h4 className="font-bold text-gray-900 mb-2">18+ Only</h4>
                 <p className="text-gray-700">
-                  Fantasy Basics is <strong>strictly for users 18 years or older</strong>. We verify the age of all users during registration. If you are under 18, you are not permitted to use this platform. Parents and guardians should monitor their children's online activities.
+                  Kavera is <strong>strictly for users 18 years or older</strong>. We verify the age of all users during registration. If you are under 18, you are not permitted to use this platform. Parents and guardians should monitor their children's online activities.
                 </p>
               </div>
 
               <div className="bg-orange-50 border-l-4 border-orange-500 p-6 rounded">
                 <h4 className="font-bold text-gray-900 mb-2">Geographic Restrictions</h4>
                 <p className="text-gray-700">
-                  In compliance with Indian state laws, Fantasy Basics is <strong>not available</strong> to residents of the following states:
+                  In compliance with Indian state laws, Kavera is <strong>not available</strong> to residents of the following states:
                 </p>
                 <ul className="list-disc list-inside text-gray-700 mt-2 ml-4">
                   <li>Telangana</li>
@@ -281,7 +281,7 @@ export default function ResponsibleGamingPage() {
           <section className="bg-gradient-to-r from-primary to-secondary rounded-lg shadow-md p-8 text-white">
             <h2 className="text-3xl font-bold mb-4">Our Commitment to You</h2>
             <p className="text-white/90 mb-4">
-              At Fantasy Basics, we are dedicated to creating a safe, transparent, and responsible gaming environment. We continuously monitor our platform to ensure compliance with responsible gaming principles and Indian laws.
+              At Kavera, we are dedicated to creating a safe, transparent, and responsible gaming environment. We continuously monitor our platform to ensure compliance with responsible gaming principles and Indian laws.
             </p>
             <p className="text-white/90 mb-4">
               If you have any concerns, questions, or feedback about responsible gaming, please don't hesitate to <a href="/contact" className="text-white underline font-semibold">contact us</a>. Your well-being is our priority.

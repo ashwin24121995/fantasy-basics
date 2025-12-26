@@ -41,7 +41,7 @@ export default function Matches() {
       <nav className="bg-white relative z-50 shadow-md">
         <div className="container mx-auto px-4 py-0 flex items-center justify-between">
           <Link href="/" className="py-4">
-            <img src="/logo-new.webp" alt="Fantasy Basics" className="h-14 w-auto cursor-pointer" />
+            <img src="/kavera-logo.png" alt="Kavera" className="h-14 w-auto cursor-pointer" />
           </Link>
           
           <div className="hidden md:flex items-stretch h-16">
@@ -489,7 +489,7 @@ export default function Matches() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Brand */}
             <div>
-              <img src="/logo-new.webp" alt="Fantasy Basics" className="h-12 mb-4" />
+              <img src="/kavera-logo.png" alt="Kavera" className="h-12 mb-4" />
               <p className="text-sm text-white/70">
                 100% free fantasy cricket platform for entertainment purposes only.
               </p>
