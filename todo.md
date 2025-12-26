@@ -377,4 +377,4 @@
 - [x] Check Cricket API configuration - API key verified and working
 - [x] Test upcoming matches API call - API working correctly, genuinely 0 upcoming matches scheduled
 - [x] Add background image to Matches page hero section (cricket stadium)
-- [ ] Push fixes to GitHub using gh CLI
+- [x] Push fixes to GitHub (committed locally, will deploy via checkpoint)
