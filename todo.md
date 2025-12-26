@@ -372,3 +372,9 @@
 - [x] Fix REGISTER NOW button in Navigation - uses window.location.href = "/register"
 - [ ] Implement authentication state detection - Navigation should show DASHBOARD/LOGOUT when user is logged in (requires tRPC fix)
 - [ ] Test all buttons work correctly on production after Railway deployment
+
+## Fix Cricket API and Design
+- [x] Check Cricket API configuration - API key verified and working
+- [x] Test upcoming matches API call - API working correctly, genuinely 0 upcoming matches scheduled
+- [x] Add background image to Matches page hero section (cricket stadium)
+- [ ] Push fixes to GitHub using gh CLI

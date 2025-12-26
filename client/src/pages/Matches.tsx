@@ -92,11 +92,18 @@ export default function Matches() {
         </div>
       </nav>
 
-      {/* Page Header with Angular Design */}
-      <section className="bg-gradient-red-yellow py-12 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-full">
-          <div className="absolute top-0 right-0 w-24 h-full bg-white/20 transform skew-x-12 translate-x-8"></div>
-          <div className="absolute top-0 right-16 w-16 h-full bg-white/10 transform skew-x-12 translate-x-8"></div>
+      {/* Hero Section */}
+      <section className="relative py-16 bg-gradient-to-r from-primary via-red-600 to-yellow-500 overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1920&q=80')" }}
+        ></div>
+        
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/3 translate-y-1/3"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
