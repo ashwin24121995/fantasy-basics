@@ -7,6 +7,8 @@ import { Label } from "../components/ui/label";
 import { Card } from "../components/ui/card";
 import { toast } from "sonner";
 import { CheckCircle2, Trophy, TrendingUp, Users, Shield, Loader2 } from "lucide-react";
+import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
 
 export function Register() {
   const [, setLocation] = useLocation();
@@ -50,7 +52,9 @@ export function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+    <>
+      <Navigation />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
       {/* Yellow diagonal stripe at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-r from-yellow-400 via-yellow-500 to-red-500 transform -skew-y-2 origin-bottom-left"></div>
       
@@ -216,5 +220,7 @@ export function Register() {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
