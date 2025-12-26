@@ -1,9 +1,12 @@
-import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { updateUserProfile, getUserById } from "./db";
+import { registerUser, loginUser } from "./auth";
+import jwt from "jsonwebtoken";
+import { ENV } from "./_core/env";
+import { COOKIE_NAME } from "./_core/cookies";
 import { isStateRestricted, calculateAge, MINIMUM_AGE, INDIAN_STATES } from "../shared/constants";
 import { matchRouter } from "./matchRouter";
 import { contestRouter } from "./contestRouter";
@@ -15,6 +18,64 @@ export const appRouter = router({
 
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
+    
+    register: publicProcedure
+      .input(
+        z.object({
+          name: z.string().min(2, "Name must be at least 2 characters"),
+          email: z.string().email("Invalid email format"),
+          password: z.string().min(8, "Password must be at least 8 characters"),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const result = await registerUser(input);
+        
+        if (!result.success) {
+          throw new Error(result.error || "Registration failed");
+        }
+
+        // Create JWT token
+        const token = jwt.sign(
+          { userId: result.userId },
+          ENV.jwtSecret,
+          { expiresIn: "7d" }
+        );
+
+        // Set cookie
+        const cookieOptions = getSessionCookieOptions(ctx.req);
+        ctx.res.cookie(COOKIE_NAME, token, cookieOptions);
+
+        return { success: true };
+      }),
+
+    login: publicProcedure
+      .input(
+        z.object({
+          email: z.string().email("Invalid email format"),
+          password: z.string().min(1, "Password is required"),
+        })
+      )
+      .mutation(async ({ input, ctx }) => {
+        const result = await loginUser(input);
+        
+        if (!result.success) {
+          throw new Error(result.error || "Login failed");
+        }
+
+        // Create JWT token
+        const token = jwt.sign(
+          { userId: result.user!.id },
+          ENV.jwtSecret,
+          { expiresIn: "7d" }
+        );
+
+        // Set cookie
+        const cookieOptions = getSessionCookieOptions(ctx.req);
+        ctx.res.cookie(COOKIE_NAME, token, cookieOptions);
+
+        return { success: true, user: result.user };
+      }),
+    
     logout: publicProcedure.mutation(({ ctx }) => {
       const cookieOptions = getSessionCookieOptions(ctx.req);
       ctx.res.clearCookie(COOKIE_NAME, { ...cookieOptions, maxAge: -1 });

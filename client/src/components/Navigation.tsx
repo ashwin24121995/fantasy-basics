@@ -83,13 +83,13 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
               <Button 
                 variant="outline" 
                 className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm"
-                onClick={() => window.location.href = getLoginUrl()}
+                onClick={() => window.location.href = "/login"}
               >
                 LOGIN
               </Button>
               <Button 
                 className="bg-primary hover:bg-primary/90 text-white font-bold px-6 text-sm"
-                onClick={() => window.location.href = getLoginUrl()}
+                onClick={() => window.location.href = "/register"}
               >
                 REGISTER NOW
               </Button>

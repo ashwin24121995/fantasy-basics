@@ -18,6 +18,8 @@ import HowToPlayPage from "./pages/HowToPlay";
 import FAQPage from "./pages/FAQ";
 import TermsPage from "./pages/Terms";
 import PrivacyPage from "./pages/Privacy";
+import { Login } from "./pages/Login";
+import { Register } from "./pages/Register";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -34,6 +36,8 @@ function Router() {
       <Route path="/responsible-gaming" component={ResponsibleGamingPage} />
       <Route path="/fair-play" component={FairPlayPage} />
       <Route path="/contact" component={ContactPage} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
       <Route path="/matches/:matchId/team-builder" component={TeamBuilder} />
       <Route path="/matches/:matchId/live" component={LiveMatch} />
       <Route path="/matches/:matchId" component={MatchDetail} />

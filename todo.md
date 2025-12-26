@@ -263,3 +263,16 @@
 - [x] Fix any broken links or navigation issues
 - [x] Test all pages thoroughly
 - [ ] Deploy fixes to GitHub
+
+## Email/Password Authentication Implementation
+- [x] Update users table schema to add password hash field
+- [x] Push database schema changes
+- [x] Install bcrypt package for password hashing
+- [x] Create password hashing utility functions
+- [x] Implement registration tRPC endpoint
+- [x] Implement login tRPC endpoint
+- [x] Create registration form UI
+- [x] Create login form UI
+- [ ] Test registration flow
+- [ ] Test login flow
+- [ ] Deploy to GitHub and Railway

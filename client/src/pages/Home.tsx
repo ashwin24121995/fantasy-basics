@@ -60,7 +60,7 @@ export default function Home() {
               <Button 
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-white font-bold text-lg px-8 py-6 shadow-lg"
-                onClick={() => window.location.href = isAuthenticated ? "/matches" : getLoginUrl()}
+                onClick={() => window.location.href = isAuthenticated ? "/matches" : "/register"}
               >
                 {isAuthenticated ? "PLAY NOW" : "START PLAYING FREE"}
               </Button>
@@ -68,9 +68,9 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 className="bg-transparent border-4 border-white text-white hover:bg-white hover:text-primary font-bold text-lg px-8 py-6"
-                onClick={() => window.location.href = "/how-to-play"}
+                onClick={() => window.location.href = isAuthenticated ? "/how-to-play" : "/login"}
               >
-                HOW TO PLAY
+                {isAuthenticated ? "HOW TO PLAY" : "LOGIN"}
               </Button>
             </div>
             
