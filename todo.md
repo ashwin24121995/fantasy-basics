@@ -224,4 +224,9 @@
 - [x] Diagnose Invalid URL error in Railway deployment
 - [x] Fix Vite base URL configuration for production
 - [x] Update asset path handling for Railway
-- [ ] Test and push fix to GitHub
+- [x] Test and push fix to GitHub
+
+## Railway Deployment Fix - Environment Variables
+- [x] Fix Invalid URL error by adding fallback for missing OAuth env vars
+- [ ] Create .env.example file documenting all required environment variables
+- [ ] Push fix to GitHub for Railway redeployment
