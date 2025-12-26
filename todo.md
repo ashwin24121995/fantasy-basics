@@ -572,3 +572,18 @@
 - [ ] Fix navigation buttons
 - [ ] Fix CTA buttons
 - [ ] Test all buttons work correctly
+
+
+## Footer Visibility Issue - RESOLVED ✅
+- [x] Check matches page footer on fantasybasics.com
+- [x] Footer IS visible - no issue found
+- [x] Footer has correct styling (bg-dark-navy, white text)
+
+## Match Sorting Issue - FIXED ✅
+- [x] Matches were not sorted by date (showing in random order)
+- [x] Sort upcoming matches by date (earliest first)
+- [x] Sort live matches by start time (earliest first)
+- [x] Sort completed matches by date (most recent first)
+- [x] Test match sorting on all tabs - Verified working correctly
+- [x] Write unit tests for match sorting (8/8 passing)
+- [ ] Deploy fix to production

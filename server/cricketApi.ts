@@ -353,22 +353,37 @@ export function filterMatchesByState(
  * Get upcoming matches (today and future)
  */
 export function getUpcomingMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  return matches.filter((match) => {
-    // Match is upcoming if it hasn't started yet
-    return !match.matchStarted;
-  });
+  return matches
+    .filter((match) => {
+      // Match is upcoming if it hasn't started yet
+      return !match.matchStarted;
+    })
+    .sort((a, b) => {
+      // Sort by date (earliest first)
+      return new Date(a.dateTimeGMT).getTime() - new Date(b.dateTimeGMT).getTime();
+    });
 }
 
 /**
  * Get live matches
  */
 export function getLiveMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  return matches.filter((match) => match.matchStarted && !match.matchEnded);
+  return matches
+    .filter((match) => match.matchStarted && !match.matchEnded)
+    .sort((a, b) => {
+      // Sort by start time (earliest first for live matches)
+      return new Date(a.dateTimeGMT).getTime() - new Date(b.dateTimeGMT).getTime();
+    });
 }
 
 /**
  * Get completed matches
  */
 export function getCompletedMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  return matches.filter((match) => match.matchEnded);
+  return matches
+    .filter((match) => match.matchEnded)
+    .sort((a, b) => {
+      // Sort by date (most recent first for completed matches)
+      return new Date(b.dateTimeGMT).getTime() - new Date(a.dateTimeGMT).getTime();
+    });
 }
