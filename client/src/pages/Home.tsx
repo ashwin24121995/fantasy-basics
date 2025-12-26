@@ -1,408 +1,327 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
+import { Trophy, Users, TrendingUp, Shield, Clock, Target } from "lucide-react";
 import { Link } from "wouter";
-import { Trophy, Users, Zap, Shield, ArrowRight, Calendar, Clock } from "lucide-react";
 import ProfileCompletion from "@/components/ProfileCompletion";
-import { useState } from "react";
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
-  const [showProfileCompletion, setShowProfileCompletion] = useState(false);
-
-  // Check if profile is complete
-  const { data: profileStatus } = trpc.user.isProfileComplete.useQuery(undefined, {
-    enabled: isAuthenticated,
-  });
-
-  // Fetch upcoming and live matches
-  const { data: upcomingMatches, isLoading: loadingUpcoming } = trpc.matches.getUpcomingMatches.useQuery();
-  const { data: liveMatches, isLoading: loadingLive } = trpc.matches.getLiveMatches.useQuery();
-
+  const { data: upcomingMatches, isLoading: matchesLoading } = trpc.matches.getUpcomingMatches.useQuery();
+  
   // Show profile completion if user is authenticated but profile is incomplete
-  if (isAuthenticated && profileStatus && !profileStatus.isComplete && !showProfileCompletion) {
-    setShowProfileCompletion(true);
-  }
-
-  if (showProfileCompletion && isAuthenticated) {
-    return <ProfileCompletion onComplete={() => setShowProfileCompletion(false)} />;
+  if (isAuthenticated && user && (!user.dateOfBirth || !user.state)) {
+    return <ProfileCompletion onComplete={() => window.location.reload()} />;
   }
 
   return (
-    <div className="min-h-screen">
-      {/* Navigation */}
-      <nav className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="Fantasy Basics" className="h-10" />
-            </div>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">
-                Home
+    <div className="min-h-screen flex flex-col bg-white">
+      {/* Angular Navigation Bar - Cricket Clash Style */}
+      <nav className="bg-white relative z-50 shadow-md">
+        <div className="container mx-auto px-4 py-0 flex items-center justify-between">
+          <Link href="/" className="py-4">
+            <img src="/logo-new.webp" alt="Fantasy Basics" className="h-14 w-auto cursor-pointer" />
+          </Link>
+          
+          <div className="hidden md:flex items-stretch h-16">
+            <Link href="/" className="relative px-6 flex items-center justify-center font-bold text-sm text-white bg-primary hover:bg-primary/90 transition-colors" style={{ clipPath: 'polygon(15% 0, 100% 0, 85% 100%, 0 100%)' }}>
+              <span className="relative z-10">HOME</span>
+            </Link>
+            <Link href="/matches" className="relative px-6 flex items-center justify-center font-bold text-sm text-foreground hover:text-primary bg-gray-100 hover:bg-gray-200 transition-colors -ml-4" style={{ clipPath: 'polygon(15% 0, 100% 0, 85% 100%, 0 100%)' }}>
+              <span className="relative z-10">CONTESTS</span>
+            </Link>
+            <Link href="/how-to-play" className="relative px-6 flex items-center justify-center font-bold text-sm text-foreground hover:text-primary bg-gray-100 hover:bg-gray-200 transition-colors -ml-4" style={{ clipPath: 'polygon(15% 0, 100% 0, 85% 100%, 0 100%)' }}>
+              <span className="relative z-10">HOW TO PLAY</span>
+            </Link>
+            {isAuthenticated && (
+              <Link href="/dashboard" className="relative px-6 flex items-center justify-center font-bold text-sm text-foreground hover:text-primary bg-gray-100 hover:bg-gray-200 transition-colors -ml-4" style={{ clipPath: 'polygon(15% 0, 100% 0, 85% 100%, 0 100%)' }}>
+                <span className="relative z-10">MY TEAMS</span>
               </Link>
-              <Link href="/matches" className="text-sm font-medium hover:text-primary transition-colors">
-                Matches
+            )}
+            <Link href="/about" className="relative px-6 flex items-center justify-center font-bold text-sm text-foreground hover:text-primary bg-gray-100 hover:bg-gray-200 transition-colors -ml-4" style={{ clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 100%)' }}>
+              <span className="relative z-10">ABOUT</span>
+            </Link>
+          </div>
+          
+          <div className="flex items-center gap-3 py-4">
+            {!isAuthenticated ? (
+              <>
+                <Button 
+                  variant="outline" 
+                  className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm"
+                  onClick={() => window.location.href = getLoginUrl()}
+                >
+                  LOGIN
+                </Button>
+                <Button 
+                  className="bg-primary hover:bg-primary/90 text-white font-bold px-6 text-sm"
+                  onClick={() => window.location.href = getLoginUrl()}
+                >
+                  REGISTER NOW
+                </Button>
+              </>
+            ) : (
+              <Link href="/dashboard">
+                <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
+                  DASHBOARD
+                </Button>
               </Link>
-              <Link href="/how-to-play" className="text-sm font-medium hover:text-primary transition-colors">
-                How to Play
-              </Link>
-              <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">
-                About
-              </Link>
-            </div>
-            <div className="flex items-center gap-3">
-              {isAuthenticated ? (
-                <>
-                  <Link href="/dashboard">
-                    <Button variant="outline" size="sm">
-                      Dashboard
-                    </Button>
-                  </Link>
-                  <span className="text-sm font-medium">{user?.name}</span>
-                </>
-              ) : (
-                <>
-                  <a href={getLoginUrl()}>
-                    <Button variant="outline" size="sm">
-                      Login
-                    </Button>
-                  </a>
-                  <a href={getLoginUrl()}>
-                    <Button size="sm">Sign Up</Button>
-                  </a>
-                </>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary to-primary/80 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <img src="/hero-cricket.png" alt="" className="w-full h-full object-cover" />
+      {/* Hero Section with Angular Design */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-60"
+          style={{ backgroundImage: 'url(/hero-cricket-action.webp)' }}
+        ></div>
+        
+        {/* Angular Yellow Stripes */}
+        <div className="absolute top-0 right-0 w-1/3 h-full">
+          <div className="absolute top-0 right-0 w-32 h-full bg-secondary transform skew-x-12 translate-x-16 opacity-90"></div>
+          <div className="absolute top-0 right-24 w-24 h-full bg-primary transform skew-x-12 translate-x-16 opacity-90"></div>
+          <div className="absolute top-0 right-40 w-16 h-full bg-secondary transform skew-x-12 translate-x-16 opacity-70"></div>
         </div>
-        <div className="container relative py-20 md:py-32">
+        
+        {/* Content */}
+        <div className="container mx-auto px-4 py-24 md:py-32 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Play Fantasy Cricket. 100% Free. Pure Fun.
+            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 text-shadow-strong leading-tight">
+              PLAY FANTASY<br />
+              CRICKET - <span className="text-secondary">100% FREE</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-white/90">
-              Create your dream team, compete with friends, and enjoy India's most engaging fantasy cricket platform. Completely free to play with no real money involved.
+            <p className="text-xl md:text-2xl text-white/90 mb-8 text-shadow-strong font-semibold">
+              Build your dream team, compete with friends, and prove your cricket knowledge!
             </p>
             <div className="flex flex-wrap gap-4">
-              {isAuthenticated ? (
-                <Link href="/matches">
-                  <Button size="lg" variant="secondary" className="gap-2">
-                    Play Now <ArrowRight className="h-5 w-5" />
-                  </Button>
-                </Link>
-              ) : (
-                <a href={getLoginUrl()}>
-                  <Button size="lg" variant="secondary" className="gap-2">
-                    Get Started <ArrowRight className="h-5 w-5" />
-                  </Button>
-                </a>
-              )}
+              <Button 
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-white font-bold text-lg px-8 py-6 border-angular"
+                onClick={() => window.location.href = isAuthenticated ? "/matches" : getLoginUrl()}
+              >
+                {isAuthenticated ? "PLAY NOW" : "REGISTER NOW"}
+              </Button>
               <Link href="/how-to-play">
-                <Button size="lg" variant="outline" className="bg-white/10 border-white/30 hover:bg-white/20 text-white">
-                  How to Play
+                <Button 
+                  size="lg"
+                  variant="outline"
+                  className="bg-transparent border-4 border-white text-white hover:bg-white hover:text-primary font-bold text-lg px-8 py-6"
+                >
+                  HOW TO PLAY
                 </Button>
               </Link>
+            </div>
+          </div>
+        </div>
+        
+        {/* Angular Bottom Cut */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-white" style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0, 0 50%)' }}></div>
+      </section>
+
+      {/* Feature Highlights Section */}
+      <section className="py-16 bg-white relative">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-black text-center mb-12 text-primary">
+            FEATURE HIGHLIGHTS
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Daily Contests - Yellow */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-secondary transform -skew-y-2 group-hover:-skew-y-3 transition-transform"></div>
+              <Card className="relative bg-secondary border-0 overflow-hidden card-angular">
+                <div className="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+                <CardContent className="p-8 text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center">
+                    <Trophy className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-black mb-3 text-secondary-foreground">DAILY CONTESTS</h3>
+                  <p className="text-secondary-foreground/80 font-semibold">
+                    Join exciting daily matches and compete for glory - 100% free to play!
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Create Your Team - Blue */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-blue-500 transform -skew-y-2 group-hover:-skew-y-3 transition-transform"></div>
+              <Card className="relative bg-blue-500 border-0 overflow-hidden card-angular">
+                <div className="absolute top-0 left-0 w-full h-2 bg-secondary"></div>
+                <CardContent className="p-8 text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center">
+                    <Users className="w-10 h-10 text-blue-500" />
+                  </div>
+                  <h3 className="text-2xl font-black mb-3 text-white">CREATE YOUR TEAM</h3>
+                  <p className="text-white/90 font-semibold">
+                    Build your dream playing XI from top players and lead them to victory!
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Live Scoring - Red */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-primary transform -skew-y-2 group-hover:-skew-y-3 transition-transform"></div>
+              <Card className="relative bg-primary border-0 overflow-hidden card-angular">
+                <div className="absolute top-0 left-0 w-full h-2 bg-secondary"></div>
+                <CardContent className="p-8 text-center">
+                  <div className="w-20 h-20 mx-auto mb-4 bg-white rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-10 h-10 text-primary" />
+                  </div>
+                  <h3 className="text-2xl font-black mb-3 text-white">LIVE SCORING</h3>
+                  <p className="text-white/90 font-semibold">
+                    Track your team's performance in real-time with ball-by-ball updates!
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Live Matches Section */}
-      {liveMatches && liveMatches.length > 0 && (
-        <section className="py-12 bg-accent/5">
-          <div className="container">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-3xl font-bold flex items-center gap-2">
-                <Zap className="h-8 w-8 text-accent" />
-                Live Matches
-              </h2>
-              <Link href="/matches?filter=live">
-                <Button variant="link" className="gap-1">
-                  View All <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {liveMatches.slice(0, 3).map((match) => (
-                <Card key={match.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center justify-between mb-2">
-                      <Badge variant="destructive" className="animate-pulse">
-                        LIVE
-                      </Badge>
-                      <span className="text-sm text-muted-foreground">{match.matchType.toUpperCase()}</span>
-                    </div>
-                    <CardTitle className="text-lg">{match.name}</CardTitle>
-                    <CardDescription>{match.status}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <img src={match.t1img} alt={match.t1} className="h-8 w-8 rounded-full" />
-                          <span className="font-medium">{match.t1}</span>
-                        </div>
-                        {match.score[0] && (
-                          <span className="font-bold">
-                            {match.score[0].r}/{match.score[0].w} ({match.score[0].o})
-                          </span>
-                        )}
+      {/* Upcoming Matches Section */}
+      {upcomingMatches && upcomingMatches.length > 0 && (
+        <section className="py-16 bg-gray-50 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-64 h-full bg-gradient-yellow-red opacity-5 diagonal-stripe"></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
+            <h2 className="text-4xl md:text-5xl font-black text-center mb-12 text-primary">
+              UPCOMING MATCHES
+            </h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {upcomingMatches.slice(0, 6).map((match: any) => (
+                <Card key={match.id} className="card-angular border-2 border-gray-200 hover:border-primary transition-colors">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex-1 text-center">
+                        <div className="text-2xl font-black text-foreground">{match.teamA}</div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <img src={match.t2img} alt={match.t2} className="h-8 w-8 rounded-full" />
-                          <span className="font-medium">{match.t2}</span>
-                        </div>
-                        {match.score[1] && (
-                          <span className="font-bold">
-                            {match.score[1].r}/{match.score[1].w} ({match.score[1].o})
-                          </span>
-                        )}
+                      <div className="px-4">
+                        <div className="text-xl font-black text-primary">VS</div>
+                      </div>
+                      <div className="flex-1 text-center">
+                        <div className="text-2xl font-black text-foreground">{match.teamB}</div>
                       </div>
                     </div>
-                    <Link href={`/matches/${match.id}`}>
-                      <Button className="w-full mt-4" variant="outline">
-                        View Contests
+                    
+                    <div className="text-center mb-4">
+                      <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-1">
+                        <Clock className="w-4 h-4" />
+                        <span className="font-semibold">{new Date(match.matchDate).toLocaleString()}</span>
+                      </div>
+                      <div className="text-xs text-muted-foreground font-medium">{match.venue}</div>
+                    </div>
+                    
+                    <Link href={`/match/${match.id}`}>
+                      <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold">
+                        CREATE TEAM
                       </Button>
                     </Link>
                   </CardContent>
                 </Card>
               ))}
             </div>
+            
+            <div className="text-center mt-8">
+              <Link href="/matches">
+                <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold">
+                  VIEW ALL MATCHES
+                </Button>
+              </Link>
+            </div>
           </div>
         </section>
       )}
 
-      {/* Upcoming Matches Section */}
-      <section className="py-12">
-        <div className="container">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold flex items-center gap-2">
-              <Calendar className="h-8 w-8 text-primary" />
-              Upcoming Matches
-            </h2>
-            <Link href="/matches">
-              <Button variant="link" className="gap-1">
-                View All <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          {loadingUpcoming ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <Card key={i} className="animate-pulse">
-                  <CardHeader>
-                    <div className="h-4 bg-muted rounded w-1/3 mb-2"></div>
-                    <div className="h-6 bg-muted rounded w-2/3"></div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-20 bg-muted rounded"></div>
-                  </CardContent>
-                </Card>
-              ))}
+      {/* Why Choose Us Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-black text-center mb-12 text-primary">
+            WHY FANTASY BASICS?
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-secondary rounded-full flex items-center justify-center">
+                <Shield className="w-8 h-8 text-secondary-foreground" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">100% Free to Play</h3>
+              <p className="text-muted-foreground">No entry fees, no hidden costs. Pure entertainment!</p>
             </div>
-          ) : upcomingMatches && upcomingMatches.length > 0 ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {upcomingMatches.slice(0, 6).map((match) => (
-                <Card key={match.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center justify-between mb-2">
-                      <Badge variant="secondary">Upcoming</Badge>
-                      <span className="text-sm text-muted-foreground">{match.matchType.toUpperCase()}</span>
-                    </div>
-                    <CardTitle className="text-lg">{match.name}</CardTitle>
-                    <CardDescription className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      {new Date(match.dateTimeGMT).toLocaleString("en-IN", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <img src={match.t1img} alt={match.t1} className="h-8 w-8 rounded-full" />
-                          <span className="font-medium">{match.t1}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-center text-muted-foreground text-sm">vs</div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <img src={match.t2img} alt={match.t2} className="h-8 w-8 rounded-full" />
-                          <span className="font-medium">{match.t2}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <Link href={`/matches/${match.id}`}>
-                      <Button className="w-full mt-4">Create Team</Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
+            
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-secondary rounded-full flex items-center justify-center">
+                <Target className="w-8 h-8 text-secondary-foreground" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Skill-Based Gaming</h3>
+              <p className="text-muted-foreground">Test your cricket knowledge and strategy skills</p>
             </div>
-          ) : (
-            <Card>
-              <CardContent className="py-12 text-center">
-                <p className="text-muted-foreground">No upcoming matches at the moment. Check back soon!</p>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 bg-muted/30">
-        <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Fantasy Basics?</h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <Card className="text-center">
-              <CardHeader>
-                <Trophy className="h-12 w-12 text-accent mx-auto mb-4" />
-                <CardTitle>100% Free to Play</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Enjoy fantasy cricket with no entry fees, no real money, just pure entertainment and competition.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardHeader>
-                <Users className="h-12 w-12 text-accent mx-auto mb-4" />
-                <CardTitle>Play with Friends</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Create private contests and challenge your friends to see who's the best fantasy manager.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardHeader>
-                <Zap className="h-12 w-12 text-accent mx-auto mb-4" />
-                <CardTitle>Real-Time Updates</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Get live scores and fantasy points updates as the match progresses.
-                </p>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardHeader>
-                <Shield className="h-12 w-12 text-accent mx-auto mb-4" />
-                <CardTitle>Fair Play Guaranteed</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  We ensure fair play and transparency in all contests with strict regulations.
-                </p>
-              </CardContent>
-            </Card>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-secondary rounded-full flex items-center justify-center">
+                <Clock className="w-8 h-8 text-secondary-foreground" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Real-Time Updates</h3>
+              <p className="text-muted-foreground">Live scores and fantasy points tracking</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      {!isAuthenticated && (
-        <section className="py-16 bg-primary text-white">
-          <div className="container text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Playing?</h2>
-            <p className="text-xl mb-8 text-white/90">
-              Join thousands of cricket fans and start your fantasy cricket journey today!
-            </p>
-            <a href={getLoginUrl()}>
-              <Button size="lg" variant="secondary" className="gap-2">
-                Sign Up Now <ArrowRight className="h-5 w-5" />
-              </Button>
-            </a>
-          </div>
-        </section>
-      )}
-
-      {/* Footer */}
-      <footer className="bg-muted/50 py-12">
-        <div className="container">
-          <div className="grid gap-8 md:grid-cols-4">
-            <div>
-              <img src="/logo.png" alt="Fantasy Basics" className="h-10 mb-4" />
-              <p className="text-sm text-muted-foreground">
-                India's premier fantasy cricket platform. Play responsibly.
+      {/* Footer - Angular Design */}
+      <footer className="bg-gray-900 text-white py-12 relative overflow-hidden">
+        {/* Angular Yellow/Red Stripes */}
+        <div className="absolute bottom-0 right-0 w-1/4 h-full">
+          <div className="absolute bottom-0 right-0 w-32 h-full bg-secondary transform skew-x-[-12deg] translate-x-16 opacity-80"></div>
+          <div className="absolute bottom-0 right-24 w-24 h-full bg-primary transform skew-x-[-12deg] translate-x-16 opacity-80"></div>
+          <div className="absolute bottom-0 right-40 w-16 h-full bg-secondary transform skew-x-[-12deg] translate-x-16 opacity-60"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-wrap justify-between gap-8 mb-8">
+            <div className="flex-1 min-w-[200px]">
+              <img src="/logo-new.webp" alt="Fantasy Basics" className="h-12 w-auto mb-4" />
+              <p className="text-gray-400 text-sm max-w-xs">
+                100% free fantasy cricket platform for entertainment purposes only.
               </p>
             </div>
-            <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/about" className="text-muted-foreground hover:text-foreground">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/how-to-play" className="text-muted-foreground hover:text-foreground">
-                    How to Play
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faq" className="text-muted-foreground hover:text-foreground">
-                    FAQ
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Legal</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/terms" className="text-muted-foreground hover:text-foreground">
-                    Terms & Conditions
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="text-muted-foreground hover:text-foreground">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/responsible-gaming" className="text-muted-foreground hover:text-foreground">
-                    Responsible Gaming
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Contact</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/contact" className="text-muted-foreground hover:text-foreground">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/fair-play" className="text-muted-foreground hover:text-foreground">
-                    Fair Play
-                  </Link>
-                </li>
-              </ul>
+            
+            <div className="flex gap-16">
+              <div>
+                <h4 className="font-bold mb-4 text-secondary uppercase text-sm">Quick Links</h4>
+                <ul className="space-y-2 text-sm">
+                  <li><Link href="/about" className="text-gray-400 hover:text-secondary transition-colors">About Us</Link></li>
+                  <li><Link href="/how-to-play" className="text-gray-400 hover:text-secondary transition-colors">How to Play</Link></li>
+                  <li><Link href="/faq" className="text-gray-400 hover:text-secondary transition-colors">FAQ</Link></li>
+                  <li><Link href="/contact" className="text-gray-400 hover:text-secondary transition-colors">Contact Us</Link></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-bold mb-4 text-secondary uppercase text-sm">Legal</h4>
+                <ul className="space-y-2 text-sm">
+                  <li><Link href="/terms" className="text-gray-400 hover:text-secondary transition-colors">Terms & Conditions</Link></li>
+                  <li><Link href="/privacy" className="text-gray-400 hover:text-secondary transition-colors">Privacy Policy</Link></li>
+                  <li><Link href="/responsible-gaming" className="text-gray-400 hover:text-secondary transition-colors">Responsible Gaming</Link></li>
+                  <li><Link href="/fair-play" className="text-gray-400 hover:text-secondary transition-colors">Fair Play</Link></li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-            <p>© 2025 Fantasy Basics by KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED. All rights reserved.</p>
-            <p className="mt-2">
-              Fantasy sports are not available in Telangana, Andhra Pradesh, Assam, and Odisha. Players must be 18+.
+          
+          <div className="border-t border-gray-800 pt-6">
+            <div className="flex flex-wrap justify-between items-center gap-4 text-sm text-gray-400">
+              <p>© 2024 Fantasy Basics. All Rights Reserved. | KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED, Karnataka, India</p>
+            </div>
+            <p className="mt-3 text-xs text-gray-500">
+              Legal Disclosure: This is a skill-based gaming platform for entertainment purposes only. Participants must be 18+ years old. Not available in Telangana, Andhra Pradesh, Assam, and Odisha.
             </p>
           </div>
         </div>
