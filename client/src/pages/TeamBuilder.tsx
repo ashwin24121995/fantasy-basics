@@ -1,4 +1,6 @@
 import { useState, useMemo } from "react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { useRoute, useLocation, Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -192,9 +194,11 @@ export default function TeamBuilder() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b bg-white sticky top-0 z-50">
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Navigation activePage="contests" />
+      
+      {/* Team Builder Header */}
+      <div className="border-b bg-white sticky top-0 z-40">
         <div className="container py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -383,6 +387,8 @@ export default function TeamBuilder() {
           </div>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 }

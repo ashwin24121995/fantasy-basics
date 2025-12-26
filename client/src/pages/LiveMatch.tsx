@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { useRoute, Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -80,9 +82,11 @@ export default function LiveMatch() {
   const scoreData = match.scoreData ? JSON.parse(match.scoreData) : [];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b bg-white sticky top-0 z-50">
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Navigation activePage="contests" />
+      
+      {/* Live Match Header */}
+      <div className="border-b bg-white sticky top-0 z-40">
         <div className="container py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -328,6 +332,8 @@ export default function LiveMatch() {
           </TabsContent>
         </Tabs>
       </div>
+      
+      <Footer />
     </div>
   );
 }

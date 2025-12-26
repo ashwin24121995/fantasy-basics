@@ -1,4 +1,6 @@
 import { Link } from "wouter";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -42,8 +44,10 @@ export default function Dashboard() {
     : "U";
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Navigation activePage="dashboard" />
+      
+      {/* Dashboard Header */}
       <div className="border-b bg-white">
         <div className="container py-6">
           <div className="flex items-center justify-between mb-4">
@@ -308,6 +312,8 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+      
+      <Footer />
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import { Link } from "wouter";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
@@ -10,7 +12,8 @@ interface StaticPageProps {
 
 function StaticPageLayout({ title, children }: StaticPageProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Navigation />
       <div className="border-b bg-white">
         <div className="container py-6">
           <Link href="/">
@@ -27,6 +30,8 @@ function StaticPageLayout({ title, children }: StaticPageProps) {
           <CardContent className="prose prose-slate max-w-none pt-6">{children}</CardContent>
         </Card>
       </div>
+      
+      <Footer />
     </div>
   );
 }

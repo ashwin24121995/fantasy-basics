@@ -128,3 +128,10 @@
 - [ ] Redesign Responsible Gaming with comprehensive guidelines
 - [ ] Redesign Fair Play with detailed fairness policies
 - [ ] Redesign Contact Us with complete contact information
+
+## Complete All Remaining Pages with Header/Footer
+- [x] Add red/yellow angular header and footer to Team Builder page
+- [x] Add red/yellow angular header and footer to Live Match page
+- [x] Add red/yellow angular header and footer to Dashboard page
+- [x] Add red/yellow angular header and footer to all static pages
+- [x] Ensure all pages match the red/yellow angular design consistently
