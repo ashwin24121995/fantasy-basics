@@ -313,3 +313,19 @@
 - [ ] Test production deployment on Railway
 - [ ] Verify MySQL connection works in production
 - [ ] Create final checkpoint
+
+## Production Testing (fantasybasics.com)
+- [ ] Test user registration on production
+- [ ] Test login with registered credentials
+- [ ] Verify dashboard button appears after login
+- [ ] Test logout functionality
+- [ ] Verify authentication session persists across page navigation
+
+## Logo and Favicon Update
+- [x] Copy new Fantasy Basics logo to public directory
+- [x] Create favicon from logo
+- [x] Update Navigation component to use new logo
+- [x] Update favicon reference in index.html
+- [x] Remove old logo files
+- [x] Test logo display on all pages
+- [ ] Push changes to GitHub
