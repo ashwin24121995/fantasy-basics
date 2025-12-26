@@ -40,9 +40,9 @@ export function Register() {
 
   const registerMutation = trpc.auth.register.useMutation({
     onSuccess: () => {
-      toast.success("Registration successful! Redirecting...");
+      toast.success("Registration successful! Redirecting to dashboard...");
       setTimeout(() => {
-        window.location.href = "/";
+        window.location.href = "/dashboard";
       }, 1000);
     },
     onError: (error) => {

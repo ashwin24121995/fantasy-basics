@@ -17,9 +17,9 @@ export function Login() {
 
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: () => {
-      toast.success("Login successful! Redirecting...");
+      toast.success("Login successful! Redirecting to dashboard...");
       setTimeout(() => {
-        window.location.href = "/";
+        window.location.href = "/dashboard";
       }, 1000);
     },
     onError: (error) => {

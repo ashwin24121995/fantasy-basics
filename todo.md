@@ -442,3 +442,35 @@
   1. Fix navigation state detection after login
   2. Connect team creation form to backend API
   3. Test complete workflow on production (fantasybasics.com)
+
+
+## Comprehensive Authentication UI Updates - COMPLETED ✅
+- [x] Fix Navigation component to show DASHBOARD/LOGOUT when logged in
+- [x] Fix Navigation component to show LOGIN/REGISTER when logged out
+- [x] Update Login page to redirect to /dashboard after successful login
+- [x] Update Register page to redirect to /dashboard after successful registration
+- [x] Update Homepage "START PLAYING FREE" button (dashboard if logged in, register if not)
+- [x] Update Homepage "LOGIN" button (dashboard if logged in, login if not)
+- [x] Update all CTA buttons throughout website based on auth state
+- [x] Dashboard page already exists and works
+- [ ] Test complete authentication flow on production domain (fantasybasics.com)
+- [ ] Debug cookie issue if authentication doesn't work on production
+
+## Team Creation Form Connection - PENDING 📋
+- [ ] Review existing Team Creation page UI
+- [ ] Connect form to trpc.teams.createTeam.useMutation
+- [ ] Add form validation for 11 players
+- [ ] Add budget constraint validation (100 credits)
+- [ ] Add captain/vice-captain validation
+- [ ] Show success message after team creation
+- [ ] Redirect to My Teams page after creation
+- [ ] Test complete team creation flow
+
+## Contest Joining Workflow - PENDING 📋
+- [ ] Create contest joining tRPC endpoint
+- [ ] Build contest entry UI
+- [ ] Implement team selection for contest entry
+- [ ] Add contest entry validation
+- [ ] Show confirmation after joining contest
+- [ ] Display user's contest entries
+- [ ] Test complete contest joining flow

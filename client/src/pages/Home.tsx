@@ -68,9 +68,9 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 className="bg-transparent border-4 border-white text-white hover:bg-white hover:text-primary font-bold text-lg px-8 py-6"
-                onClick={() => window.location.href = isAuthenticated ? "/how-to-play" : "/login"}
+                onClick={() => window.location.href = isAuthenticated ? "/dashboard" : "/login"}
               >
-                {isAuthenticated ? "HOW TO PLAY" : "LOGIN"}
+                {isAuthenticated ? "MY DASHBOARD" : "LOGIN"}
               </Button>
             </div>
             

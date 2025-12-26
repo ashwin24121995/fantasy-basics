@@ -8,7 +8,12 @@ interface NavigationProps {
 }
 
 export default function Navigation({ activePage = "home" }: NavigationProps) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout, loading } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = "/";
+  };
 
   return (
     <nav className="bg-white relative z-50 shadow-md">
@@ -84,22 +89,34 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
                 variant="outline" 
                 className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm"
                 onClick={() => window.location.href = "/login"}
+                disabled={loading}
               >
                 LOGIN
               </Button>
               <Button 
                 className="bg-primary hover:bg-primary/90 text-white font-bold px-6 text-sm"
                 onClick={() => window.location.href = "/register"}
+                disabled={loading}
               >
                 REGISTER NOW
               </Button>
             </>
           ) : (
-            <Link href="/dashboard">
-              <Button className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
-                DASHBOARD
+            <>
+              <Link href="/dashboard">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm" disabled={loading}>
+                  DASHBOARD
+                </Button>
+              </Link>
+              <Button 
+                variant="outline"
+                className="border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-bold text-sm"
+                onClick={handleLogout}
+                disabled={loading}
+              >
+                {loading ? "LOGGING OUT..." : "LOGOUT"}
               </Button>
-            </Link>
+            </>
           )}
         </div>
       </div>
