@@ -633,3 +633,23 @@
 - [x] Shows "No Live Matches" message when genuinely no live matches
 - [x] Write unit tests for live match filtering (9/9 passing)
 - [ ] Deploy fix to production
+
+
+## Footer Consistency Issue - FIXED ✅ (December 27, 2025)
+- [x] Issue: Matches page footer was different from Home page footer
+- [x] Matches page had inline footer code instead of using Footer component
+- [x] Replaced inline footer with shared Footer component
+- [x] Fixed useAuth import path (@/_core/hooks/useAuth)
+- [x] Footer now consistent across all pages with angular design and stripes
+- [x] Tested - footer visible and matches Home page design
+
+## Show Only Actually Live Matches - FIXED ✅ (December 27, 2025)
+- [x] Issue: 7-day filter was showing matches from last 7 days, not just currently live
+- [x] User requirement: LIVE section should show ONLY matches that are live RIGHT NOW
+- [x] Found Cricket API's ms field: "fixture" | "live" | "result"
+- [x] Updated getLiveMatches() to check ms === "live" first
+- [x] Added fallback for backward compatibility (24-hour window if ms not provided)
+- [x] Updated all 9 unit tests to reflect new logic (all passing)
+- [x] Logic: Primary check is ms="live", fallback is matchStarted && !matchEnded && within 24h
+- [x] Tested with actual API data - correctly shows LIVE (0) when no matches are actually live
+- [ ] Deploy to production

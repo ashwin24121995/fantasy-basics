@@ -8,6 +8,7 @@ import { trpc } from "@/lib/trpc";
 import { Clock, MapPin, Trophy, TrendingUp, Calendar, Users } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import ProfileCompletion from "@/components/ProfileCompletion";
+import Footer from "@/components/Footer";
 
 export default function Matches() {
   const { user, isAuthenticated } = useAuth();
@@ -521,41 +522,7 @@ export default function Matches() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-dark-navy text-white py-12 mt-auto">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Brand */}
-            <div>
-              <img src="/kavera-logo.png" alt="Kavera" className="h-12 mb-4" />
-              <p className="text-sm text-white/70">
-                100% free fantasy cricket platform for entertainment purposes only.
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h3 className="font-bold mb-4">QUICK LINKS</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/about" className="text-white/70 hover:text-white transition-colors">About Us</Link></li>
-                <li><Link href="/how-to-play" className="text-white/70 hover:text-white transition-colors">How to Play</Link></li>
-                <li><Link href="/faq" className="text-white/70 hover:text-white transition-colors">FAQ</Link></li>
-                <li><Link href="/contact" className="text-white/70 hover:text-white transition-colors">Contact Us</Link></li>
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h3 className="font-bold mb-4">LEGAL</h3>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/terms" className="text-white/70 hover:text-white transition-colors">Terms & Conditions</Link></li>
-                <li><Link href="/privacy" className="text-white/70 hover:text-white transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/responsible-gaming" className="text-white/70 hover:text-white transition-colors">Responsible Gaming</Link></li>
-                <li><Link href="/fair-play" className="text-white/70 hover:text-white transition-colors">Fair Play</Link></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -29,14 +29,14 @@ describe("Live Match Filtering", () => {
     matchEnded,
   });
 
-  it("should show matches that started within last 7 days and haven't ended", () => {
+  it("should show matches with ms='live' status", () => {
     const now = new Date();
     const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
     const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000);
 
-    const matches = [
-      createMatch("1", yesterday.toISOString(), true, false), // Started yesterday, not ended
-      createMatch("2", twoDaysAgo.toISOString(), true, false), // Started 2 days ago, not ended
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", yesterday.toISOString(), true, false), ms: "live" },
+      { ...createMatch("2", twoDaysAgo.toISOString(), true, false), ms: "live" },
     ];
 
     const liveMatches = getLiveMatches(matches);
@@ -45,50 +45,25 @@ describe("Live Match Filtering", () => {
     expect(liveMatches[1].id).toBe("1");
   });
 
-  it("should NOT show matches older than 7 days", () => {
-    const now = new Date();
-    const eightDaysAgo = new Date(now.getTime() - 8 * 24 * 60 * 60 * 1000);
-    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-    const matches = [
-      createMatch("1", eightDaysAgo.toISOString(), true, false), // 8 days ago - should be filtered out
-      createMatch("2", thirtyDaysAgo.toISOString(), true, false), // 30 days ago - should be filtered out
-    ];
-
-    const liveMatches = getLiveMatches(matches);
-    expect(liveMatches).toHaveLength(0);
-  });
-
-  it("should NOT show matches that haven't started yet", () => {
-    const now = new Date();
-    const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-
-    const matches = [
-      createMatch("1", tomorrow.toISOString(), false, false), // Not started yet
-    ];
-
-    const liveMatches = getLiveMatches(matches);
-    expect(liveMatches).toHaveLength(0);
-  });
-
-  it("should NOT show matches that have ended", () => {
+  it("should NOT show matches with ms='fixture' or ms='result'", () => {
     const now = new Date();
     const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-    const matches = [
-      createMatch("1", yesterday.toISOString(), true, true), // Started and ended
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", yesterday.toISOString(), false, false), ms: "fixture" }, // Not started
+      { ...createMatch("2", yesterday.toISOString(), true, true), ms: "result" }, // Ended
     ];
 
     const liveMatches = getLiveMatches(matches);
     expect(liveMatches).toHaveLength(0);
   });
 
-  it("should handle multi-day Test matches (started 5 days ago, still ongoing)", () => {
+  it("should use fallback logic when ms field is not provided (within 24 hours)", () => {
     const now = new Date();
-    const fiveDaysAgo = new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000);
+    const twelveHoursAgo = new Date(now.getTime() - 12 * 60 * 60 * 1000);
 
-    const matches = [
-      createMatch("1", fiveDaysAgo.toISOString(), true, false), // Test match started 5 days ago
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", twelveHoursAgo.toISOString(), true, false), ms: undefined }, // Started 12h ago, no ms field
     ];
 
     const liveMatches = getLiveMatches(matches);
@@ -96,14 +71,39 @@ describe("Live Match Filtering", () => {
     expect(liveMatches[0].id).toBe("1");
   });
 
-  it("should filter out abandoned matches from months ago", () => {
+  it("should NOT use fallback for matches older than 24 hours without ms field", () => {
+    const now = new Date();
+    const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000);
+
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", twoDaysAgo.toISOString(), true, false), ms: undefined }, // 2 days ago, no ms field
+    ];
+
+    const liveMatches = getLiveMatches(matches);
+    expect(liveMatches).toHaveLength(0);
+  });
+
+  it("should show multi-day Test matches if ms='live'", () => {
+    const now = new Date();
+    const fiveDaysAgo = new Date(now.getTime() - 5 * 24 * 60 * 60 * 1000);
+
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", fiveDaysAgo.toISOString(), true, false), ms: "live" }, // Test match started 5 days ago but still live
+    ];
+
+    const liveMatches = getLiveMatches(matches);
+    expect(liveMatches).toHaveLength(1);
+    expect(liveMatches[0].id).toBe("1");
+  });
+
+  it("should only show matches with ms='live', not old abandoned matches", () => {
     const now = new Date();
     const threeMonthsAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
     const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-    const matches = [
-      createMatch("1", threeMonthsAgo.toISOString(), true, false), // Abandoned match - should be filtered
-      createMatch("2", yesterday.toISOString(), true, false), // Real live match - should be shown
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", threeMonthsAgo.toISOString(), true, false), ms: undefined }, // Old abandoned match - no ms field
+      { ...createMatch("2", yesterday.toISOString(), true, false), ms: "live" }, // Real live match
     ];
 
     const liveMatches = getLiveMatches(matches);
@@ -111,14 +111,13 @@ describe("Live Match Filtering", () => {
     expect(liveMatches[0].id).toBe("2");
   });
 
-  it("should return empty array when no matches are live", () => {
+  it("should return empty array when no matches have ms='live'", () => {
     const now = new Date();
-    const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
     const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-    const matches = [
-      createMatch("1", tomorrow.toISOString(), false, false), // Not started
-      createMatch("2", yesterday.toISOString(), true, true), // Ended
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", yesterday.toISOString(), false, false), ms: "fixture" }, // Not started
+      { ...createMatch("2", yesterday.toISOString(), true, true), ms: "result" }, // Ended
     ];
 
     const liveMatches = getLiveMatches(matches);
@@ -131,10 +130,10 @@ describe("Live Match Filtering", () => {
     const twoDaysAgo = new Date(now.getTime() - 2 * 24 * 60 * 60 * 1000);
     const threeDaysAgo = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000);
 
-    const matches = [
-      createMatch("1", oneDayAgo.toISOString(), true, false),
-      createMatch("2", threeDaysAgo.toISOString(), true, false),
-      createMatch("3", twoDaysAgo.toISOString(), true, false),
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", oneDayAgo.toISOString(), true, false), ms: "live" },
+      { ...createMatch("2", threeDaysAgo.toISOString(), true, false), ms: "live" },
+      { ...createMatch("3", twoDaysAgo.toISOString(), true, false), ms: "live" },
     ];
 
     const liveMatches = getLiveMatches(matches);
@@ -144,16 +143,16 @@ describe("Live Match Filtering", () => {
     expect(liveMatches[2].id).toBe("1"); // 1 day ago (most recent)
   });
 
-  it("should handle edge case: match exactly 7 days ago", () => {
+  it("should handle edge case: match exactly 24 hours ago with fallback", () => {
     const now = new Date();
-    const exactlySevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const exactlyOneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-    const matches = [
-      createMatch("1", exactlySevenDaysAgo.toISOString(), true, false),
+    const matches: CurrentMatch[] = [
+      { ...createMatch("1", exactlyOneDayAgo.toISOString(), true, false), ms: undefined },
     ];
 
     const liveMatches = getLiveMatches(matches);
-    // Should be included (>= 7 days ago)
+    // Should be included (within 24 hours)
     expect(liveMatches).toHaveLength(1);
   });
 });

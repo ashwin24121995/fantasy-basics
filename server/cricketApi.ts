@@ -365,21 +365,25 @@ export function getUpcomingMatches(matches: CurrentMatch[]): CurrentMatch[] {
 }
 
 /**
- * Get live matches (matches that started recently and haven't ended)
+ * Get live matches (only matches that are actually live RIGHT NOW)
  */
 export function getLiveMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  const now = new Date();
-  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-  
   return matches
     .filter((match) => {
-      // Match must be started but not ended
-      if (!match.matchStarted || match.matchEnded) return false;
+      // Use the Cricket API's ms (match state) field to determine if match is live
+      // ms can be: "fixture" (not started), "live" (currently live), "result" (ended)
+      if (match.ms === "live") return true;
       
-      // Match date must be within last 7 days (not months/years ago)
-      // This filters out abandoned matches while keeping multi-day Test matches
-      const matchDate = new Date(match.dateTimeGMT);
-      return matchDate >= sevenDaysAgo;
+      // Fallback: if ms field is not provided, use matchStarted/matchEnded flags
+      // This ensures backward compatibility if API doesn't always provide ms
+      if (!match.ms && match.matchStarted && !match.matchEnded) {
+        // Additional check: only show if match is within last 24 hours to avoid stale data
+        const matchDate = new Date(match.dateTimeGMT);
+        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        return matchDate >= oneDayAgo;
+      }
+      
+      return false;
     })
     .sort((a, b) => {
       // Sort by start time (earliest first for live matches)
