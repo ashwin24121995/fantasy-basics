@@ -20,6 +20,18 @@ export const matchRouter = router({
       
       // Cache matches in database
       for (const match of matches) {
+        // Derive match state from matchStarted/matchEnded if ms is not provided
+        let matchState: "fixture" | "live" | "result";
+        if (match.ms) {
+          matchState = match.ms;
+        } else if (match.matchEnded) {
+          matchState = "result";
+        } else if (match.matchStarted) {
+          matchState = "live";
+        } else {
+          matchState = "fixture";
+        }
+        
         await upsertMatch({
           id: match.id,
           seriesId: match.series_id,
@@ -28,15 +40,15 @@ export const matchRouter = router({
           dateTimeGMT: new Date(match.dateTimeGMT),
           venue: match.venue || null,
           status: match.status,
-          matchState: match.ms,
+          matchState: matchState,
           team1: match.t1,
           team2: match.t2,
           team1Img: match.t1img,
           team2Img: match.t2img,
           scoreData: JSON.stringify(match.score),
           seriesName: null,
-          fantasyEnabled: true,
-          hasSquad: false,
+          fantasyEnabled: match.fantasyEnabled || false,
+          hasSquad: match.hasSquad || false,
         });
       }
       

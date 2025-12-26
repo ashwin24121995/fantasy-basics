@@ -2,9 +2,10 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { Clock, MapPin, Trophy, TrendingUp } from "lucide-react";
+import { Clock, MapPin, Trophy, TrendingUp, Calendar, Users } from "lucide-react";
 import { Link } from "wouter";
 import ProfileCompletion from "@/components/ProfileCompletion";
 
@@ -18,6 +19,21 @@ export default function Matches() {
   if (isAuthenticated && user && (!user.dateOfBirth || !user.state)) {
     return <ProfileCompletion onComplete={() => window.location.reload()} />;
   }
+
+  // Helper function to format score
+  const formatScore = (scoreArray: any[]) => {
+    if (!scoreArray || scoreArray.length === 0) return null;
+    const latestScore = scoreArray[scoreArray.length - 1];
+    return `${latestScore.r}/${latestScore.w} (${latestScore.o} ov)`;
+  };
+
+  // Helper function to get team score from score array
+  const getTeamScore = (scoreArray: any[], teamName: string) => {
+    if (!scoreArray || scoreArray.length === 0) return '-';
+    const teamScore = scoreArray.find((s: any) => s.inning?.includes(teamName));
+    if (!teamScore) return '-';
+    return `${teamScore.r}/${teamScore.w}`;
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -96,7 +112,7 @@ export default function Matches() {
       {/* Matches Tabs */}
       <section className="py-8">
         <div className="container mx-auto px-4">
-          <Tabs defaultValue="upcoming" className="w-full">
+          <Tabs defaultValue="live" className="w-full">
             <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border-2 border-gray-200 p-1 h-auto">
               <TabsTrigger 
                 value="upcoming" 
@@ -125,48 +141,75 @@ export default function Matches() {
             <TabsContent value="upcoming">
               {upcomingLoading ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">Loading upcoming matches...</p>
+                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                  <p className="text-muted-foreground mt-4">Loading upcoming matches...</p>
                 </div>
               ) : upcomingMatches && upcomingMatches.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {upcomingMatches.map((match: any) => (
-                    <Card key={match.id} className="card-angular border-2 border-gray-200 hover:border-primary transition-all overflow-hidden">
+                    <Card key={match.id} className="card-angular border-2 border-gray-200 hover:border-primary transition-all overflow-hidden group">
                       <div className="h-2 bg-gradient-red-yellow"></div>
                       <CardContent className="p-6">
                         {/* Match Type & Series */}
-                        <div className="mb-4">
-                          <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold">
-                            {match.matchType || 'T20'}
-                          </span>
-                          {match.name && (
-                            <p className="text-xs text-muted-foreground mt-2 font-medium">{match.name}</p>
-                          )}
+                        <div className="mb-4 flex items-center justify-between">
+                          <Badge variant="secondary" className="bg-primary/10 text-primary font-bold">
+                            {match.matchType?.toUpperCase() || 'T20'}
+                          </Badge>
+                          <Badge variant="outline" className="text-xs">
+                            <Calendar className="w-3 h-3 mr-1" />
+                            UPCOMING
+                          </Badge>
                         </div>
 
+                        {/* Series Name */}
+                        {match.name && (
+                          <p className="text-xs text-muted-foreground mb-4 font-medium line-clamp-2">{match.name}</p>
+                        )}
+
                         {/* Teams */}
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex-1 text-center">
-                            {match.t1img && (
-                              <img src={match.t1img} alt={match.t1} className="w-12 h-12 mx-auto mb-2 object-contain" />
+                        <div className="space-y-3 mb-4">
+                          <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg group-hover:bg-primary/5 transition-colors">
+                            {match.teamInfo && match.teamInfo[0]?.img ? (
+                              <img src={match.teamInfo[0].img} alt={match.teams[0]} className="w-12 h-12 object-contain" />
+                            ) : (
+                              <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                                <Users className="w-6 h-6 text-gray-400" />
+                              </div>
                             )}
-                            <div className="text-lg font-black text-foreground">{match.t1}</div>
+                            <div className="flex-1">
+                              <div className="font-black text-foreground">{match.teams[0]}</div>
+                              {match.teamInfo && match.teamInfo[0]?.shortname && (
+                                <div className="text-xs text-muted-foreground">{match.teamInfo[0].shortname}</div>
+                              )}
+                            </div>
                           </div>
-                          <div className="px-4">
-                            <div className="text-xl font-black text-primary">VS</div>
+                          
+                          <div className="text-center">
+                            <div className="text-sm font-black text-primary">VS</div>
                           </div>
-                          <div className="flex-1 text-center">
-                            {match.t2img && (
-                              <img src={match.t2img} alt={match.t2} className="w-12 h-12 mx-auto mb-2 object-contain" />
+
+                          <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg group-hover:bg-primary/5 transition-colors">
+                            {match.teamInfo && match.teamInfo[1]?.img ? (
+                              <img src={match.teamInfo[1].img} alt={match.teams[1]} className="w-12 h-12 object-contain" />
+                            ) : (
+                              <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                                <Users className="w-6 h-6 text-gray-400" />
+                              </div>
                             )}
-                            <div className="text-lg font-black text-foreground">{match.t2}</div>
+                            <div className="flex-1">
+                              <div className="font-black text-foreground">{match.teams[1]}</div>
+                              {match.teamInfo && match.teamInfo[1]?.shortname && (
+                                <div className="text-xs text-muted-foreground">{match.teamInfo[1].shortname}</div>
+                              )}
+                            </div>
                           </div>
                         </div>
 
                         {/* Match Details */}
-                        <div className="space-y-2 mb-4 bg-gray-50 p-3 rounded">
+                        <div className="space-y-2 mb-4 bg-gray-50 p-3 rounded-lg">
                           <div className="flex items-start gap-2 text-sm">
                             <Clock className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                            <div>
+                            <div className="flex-1">
                               <div className="font-bold text-foreground">
                                 {new Date(match.dateTimeGMT).toLocaleString('en-IN', {
                                   dateStyle: 'medium',
@@ -180,13 +223,13 @@ export default function Matches() {
                           {match.venue && (
                             <div className="flex items-start gap-2 text-sm">
                               <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                              <div className="font-medium text-muted-foreground">{match.venue}</div>
+                              <div className="font-medium text-muted-foreground text-xs">{match.venue}</div>
                             </div>
                           )}
                         </div>
 
                         {/* Action Button */}
-                        <Link href={`/match/${match.id}`}>
+                        <Link href={`/matches/${match.id}`}>
                           <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold">
                             VIEW CONTESTS
                           </Button>
@@ -197,7 +240,7 @@ export default function Matches() {
                 </div>
               ) : (
                 <Card className="p-12 text-center border-2 border-dashed">
-                  <Trophy className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+                  <Clock className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                   <h3 className="text-xl font-bold mb-2">No Upcoming Matches</h3>
                   <p className="text-muted-foreground mb-4">
                     There are currently no upcoming cricket matches available. Please check back later for new contests.
@@ -213,59 +256,95 @@ export default function Matches() {
             <TabsContent value="live">
               {liveLoading ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">Loading live matches...</p>
+                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                  <p className="text-muted-foreground mt-4">Loading live matches...</p>
                 </div>
               ) : liveMatches && liveMatches.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {liveMatches.map((match: any) => (
-                    <Card key={match.id} className="card-angular border-2 border-primary hover:shadow-lg transition-all overflow-hidden">
+                    <Card key={match.id} className="card-angular border-2 border-primary hover:shadow-xl transition-all overflow-hidden group">
                       <div className="h-2 bg-gradient-red-yellow animate-pulse"></div>
                       <CardContent className="p-6">
-                        {/* Live Badge */}
+                        {/* Live Badge & Match Type */}
                         <div className="mb-4 flex items-center justify-between">
-                          <span className="inline-flex items-center bg-primary text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse">
-                            <span className="w-2 h-2 bg-white rounded-full mr-2"></span>
-                            LIVE
-                          </span>
-                          <span className="text-xs font-bold text-muted-foreground">{match.matchType || 'T20'}</span>
+                          <Badge className="bg-primary text-white font-bold animate-pulse">
+                            <span className="w-2 h-2 bg-white rounded-full mr-2 animate-ping"></span>
+                            LIVE NOW
+                          </Badge>
+                          <Badge variant="secondary" className="bg-primary/10 text-primary font-bold">
+                            {match.matchType?.toUpperCase() || 'T20'}
+                          </Badge>
                         </div>
+
+                        {/* Series Name */}
+                        {match.name && (
+                          <p className="text-xs text-muted-foreground mb-4 font-medium line-clamp-2">{match.name}</p>
+                        )}
 
                         {/* Teams with Scores */}
                         <div className="space-y-3 mb-4">
-                          <div className="flex items-center justify-between bg-gray-50 p-3 rounded">
-                            <div className="flex items-center gap-3">
-                              {match.t1img && (
-                                <img src={match.t1img} alt={match.t1} className="w-10 h-10 object-contain" />
+                          <div className="flex items-center justify-between p-3 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary">
+                            <div className="flex items-center gap-3 flex-1">
+                              {match.teamInfo && match.teamInfo[0]?.img ? (
+                                <img src={match.teamInfo[0].img} alt={match.teams[0]} className="w-10 h-10 object-contain" />
+                              ) : (
+                                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                                  <Users className="w-5 h-5 text-gray-400" />
+                                </div>
                               )}
-                              <div className="font-black text-foreground">{match.t1}</div>
+                              <div>
+                                <div className="font-black text-foreground">{match.teams[0]}</div>
+                                {match.teamInfo && match.teamInfo[0]?.shortname && (
+                                  <div className="text-xs text-muted-foreground">{match.teamInfo[0].shortname}</div>
+                                )}
+                              </div>
                             </div>
-                            <div className="text-lg font-black text-primary">
-                              {match.score?.t1 || '-'}
+                            <div className="text-xl font-black text-primary">
+                              {getTeamScore(match.score, match.teams[0])}
                             </div>
                           </div>
-                          <div className="flex items-center justify-between bg-gray-50 p-3 rounded">
-                            <div className="flex items-center gap-3">
-                              {match.t2img && (
-                                <img src={match.t2img} alt={match.t2} className="w-10 h-10 object-contain" />
+                          
+                          <div className="flex items-center justify-between p-3 bg-gradient-to-r from-secondary/5 to-transparent rounded-lg border-l-4 border-secondary">
+                            <div className="flex items-center gap-3 flex-1">
+                              {match.teamInfo && match.teamInfo[1]?.img ? (
+                                <img src={match.teamInfo[1].img} alt={match.teams[1]} className="w-10 h-10 object-contain" />
+                              ) : (
+                                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                                  <Users className="w-5 h-5 text-gray-400" />
+                                </div>
                               )}
-                              <div className="font-black text-foreground">{match.t2}</div>
+                              <div>
+                                <div className="font-black text-foreground">{match.teams[1]}</div>
+                                {match.teamInfo && match.teamInfo[1]?.shortname && (
+                                  <div className="text-xs text-muted-foreground">{match.teamInfo[1].shortname}</div>
+                                )}
+                              </div>
                             </div>
-                            <div className="text-lg font-black text-primary">
-                              {match.score?.t2 || '-'}
+                            <div className="text-xl font-black text-secondary">
+                              {getTeamScore(match.score, match.teams[1])}
                             </div>
                           </div>
                         </div>
 
                         {/* Match Status */}
                         {match.status && (
-                          <div className="mb-4 p-3 bg-primary/5 rounded border-l-4 border-primary">
-                            <p className="text-sm font-bold text-primary">{match.status}</p>
+                          <div className="mb-4 p-3 bg-primary/5 rounded-lg border-l-4 border-primary">
+                            <p className="text-sm font-bold text-primary line-clamp-2">{match.status}</p>
+                          </div>
+                        )}
+
+                        {/* Venue */}
+                        {match.venue && (
+                          <div className="mb-4 flex items-center gap-2 text-xs text-muted-foreground">
+                            <MapPin className="w-3 h-3" />
+                            <span className="line-clamp-1">{match.venue}</span>
                           </div>
                         )}
 
                         {/* Action Button */}
-                        <Link href={`/live/${match.id}`}>
+                        <Link href={`/matches/${match.id}/live`}>
                           <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold">
+                            <TrendingUp className="w-4 h-4 mr-2" />
                             WATCH LIVE
                           </Button>
                         </Link>
@@ -291,58 +370,95 @@ export default function Matches() {
             <TabsContent value="completed">
               {completedLoading ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">Loading completed matches...</p>
+                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                  <p className="text-muted-foreground mt-4">Loading completed matches...</p>
                 </div>
               ) : completedMatches && completedMatches.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {completedMatches.map((match: any) => (
-                    <Card key={match.id} className="card-angular border-2 border-gray-200 hover:border-primary transition-all overflow-hidden opacity-90">
+                    <Card key={match.id} className="card-angular border-2 border-gray-200 hover:border-primary transition-all overflow-hidden opacity-90 hover:opacity-100 group">
                       <div className="h-2 bg-gray-400"></div>
                       <CardContent className="p-6">
-                        {/* Completed Badge */}
-                        <div className="mb-4">
-                          <span className="inline-block bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-bold">
+                        {/* Match Type & Completed Badge */}
+                        <div className="mb-4 flex items-center justify-between">
+                          <Badge variant="secondary" className="bg-gray-100 text-gray-600 font-bold">
+                            {match.matchType?.toUpperCase() || 'T20'}
+                          </Badge>
+                          <Badge variant="outline" className="text-xs border-gray-300">
+                            <Trophy className="w-3 h-3 mr-1" />
                             COMPLETED
-                          </span>
+                          </Badge>
                         </div>
+
+                        {/* Series Name */}
+                        {match.name && (
+                          <p className="text-xs text-muted-foreground mb-4 font-medium line-clamp-2">{match.name}</p>
+                        )}
 
                         {/* Teams with Final Scores */}
                         <div className="space-y-3 mb-4">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              {match.t1img && (
-                                <img src={match.t1img} alt={match.t1} className="w-10 h-10 object-contain" />
+                          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div className="flex items-center gap-3 flex-1">
+                              {match.teamInfo && match.teamInfo[0]?.img ? (
+                                <img src={match.teamInfo[0].img} alt={match.teams[0]} className="w-10 h-10 object-contain opacity-70" />
+                              ) : (
+                                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                                  <Users className="w-5 h-5 text-gray-400" />
+                                </div>
                               )}
-                              <div className="font-black text-foreground">{match.t1}</div>
+                              <div>
+                                <div className="font-black text-foreground">{match.teams[0]}</div>
+                                {match.teamInfo && match.teamInfo[0]?.shortname && (
+                                  <div className="text-xs text-muted-foreground">{match.teamInfo[0].shortname}</div>
+                                )}
+                              </div>
                             </div>
-                            <div className="text-lg font-black text-muted-foreground">
-                              {match.score?.t1 || '-'}
+                            <div className="text-lg font-black text-gray-600">
+                              {getTeamScore(match.score, match.teams[0])}
                             </div>
                           </div>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              {match.t2img && (
-                                <img src={match.t2img} alt={match.t2} className="w-10 h-10 object-contain" />
+                          
+                          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div className="flex items-center gap-3 flex-1">
+                              {match.teamInfo && match.teamInfo[1]?.img ? (
+                                <img src={match.teamInfo[1].img} alt={match.teams[1]} className="w-10 h-10 object-contain opacity-70" />
+                              ) : (
+                                <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                                  <Users className="w-5 h-5 text-gray-400" />
+                                </div>
                               )}
-                              <div className="font-black text-foreground">{match.t2}</div>
+                              <div>
+                                <div className="font-black text-foreground">{match.teams[1]}</div>
+                                {match.teamInfo && match.teamInfo[1]?.shortname && (
+                                  <div className="text-xs text-muted-foreground">{match.teamInfo[1].shortname}</div>
+                                )}
+                              </div>
                             </div>
-                            <div className="text-lg font-black text-muted-foreground">
-                              {match.score?.t2 || '-'}
+                            <div className="text-lg font-black text-gray-600">
+                              {getTeamScore(match.score, match.teams[1])}
                             </div>
                           </div>
                         </div>
 
                         {/* Match Result */}
                         {match.status && (
-                          <div className="mb-4 p-3 bg-gray-50 rounded">
-                            <p className="text-sm font-bold text-foreground">{match.status}</p>
+                          <div className="mb-4 p-3 bg-gray-50 rounded-lg border-l-4 border-gray-400">
+                            <p className="text-sm font-bold text-gray-700 line-clamp-2">{match.status}</p>
+                          </div>
+                        )}
+
+                        {/* Venue */}
+                        {match.venue && (
+                          <div className="mb-4 flex items-center gap-2 text-xs text-muted-foreground">
+                            <MapPin className="w-3 h-3" />
+                            <span className="line-clamp-1">{match.venue}</span>
                           </div>
                         )}
 
                         {/* Action Button */}
-                        <Link href={`/live/${match.id}`}>
-                          <Button variant="outline" className="w-full border-2 border-gray-300 text-foreground hover:bg-gray-100 font-bold">
-                            VIEW SCORECARD
+                        <Link href={`/matches/${match.id}`}>
+                          <Button variant="outline" className="w-full border-2 border-gray-300 hover:border-primary hover:bg-primary hover:text-white font-bold transition-colors">
+                            VIEW DETAILS
                           </Button>
                         </Link>
                       </CardContent>
@@ -354,10 +470,7 @@ export default function Matches() {
                   <Trophy className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
                   <h3 className="text-xl font-bold mb-2">No Completed Matches</h3>
                   <p className="text-muted-foreground mb-4">
-                    There are no recently completed cricket matches. Completed matches will appear here after they finish.
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    <strong>Note:</strong> Match results and scorecards are available immediately after the match concludes.
+                    There are no completed matches to display. Completed matches will appear here after they finish.
                   </p>
                 </Card>
               )}
@@ -366,96 +479,39 @@ export default function Matches() {
         </div>
       </section>
 
-      {/* Information Section */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-black mb-6 text-primary">About Fantasy Cricket Contests</h2>
-            
-            <div className="prose prose-lg max-w-none">
-              <p className="text-foreground mb-4">
-                <strong>Fantasy Basics</strong> offers 100% free fantasy cricket contests where you can showcase your cricket knowledge and compete with players across India. Our platform is designed purely for entertainment - there are no entry fees, no cash prizes, and no real money involved.
-              </p>
-              
-              <h3 className="text-xl font-bold mb-3 text-foreground">How It Works:</h3>
-              <ol className="list-decimal list-inside space-y-2 text-foreground mb-6">
-                <li><strong>Choose a Match:</strong> Browse upcoming cricket matches from various tournaments and series</li>
-                <li><strong>Join a Contest:</strong> Select a free contest to participate in (no payment required)</li>
-                <li><strong>Build Your Team:</strong> Create your fantasy team of 11 players within the budget</li>
-                <li><strong>Earn Points:</strong> Your players earn fantasy points based on their real match performance</li>
-                <li><strong>Track Live:</strong> Watch your team's performance update in real-time during the match</li>
-                <li><strong>Compete & Learn:</strong> Compare your team with others and improve your cricket strategy</li>
-              </ol>
-              
-              <div className="bg-secondary/10 border-l-4 border-secondary p-4 rounded mb-6">
-                <p className="text-sm font-bold text-secondary-foreground">
-                  <strong>Important:</strong> Fantasy Basics is a free-to-play platform for entertainment only. We do not offer any monetary rewards, prizes, or gambling. This is a skill-based game designed to test your cricket knowledge.
-                </p>
-              </div>
-              
-              <h3 className="text-xl font-bold mb-3 text-foreground">Match Data:</h3>
-              <p className="text-foreground mb-4">
-                All match information, player statistics, and live scores are fetched in real-time from <strong>Cricket Data API</strong>. We display actual cricket matches from international and domestic tournaments. Match availability depends on the cricket calendar and ongoing tournaments.
-              </p>
-              
-              <h3 className="text-xl font-bold mb-3 text-foreground">Eligibility:</h3>
-              <ul className="list-disc list-inside space-y-2 text-foreground">
-                <li>Participants must be <strong>18 years or older</strong></li>
-                <li>Not available in: <strong>Telangana, Andhra Pradesh, Assam, and Odisha</strong></li>
-                <li>Valid for residents of India only</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 relative overflow-hidden mt-auto">
-        <div className="absolute bottom-0 right-0 w-1/4 h-full">
-          <div className="absolute bottom-0 right-0 w-32 h-full bg-secondary transform skew-x-[-12deg] translate-x-16 opacity-80"></div>
-          <div className="absolute bottom-0 right-24 w-24 h-full bg-primary transform skew-x-[-12deg] translate-x-16 opacity-80"></div>
-          <div className="absolute bottom-0 right-40 w-16 h-full bg-secondary transform skew-x-[-12deg] translate-x-16 opacity-60"></div>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-wrap justify-between gap-8 mb-8">
-            <div className="flex-1 min-w-[200px]">
-              <img src="/logo-new.webp" alt="Fantasy Basics" className="h-12 w-auto mb-4" />
-              <p className="text-gray-400 text-sm max-w-xs">
+      <footer className="bg-dark-navy text-white py-12 mt-auto">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Brand */}
+            <div>
+              <img src="/logo-new.webp" alt="Fantasy Basics" className="h-12 mb-4" />
+              <p className="text-sm text-white/70">
                 100% free fantasy cricket platform for entertainment purposes only.
               </p>
             </div>
-            
-            <div className="flex gap-16">
-              <div>
-                <h4 className="font-bold mb-4 text-secondary uppercase text-sm">Quick Links</h4>
-                <ul className="space-y-2 text-sm">
-                  <li><Link href="/about" className="text-gray-400 hover:text-secondary transition-colors">About Us</Link></li>
-                  <li><Link href="/how-to-play" className="text-gray-400 hover:text-secondary transition-colors">How to Play</Link></li>
-                  <li><Link href="/faq" className="text-gray-400 hover:text-secondary transition-colors">FAQ</Link></li>
-                  <li><Link href="/contact" className="text-gray-400 hover:text-secondary transition-colors">Contact Us</Link></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-bold mb-4 text-secondary uppercase text-sm">Legal</h4>
-                <ul className="space-y-2 text-sm">
-                  <li><Link href="/terms" className="text-gray-400 hover:text-secondary transition-colors">Terms & Conditions</Link></li>
-                  <li><Link href="/privacy" className="text-gray-400 hover:text-secondary transition-colors">Privacy Policy</Link></li>
-                  <li><Link href="/responsible-gaming" className="text-gray-400 hover:text-secondary transition-colors">Responsible Gaming</Link></li>
-                  <li><Link href="/fair-play" className="text-gray-400 hover:text-secondary transition-colors">Fair Play</Link></li>
-                </ul>
-              </div>
+
+            {/* Quick Links */}
+            <div>
+              <h3 className="font-bold mb-4">QUICK LINKS</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/about" className="text-white/70 hover:text-white transition-colors">About Us</Link></li>
+                <li><Link href="/how-to-play" className="text-white/70 hover:text-white transition-colors">How to Play</Link></li>
+                <li><Link href="/faq" className="text-white/70 hover:text-white transition-colors">FAQ</Link></li>
+                <li><Link href="/contact" className="text-white/70 hover:text-white transition-colors">Contact Us</Link></li>
+              </ul>
             </div>
-          </div>
-          
-          <div className="border-t border-gray-800 pt-6">
-            <div className="flex flex-wrap justify-between items-center gap-4 text-sm text-gray-400">
-              <p>© 2024 Fantasy Basics. All Rights Reserved. | KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED, Karnataka, India</p>
+
+            {/* Legal */}
+            <div>
+              <h3 className="font-bold mb-4">LEGAL</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/terms" className="text-white/70 hover:text-white transition-colors">Terms & Conditions</Link></li>
+                <li><Link href="/privacy" className="text-white/70 hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/responsible-gaming" className="text-white/70 hover:text-white transition-colors">Responsible Gaming</Link></li>
+                <li><Link href="/fair-play" className="text-white/70 hover:text-white transition-colors">Fair Play</Link></li>
+              </ul>
             </div>
-            <p className="mt-3 text-xs text-gray-500">
-              Legal Disclosure: This is a skill-based gaming platform for entertainment purposes only. Participants must be 18+ years old. Not available in Telangana, Andhra Pradesh, Assam, and Odisha.
-            </p>
           </div>
         </div>
       </footer>

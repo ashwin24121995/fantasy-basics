@@ -176,3 +176,12 @@
 - [x] Test API integration with live match data
 - [x] Verify all match endpoints work correctly
 - [x] Create checkpoint with production API integration
+
+## Contests Page Redesign & Fix
+- [x] Investigate why matches are not showing on contests page (API returns 23 matches but filtering shows 0)
+- [x] Fix match fetching and display issues (Fixed filtering to use matchStarted/matchEnded fields)
+- [x] Redesign contests page with improved UI
+- [x] Add match filters (T20/ODI/Test, Live/Upcoming/Completed)
+- [x] Improve contest cards with better information display
+- [x] Add loading states and error handling
+- [x] Test contests page and create checkpoint

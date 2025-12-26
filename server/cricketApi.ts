@@ -112,11 +112,17 @@ export interface CurrentMatch {
   teams: string[];
   score: ScoreInfo[];
   series_id: string;
-  ms: "fixture" | "live" | "result"; // match state
+  ms?: "fixture" | "live" | "result"; // match state (optional, may not be provided)
   t1: string; // team 1 name
   t2: string; // team 2 name
   t1img: string;
   t2img: string;
+  matchStarted: boolean;
+  matchEnded: boolean;
+  fantasyEnabled: boolean;
+  bbbEnabled: boolean;
+  hasSquad: boolean;
+  teamInfo?: Array<{name: string; shortname: string; img: string}>;
 }
 
 export interface PlayerInfo {
@@ -299,7 +305,9 @@ export function getUpcomingMatches(matches: CurrentMatch[]): CurrentMatch[] {
   const now = new Date();
   return matches.filter((match) => {
     const matchDate = new Date(match.dateTimeGMT);
-    return match.ms === "fixture" && matchDate >= now;
+    // Match is upcoming if it hasn't started yet and is in the future
+    const isUpcoming = !match.matchStarted && matchDate >= now;
+    return isUpcoming;
   });
 }
 
@@ -307,12 +315,12 @@ export function getUpcomingMatches(matches: CurrentMatch[]): CurrentMatch[] {
  * Get live matches
  */
 export function getLiveMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  return filterMatchesByState(matches, "live");
+  return matches.filter((match) => match.matchStarted && !match.matchEnded);
 }
 
 /**
  * Get completed matches
  */
 export function getCompletedMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  return filterMatchesByState(matches, "result");
+  return matches.filter((match) => match.matchEnded);
 }
