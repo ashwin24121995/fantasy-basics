@@ -10,7 +10,9 @@ import MatchDetail from "./pages/MatchDetail";
 import TeamBuilder from "./pages/TeamBuilder";
 import LiveMatch from "./pages/LiveMatch";
 import Dashboard from "./pages/Dashboard";
-import { AboutPage, HowToPlayPage, FAQPage, TermsPage, PrivacyPage, ResponsibleGamingPage, FairPlayPage, ContactPage } from "./pages/StaticPages";
+import { AboutPage, TermsPage, PrivacyPage, ResponsibleGamingPage, FairPlayPage, ContactPage } from "./pages/StaticPages";
+import HowToPlayPage from "./pages/HowToPlay";
+import FAQPage from "./pages/FAQ";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes

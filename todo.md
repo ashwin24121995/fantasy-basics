@@ -146,3 +146,14 @@
 - [x] Add hero section with angular stripes
 - [x] Add commitment section
 - [x] Test and create checkpoint
+
+## All Static Pages Deep Redesign
+- [x] Redesign How to Play page with step-by-step guide, scoring system, rules
+- [x] Redesign FAQ page with comprehensive Q&A organized by categories
+- [ ] Redesign Terms & Conditions page with detailed legal terms
+- [ ] Redesign Privacy Policy page with complete data protection information
+- [ ] Redesign Contact Us page with functional contact form
+- [ ] Redesign Responsible Gaming page with guidelines and resources
+- [ ] Redesign Fair Play page with fairness policies and transparency
+- [ ] Apply red/yellow angular design to all pages
+- [ ] Test all pages and create checkpoint
