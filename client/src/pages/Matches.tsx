@@ -269,9 +269,7 @@ export default function Matches() {
                   <p className="text-muted-foreground mb-4">
                     There are currently no upcoming cricket matches available. Please check back later for new contests.
                   </p>
-                  <p className="text-sm text-muted-foreground">
-                    <strong>Note:</strong> Match data is fetched in real-time from Cricket Data API. New matches are added automatically as they are scheduled.
-                  </p>
+
                 </Card>
               )}
             </TabsContent>
@@ -399,9 +397,7 @@ export default function Matches() {
                   <p className="text-muted-foreground mb-4">
                     There are no cricket matches currently in progress. Check the upcoming tab to see scheduled matches.
                   </p>
-                  <p className="text-sm text-muted-foreground">
-                    <strong>Note:</strong> Live match data updates automatically every 30 seconds with real-time scores from Cricket Data API.
-                  </p>
+
                 </Card>
               )}
             </TabsContent>

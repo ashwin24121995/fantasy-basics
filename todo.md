@@ -653,3 +653,22 @@
 - [x] Logic: Primary check is ms="live", fallback is matchStarted && !matchEnded && within 24h
 - [x] Tested with actual API data - correctly shows LIVE (0) when no matches are actually live
 - [ ] Deploy to production
+
+
+## Remove Cricket Data API Note Text - FIXED ✅ (December 27, 2025)
+- [x] Removed "Note: Live match data updates automatically every 30 seconds with real-time scores from Cricket Data API" text
+- [x] Removed "Note: Match data is fetched in real-time from Cricket Data API" text
+- [x] Both notes removed from Matches.tsx
+
+## Fix Home Page Matches Display - FIXED ✅ (December 27, 2025)
+- [x] Issue: Home page matches were showing "t20 Cricket Match VS t20" and "Invalid Date"
+- [x] Root cause: Code was looking for match.teamA/teamB which don't exist in API response
+- [x] Fixed: Updated to use match.teamInfo[0/1].name or match.teams[0/1]
+- [x] Fixed date: Changed from match.matchDate to match.dateTimeGMT
+- [x] Fixed both sections: "Cricket Matches" cards and "UPCOMING MATCHES" section
+- [x] Team names now display correctly from API
+- [x] Dates now show properly formatted (e.g., "Dec 27, 2025, 02:30 PM")
+- [x] Tested on home page - all matches showing correctly with real team names and dates
+- [x] Cricket Matches section: Shows "Dubai Capitals VS MI Emirates" etc.
+- [x] UPCOMING MATCHES section: Shows full team names and proper dates
+- [ ] Deploy to production

@@ -144,9 +144,9 @@ export default function Home() {
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex flex-col items-center flex-1">
                         <div className="w-16 h-16 mb-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg">
-                          {match.teamAShort || match.teamA?.substring(0, 3).toUpperCase()}
+                          {match.teamInfo?.[0]?.shortname || match.teams?.[0]?.substring(0, 3).toUpperCase() || 'TBA'}
                         </div>
-                        <span className="text-sm font-bold text-center line-clamp-1">{match.teamA}</span>
+                        <span className="text-sm font-bold text-center line-clamp-1">{match.teamInfo?.[0]?.name || match.teams?.[0] || 'Team A'}</span>
                       </div>
                       
                       <div className="px-4 text-center">
@@ -156,9 +156,9 @@ export default function Home() {
                       
                       <div className="flex flex-col items-center flex-1">
                         <div className="w-16 h-16 mb-2 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg">
-                          {match.teamBShort || match.teamB?.substring(0, 3).toUpperCase()}
+                          {match.teamInfo?.[1]?.shortname || match.teams?.[1]?.substring(0, 3).toUpperCase() || 'TBB'}
                         </div>
-                        <span className="text-sm font-bold text-center line-clamp-1">{match.teamB}</span>
+                        <span className="text-sm font-bold text-center line-clamp-1">{match.teamInfo?.[1]?.name || match.teams?.[1] || 'Team B'}</span>
                       </div>
                     </div>
 
@@ -433,20 +433,26 @@ export default function Home() {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-1 text-center">
-                        <div className="text-2xl font-black text-foreground">{match.teamA}</div>
+                        <div className="text-2xl font-black text-foreground">{match.teamInfo?.[0]?.name || match.teams?.[0] || 'Team A'}</div>
                       </div>
                       <div className="px-4">
                         <div className="text-xl font-black text-primary">VS</div>
                       </div>
                       <div className="flex-1 text-center">
-                        <div className="text-2xl font-black text-foreground">{match.teamB}</div>
+                        <div className="text-2xl font-black text-foreground">{match.teamInfo?.[1]?.name || match.teams?.[1] || 'Team B'}</div>
                       </div>
                     </div>
                     
                     <div className="text-center mb-4">
                       <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-1">
                         <Clock className="w-4 h-4" />
-                        <span className="font-semibold">{new Date(match.matchDate).toLocaleString()}</span>
+                        <span className="font-semibold">{new Date(match.dateTimeGMT).toLocaleString('en-IN', { 
+                          month: 'short', 
+                          day: 'numeric', 
+                          year: 'numeric',
+                          hour: '2-digit', 
+                          minute: '2-digit' 
+                        })}</span>
                       </div>
                       <div className="text-xs text-muted-foreground font-medium">{match.venue}</div>
                     </div>
