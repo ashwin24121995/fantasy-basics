@@ -348,4 +348,4 @@
 - [x] Verify all pages show "Kavera" brand name (not "Fantasy Basics")
 - [x] Fix "LOGIN TO FANTASY BASICS" text on login page (now shows "LOGIN TO KAVERA")
 - [ ] Fix login/registration form submission issue (forms not submitting - tRPC client issue)
-- [ ] Push fixes to GitHub
+- [x] Push fixes to GitHub
