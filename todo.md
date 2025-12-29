@@ -672,3 +672,17 @@
 - [x] Cricket Matches section: Shows "Dubai Capitals VS MI Emirates" etc.
 - [x] UPCOMING MATCHES section: Shows full team names and proper dates
 - [ ] Deploy to production
+
+
+## Add Match Status Badges to Homepage - COMPLETED ✅ (December 29, 2025)
+- [x] Added status badges to home page match cards
+- [x] Badge types implemented: LIVE (green with pulse), UPCOMING (blue), COMPLETED (gray)
+- [x] Uses Cricket API's ms field to determine status: "live" | "fixture" | "result"
+- [x] Added helper function getMatchStatusBadge() to determine badge color and label
+- [x] Added badges to "Cricket Matches" section (next to format badge)
+- [x] Added badges to "UPCOMING MATCHES" section (centered at top)
+- [x] Styled with appropriate colors: green for LIVE, blue for UPCOMING, gray for COMPLETED
+- [x] LIVE badges include animate-pulse class for attention
+- [x] Badges visible and clear on all screen sizes
+- [x] Tested with actual match data - all showing UPCOMING correctly
+- [ ] Deploy to production

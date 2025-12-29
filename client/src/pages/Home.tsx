@@ -13,6 +13,22 @@ export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
   const { data: upcomingMatches, isLoading: matchesLoading } = trpc.matches.getUpcomingMatches.useQuery();
   
+  // Helper function to get match status badge
+  const getMatchStatusBadge = (match: any) => {
+    const now = new Date();
+    const matchDate = new Date(match.dateTimeGMT);
+    
+    // Check ms field first (most reliable)
+    if (match.ms === 'result' || match.matchEnded) {
+      return { label: 'COMPLETED', color: 'bg-gray-500' };
+    }
+    if (match.ms === 'live' || (match.matchStarted && !match.matchEnded)) {
+      return { label: 'LIVE', color: 'bg-green-500 animate-pulse' };
+    }
+    // Default to upcoming
+    return { label: 'UPCOMING', color: 'bg-blue-500' };
+  };
+  
   // Show profile completion if user is authenticated but profile is incomplete
   if (isAuthenticated && user && (!user.dateOfBirth || !user.state)) {
     return <ProfileCompletion onComplete={() => window.location.reload()} />;
@@ -132,11 +148,16 @@ export default function Home() {
               {upcomingMatches.slice(0, 6).map((match: any) => (
                 <Card key={match.id} className="border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all cursor-pointer" onClick={() => window.location.href = `/matches/${match.id}`}>
                   <CardContent className="p-6">
-                    {/* Match Format Badge */}
+                    {/* Match Format Badge and Status */}
                     <div className="flex justify-between items-center mb-4">
-                      <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                        {match.matchType || 'T20'}
-                      </span>
+                      <div className="flex gap-2">
+                        <span className="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1 rounded-full">
+                          {match.matchType || 'T20'}
+                        </span>
+                        <span className={`${getMatchStatusBadge(match).color} text-white text-xs font-bold px-3 py-1 rounded-full`}>
+                          {getMatchStatusBadge(match).label}
+                        </span>
+                      </div>
                       <span className="text-xs text-gray-500">{match.seriesName || 'Cricket Match'}</span>
                     </div>
 
@@ -431,6 +452,13 @@ export default function Home() {
               {upcomingMatches.slice(0, 6).map((match: any) => (
                 <Card key={match.id} className="border-2 border-gray-200 hover:border-primary transition-colors hover:shadow-lg">
                   <CardContent className="p-6">
+                    {/* Status Badge */}
+                    <div className="flex justify-center mb-3">
+                      <span className={`${getMatchStatusBadge(match).color} text-white text-xs font-bold px-4 py-1 rounded-full`}>
+                        {getMatchStatusBadge(match).label}
+                      </span>
+                    </div>
+                    
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-1 text-center">
                         <div className="text-2xl font-black text-foreground">{match.teamInfo?.[0]?.name || match.teams?.[0] || 'Team A'}</div>
