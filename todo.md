@@ -747,3 +747,14 @@
 - [ ] After migration: Test registration at fantasybasics.com/register
 - [ ] After migration: Test login at fantasybasics.com/login
 - [ ] Verify all 8 tables created: users, matches, players, contests, user_teams, team_players, user_contests, contact_submissions
+
+
+## Automatic Database Migration on Railway Deploy 🚀 (December 29, 2025)
+- [x] Created migrate.mjs script for non-interactive migrations
+- [x] Added migrate command to package.json scripts
+- [x] Updated start script: node migrate.mjs && NODE_ENV=production node dist/index.js
+- [x] Tested locally - migration works successfully!
+- [x] Migration runs automatically before server starts
+- [ ] Push to GitHub and verify Railway auto-runs migration
+- [ ] Verify tables are created automatically on Railway
+- [ ] Test login/register after auto-migration completes
