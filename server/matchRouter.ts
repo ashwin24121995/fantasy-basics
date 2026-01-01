@@ -32,10 +32,10 @@ export const matchRouter = router({
           venue: match.venue || null,
           status: match.status,
           matchState: matchState,
-          team1: match.t1,
-          team2: match.t2,
-          team1Img: match.t1img,
-          team2Img: match.t2img,
+          team1: match.teams[0] || "",
+          team2: match.teams[1] || "",
+          team1Img: match.teamInfo[0]?.img || "",
+          team2Img: match.teamInfo[1]?.img || "",
           scoreData: JSON.stringify(match.score),
           seriesName: null,
           fantasyEnabled: match.fantasyEnabled || false,
@@ -53,8 +53,7 @@ export const matchRouter = router({
   // Get upcoming matches
   getUpcomingMatches: publicProcedure.query(async () => {
     try {
-      const allMatches = await getCurrentMatches();
-      return getUpcomingMatches(allMatches);
+      return getUpcomingMatches();
     } catch (error) {
       console.error("Error fetching upcoming matches:", error);
       throw new Error("Failed to fetch upcoming matches");
@@ -64,8 +63,7 @@ export const matchRouter = router({
   // Get live matches
   getLiveMatches: publicProcedure.query(async () => {
     try {
-      const allMatches = await getCurrentMatches();
-      return getLiveMatches(allMatches);
+      return getLiveMatches();
     } catch (error) {
       console.error("Error fetching live matches:", error);
       throw new Error("Failed to fetch live matches");
@@ -75,8 +73,7 @@ export const matchRouter = router({
   // Get completed matches
   getCompletedMatches: publicProcedure.query(async () => {
     try {
-      const allMatches = await getCurrentMatches();
-      return getCompletedMatches(allMatches);
+      return getCompletedMatches();
     } catch (error) {
       console.error("Error fetching completed matches:", error);
       throw new Error("Failed to fetch completed matches");

@@ -686,3 +686,44 @@
 - [x] Badges visible and clear on all screen sizes
 - [x] Tested with actual match data - all showing UPCOMING correctly
 - [ ] Deploy to production
+
+
+## Railway Deployment Preparation - COMPLETED ✅ (December 29, 2025)
+- [x] Verified package.json has correct build and start scripts
+- [x] No railway.json needed - Railway auto-detects Node.js
+- [x] All environment variables documented in ENV_VARIABLES_CHECKLIST.md
+- [x] Created RAILWAY_QUICK_START.md with 5-minute deployment guide
+- [x] Created RAILWAY_DEPLOYMENT.md with detailed instructions
+- [x] Database migrations ready (pnpm db:push)
+- [x] Port configuration correct (uses process.env.PORT)
+- [x] No Procfile needed - Railway uses package.json scripts
+- [x] Build process verified: vite build + esbuild
+- [x] Deployment guides created and pushed to GitHub
+- [x] Railway connection instructions provided
+- [x] Website ready for production deployment
+
+
+## Cricket API Integration - Proper Implementation 🏏 (December 29, 2025)
+- [x] Read fantasy_cricket_exhaustive_guide.md.pdf documentation (Part 4: Cricket Data API)
+- [x] Understand API endpoints: /cricScore, /match_squad
+- [x] Review current cricketApi.ts implementation
+- [x] Discovered: Old implementation used /matches endpoint (no ms field)
+- [x] Tested both /cricScore and /matches endpoints
+- [x] /cricScore has ms field ("live" | "result" | "fixture") - KEY DIFFERENCE!
+- [x] /matches has more detailed data but lacks ms field for filtering
+- [x] Created new implementation using /cricScore endpoint
+- [x] Implemented data conversion for backward compatibility
+- [x] Tested new implementation: 165 matches, ms field working correctly
+- [x] Replaced old cricketApi.ts with new implementation
+- [x] Old file backed up as cricketApi.old.ts
+- [x] API key configured: 1a822521-d7e0-46ff-98d3-3e51020863f3
+- [x] Base URL: https://api.cricapi.com/v1
+- [x] Caching: 60-second TTL (per PDF recommendation)
+- [x] No mock/fake data found - all real API calls
+- [x] Tested updated implementation in dev server
+- [x] Home page: Matches loading correctly with real data
+- [x] Matches page: UPCOMING (77), LIVE (0), COMPLETED (88) - all correct!
+- [x] Status badges working correctly
+- [x] Team names, logos, dates all displaying properly
+- [ ] Write unit tests for new API integration
+- [ ] Deploy updated implementation

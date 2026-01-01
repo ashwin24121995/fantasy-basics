@@ -1,5 +1,6 @@
 /**
- * Cricket Data API Integration Service
+ * Cricket Data API Integration Service (Updated)
+ * Uses /cricScore endpoint as per official documentation
  * Provides real-time cricket match data with caching for performance optimization
  */
 
@@ -48,7 +49,7 @@ class SimpleCache {
 const cache = new SimpleCache();
 
 // ============================================
-// TYPE DEFINITIONS
+// TYPE DEFINITIONS (Updated for /cricScore endpoint)
 // ============================================
 
 export interface CricketApiResponse<T> {
@@ -61,15 +62,35 @@ export interface CricketApiResponse<T> {
     hitsLimit: number;
     credits: number;
     server: number;
-    offsetRows: number;
-    totalRows: number;
     queryTime: number;
     s: number;
-    cache: number;
   };
 }
 
-export interface MatchData {
+/**
+ * Match data from /cricScore endpoint
+ * This is the simplified, faster format with ms field
+ */
+export interface CricScoreMatch {
+  id: string;
+  dateTimeGMT: string;
+  matchType: string; // "t20" | "odi" | "test"
+  status: string; // Human-readable status like "Dubai Capitals won by 6 wkts"
+  ms: "live" | "result" | "fixture"; // Machine-readable status - KEY FIELD!
+  t1: string; // Team 1 name with shortcode, e.g., "Dubai Capitals [DC]"
+  t2: string; // Team 2 name with shortcode
+  t1s: string; // Team 1 score, e.g., "157/4 (18.3)"
+  t2s: string; // Team 2 score
+  t1img: string; // Team 1 logo URL
+  t2img: string; // Team 2 logo URL
+  series: string; // Series name
+}
+
+/**
+ * Normalized match format for frontend consumption
+ * Converts CricScoreMatch to a format similar to our old CurrentMatch
+ */
+export interface CurrentMatch {
   id: string;
   name: string;
   matchType: string;
@@ -86,6 +107,7 @@ export interface MatchData {
   hasSquad: boolean;
   matchStarted: boolean;
   matchEnded: boolean;
+  ms: "live" | "result" | "fixture"; // Added ms field for status filtering
 }
 
 export interface TeamInfo {
@@ -101,119 +123,149 @@ export interface ScoreInfo {
   inning: string;
 }
 
-export interface CurrentMatch {
-  id: string;
-  name: string;
-  matchType: string;
-  status: string;
-  venue: string;
-  date: string;
-  dateTimeGMT: string;
-  teams: string[];
-  score: ScoreInfo[];
-  series_id: string;
-  ms?: "fixture" | "live" | "result"; // match state (optional, may not be provided)
-  t1: string; // team 1 name
-  t2: string; // team 2 name
-  t1img: string;
-  t2img: string;
-  matchStarted: boolean;
-  matchEnded: boolean;
-  fantasyEnabled: boolean;
-  bbbEnabled: boolean;
-  hasSquad: boolean;
-  teamInfo?: Array<{name: string; shortname: string; img: string}>;
-}
-
-export interface PlayerInfo {
-  id: string;
-  name: string;
-  role: string;
-  battingStyle: string;
-  bowlingStyle: string;
-  playerImg: string;
-}
-
-export interface FantasySquad {
-  id: string;
-  name: string;
-  players: {
-    [teamName: string]: PlayerInfo[];
-  };
-}
-
-export interface FantasyPoints {
-  id: string;
-  name: string;
-  points: {
-    [playerId: string]: {
-      name: string;
-      points: number;
-    };
-  };
-}
-
-export interface MatchScorecard {
-  id: string;
-  name: string;
-  status: string;
-  score: ScoreInfo[];
-  scorecard: {
-    innings: string;
-    batting: BattingPerformance[];
-    bowling: BowlingPerformance[];
-  }[];
-}
-
-export interface BattingPerformance {
-  id: string;
-  name: string;
-  r: number; // runs
-  b: number; // balls
-  "4s": number;
-  "6s": number;
-  sr: number; // strike rate
-  dismissal: string;
-}
-
-export interface BowlingPerformance {
-  id: string;
-  name: string;
-  o: number; // overs
-  m: number; // maidens
-  r: number; // runs
-  w: number; // wickets
-  eco: number; // economy
-}
-
 // ============================================
-// API CLIENT FUNCTIONS
+// HELPER FUNCTIONS
 // ============================================
 
 /**
- * Generic API request handler with caching
+ * Parse team name and shortcode from format "Team Name [SHORT]"
  */
-async function makeApiRequest<T>(
-  endpoint: string,
-  params: Record<string, any> = {},
-  cacheTTL: number = 60
-): Promise<T> {
-  const cacheKey = `${endpoint}:${JSON.stringify(params)}`;
+function parseTeamName(teamStr: string): { name: string; shortname: string } {
+  const match = teamStr.match(/^(.+?)\s*\[([^\]]+)\]$/);
+  if (match) {
+    return { name: match[1].trim(), shortname: match[2].trim() };
+  }
+  return { name: teamStr, shortname: teamStr };
+}
+
+/**
+ * Parse score string like "157/4 (18.3)" into structured data
+ */
+function parseScore(scoreStr: string, teamName: string, inningNum: number): ScoreInfo | null {
+  if (!scoreStr) return null;
+  
+  const match = scoreStr.match(/^(\d+)\/(\d+)\s*\(([0-9.]+)\)$/);
+  if (match) {
+    return {
+      r: parseInt(match[1]),
+      w: parseInt(match[2]),
+      o: parseFloat(match[3]),
+      inning: `${teamName} Inning ${inningNum}`,
+    };
+  }
+  return null;
+}
+
+/**
+ * Convert CricScoreMatch to CurrentMatch format
+ * This maintains backward compatibility with existing frontend code
+ */
+function convertToCurrentMatch(cricMatch: CricScoreMatch): CurrentMatch {
+  const team1 = parseTeamName(cricMatch.t1);
+  const team2 = parseTeamName(cricMatch.t2);
+  
+  const score: ScoreInfo[] = [];
+  const score1 = parseScore(cricMatch.t1s, team1.name, 1);
+  const score2 = parseScore(cricMatch.t2s, team2.name, 2);
+  if (score1) score.push(score1);
+  if (score2) score.push(score2);
+
+  return {
+    id: cricMatch.id,
+    name: `${team1.name} vs ${team2.name}`,
+    matchType: cricMatch.matchType,
+    status: cricMatch.status,
+    venue: "", // Not available in /cricScore endpoint
+    date: cricMatch.dateTimeGMT.split("T")[0],
+    dateTimeGMT: cricMatch.dateTimeGMT,
+    teams: [team1.name, team2.name],
+    teamInfo: [
+      { name: team1.name, shortname: team1.shortname, img: cricMatch.t1img },
+      { name: team2.name, shortname: team2.shortname, img: cricMatch.t2img },
+    ],
+    score,
+    series_id: "", // Not available in /cricScore endpoint
+    fantasyEnabled: true,
+    bbbEnabled: true,
+    hasSquad: true,
+    matchStarted: cricMatch.ms === "live" || cricMatch.ms === "result",
+    matchEnded: cricMatch.ms === "result",
+    ms: cricMatch.ms, // KEY FIELD for filtering!
+  };
+}
+
+// ============================================
+// API FUNCTIONS
+// ============================================
+
+/**
+ * Get all matches using /cricScore endpoint
+ * This endpoint returns all matches with the crucial 'ms' field for status filtering
+ * Cache for 60 seconds as recommended in documentation
+ */
+export async function getCurrentMatches(): Promise<CurrentMatch[]> {
+  const cacheKey = "cricscore_all_matches";
   
   // Check cache first
-  const cachedData = cache.get<T>(cacheKey);
+  const cachedData = cache.get<CurrentMatch[]>(cacheKey);
   if (cachedData) {
     return cachedData;
   }
 
   try {
-    const response = await axios.get<CricketApiResponse<T>>(`${CRICKET_API_BASE_URL}/${endpoint}`, {
-      params: {
-        apikey: CRICKET_API_KEY,
-        ...params,
-      },
-      timeout: 60000, // 60 seconds - increased from 10s to handle API delays
-    });
+    const response = await axios.get<CricketApiResponse<CricScoreMatch[]>>(
+      `${CRICKET_API_BASE_URL}/cricScore`,
+      {
+        params: {
+          apikey: CRICKET_API_KEY,
+        },
+        timeout: 60000, // 60 seconds
+      }
+    );
+
+    if (response.data.status !== "success") {
+      throw new Error(`API request failed: ${response.data.status}`);
+    }
+
+    // Convert CricScoreMatch[] to CurrentMatch[] for backward compatibility
+    const matches = response.data.data.map(convertToCurrentMatch);
+
+    // Cache the response
+    cache.set(cacheKey, matches, 60); // 60-second TTL as per documentation
+    
+    return matches;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(`Cricket API Error: ${error.message}`);
+    }
+    throw error;
+  }
+}
+
+/**
+ * Get match squad data
+ * Uses /match_squad endpoint as shown in documentation
+ */
+export async function getMatchSquad(matchId: string): Promise<any> {
+  const cacheKey = `match_squad:${matchId}`;
+  
+  // Check cache first
+  const cachedData = cache.get<any>(cacheKey);
+  if (cachedData) {
+    return cachedData;
+  }
+
+  try {
+    const response = await axios.get<CricketApiResponse<any>>(
+      `${CRICKET_API_BASE_URL}/match_squad`,
+      {
+        params: {
+          apikey: CRICKET_API_KEY,
+          id: matchId,
+        },
+        timeout: 60000,
+      }
+    );
 
     if (response.data.status !== "success") {
       throw new Error(`API request failed: ${response.data.status}`);
@@ -222,7 +274,7 @@ async function makeApiRequest<T>(
     const data = response.data.data;
     
     // Cache the response
-    cache.set(cacheKey, data, cacheTTL);
+    cache.set(cacheKey, data, 300); // 5-minute TTL for squad data
     
     return data;
   } catch (error) {
@@ -234,56 +286,84 @@ async function makeApiRequest<T>(
 }
 
 /**
- * Get all matches (upcoming, live, and recent)
- * Uses /matches endpoint with multiple pages to include future matches
+ * Get live matches
+ * Filters matches where ms === "live"
+ */
+export async function getLiveMatches(): Promise<CurrentMatch[]> {
+  const allMatches = await getCurrentMatches();
+  return allMatches.filter(match => match.ms === "live");
+}
+
+/**
+ * Get upcoming matches
+ * Filters matches where ms === "fixture" and sorts by date
+ */
+export async function getUpcomingMatches(): Promise<CurrentMatch[]> {
+  const allMatches = await getCurrentMatches();
+  return allMatches
+    .filter(match => match.ms === "fixture")
+    .sort((a, b) => new Date(a.dateTimeGMT).getTime() - new Date(b.dateTimeGMT).getTime());
+}
+
+/**
+ * Get completed matches
+ * Filters matches where ms === "result" and sorts by date (newest first)
+ */
+export async function getCompletedMatches(): Promise<CurrentMatch[]> {
+  const allMatches = await getCurrentMatches();
+  return allMatches
+    .filter(match => match.ms === "result")
+    .sort((a, b) => new Date(b.dateTimeGMT).getTime() - new Date(a.dateTimeGMT).getTime());
+}
+
+/**
+ * Clear all cached data
+ */
+export function clearCache(): void {
+  cache.clear();
+}
+
+
+// ============================================
+// ADDITIONAL API ENDPOINTS (for backward compatibility)
+// ============================================
+
+/**
+ * Get detailed match information
+ * Note: /cricScore doesn't provide detailed info, so we use /match_info endpoint
  * Cache for 60 seconds
  */
-export async function getCurrentMatches(): Promise<CurrentMatch[]> {
-  const cacheKey = "all_matches_multi_page";
+export async function getMatchInfo(matchId: string): Promise<any> {
+  const cacheKey = `match_info:${matchId}`;
   
   // Check cache first
-  const cachedData = cache.get<CurrentMatch[]>(cacheKey);
+  const cachedData = cache.get<any>(cacheKey);
   if (cachedData) {
     return cachedData;
   }
 
   try {
-    const allMatches: CurrentMatch[] = [];
-    const pagesToFetch = 15; // Fetch 15 pages (375 matches) to ensure we get upcoming matches
-    
-    // Fetch multiple pages in parallel for better performance
-    const promises = [];
-    for (let page = 0; page < pagesToFetch; page++) {
-      const offset = page * 25;
-      promises.push(
-        axios.get<CricketApiResponse<CurrentMatch[]>>(`${CRICKET_API_BASE_URL}/matches`, {
-          params: {
-            apikey: CRICKET_API_KEY,
-            offset,
-          },
-          timeout: 60000, // 60 seconds - increased from 10s for parallel requests
-        })
-      );
-    }
-
-    const responses = await Promise.all(promises);
-    
-    // Combine all matches
-    for (const response of responses) {
-      if (response.data.status === "success" && response.data.data) {
-        allMatches.push(...response.data.data);
+    const response = await axios.get<CricketApiResponse<any>>(
+      `${CRICKET_API_BASE_URL}/match_info`,
+      {
+        params: {
+          apikey: CRICKET_API_KEY,
+          id: matchId,
+        },
+        timeout: 60000,
       }
-    }
-
-    // Remove duplicates based on match ID
-    const uniqueMatches = Array.from(
-      new Map(allMatches.map(match => [match.id, match])).values()
     );
 
-    // Cache the combined results
-    cache.set(cacheKey, uniqueMatches, 60);
+    if (response.data.status !== "success") {
+      throw new Error(`API request failed: ${response.data.status}`);
+    }
+
+    const data = response.data.data;
     
-    return uniqueMatches;
+    // Cache the response
+    cache.set(cacheKey, data, 60);
+    
+    return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw new Error(`Cricket API Error: ${error.message}`);
@@ -293,112 +373,95 @@ export async function getCurrentMatches(): Promise<CurrentMatch[]> {
 }
 
 /**
- * Get detailed match information
- * Cache for 60 seconds
- */
-export async function getMatchInfo(matchId: string): Promise<MatchData> {
-  return makeApiRequest<MatchData>("match_info", { id: matchId }, 60);
-}
-
-/**
  * Get fantasy squad for a match
  * Cache for 5 minutes (squad doesn't change frequently)
  */
-export async function getFantasySquad(matchId: string): Promise<FantasySquad> {
-  return makeApiRequest<FantasySquad>("match_squad", { id: matchId }, 300);
+export async function getFantasySquad(matchId: string): Promise<any> {
+  return getMatchSquad(matchId); // Reuse the existing function
 }
 
 /**
  * Get match scorecard with player performance
  * Cache for 30 seconds for live matches
  */
-export async function getMatchScorecard(matchId: string): Promise<MatchScorecard> {
-  return makeApiRequest<MatchScorecard>("match_scorecard", { id: matchId }, 30);
+export async function getMatchScorecard(matchId: string): Promise<any> {
+  const cacheKey = `match_scorecard:${matchId}`;
+  
+  // Check cache first
+  const cachedData = cache.get<any>(cacheKey);
+  if (cachedData) {
+    return cachedData;
+  }
+
+  try {
+    const response = await axios.get<CricketApiResponse<any>>(
+      `${CRICKET_API_BASE_URL}/match_scorecard`,
+      {
+        params: {
+          apikey: CRICKET_API_KEY,
+          id: matchId,
+        },
+        timeout: 60000,
+      }
+    );
+
+    if (response.data.status !== "success") {
+      throw new Error(`API request failed: ${response.data.status}`);
+    }
+
+    const data = response.data.data;
+    
+    // Cache the response
+    cache.set(cacheKey, data, 30);
+    
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(`Cricket API Error: ${error.message}`);
+    }
+    throw error;
+  }
 }
 
 /**
  * Get fantasy points for players in a match
  * Cache for 30 seconds for live matches
  */
-export async function getFantasyPoints(matchId: string): Promise<FantasyPoints> {
-  return makeApiRequest<FantasyPoints>("match_points", { id: matchId }, 30);
-}
+export async function getFantasyPoints(matchId: string): Promise<any> {
+  const cacheKey = `match_points:${matchId}`;
+  
+  // Check cache first
+  const cachedData = cache.get<any>(cacheKey);
+  if (cachedData) {
+    return cachedData;
+  }
 
-/**
- * Get player information
- * Cache for 1 hour (player info rarely changes)
- */
-export async function getPlayerInfo(playerId: string): Promise<PlayerInfo> {
-  return makeApiRequest<PlayerInfo>("players_info", { id: playerId }, 3600);
-}
-
-/**
- * Clear all cached data (useful for testing or manual refresh)
- */
-export function clearCache(): void {
-  cache.clear();
-}
-
-/**
- * Filter matches by state
- */
-export function filterMatchesByState(
-  matches: CurrentMatch[],
-  state: "fixture" | "live" | "result"
-): CurrentMatch[] {
-  return matches.filter((match) => match.ms === state);
-}
-
-/**
- * Get upcoming matches (today and future)
- */
-export function getUpcomingMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  return matches
-    .filter((match) => {
-      // Match is upcoming if it hasn't started yet
-      return !match.matchStarted;
-    })
-    .sort((a, b) => {
-      // Sort by date (earliest first)
-      return new Date(a.dateTimeGMT).getTime() - new Date(b.dateTimeGMT).getTime();
-    });
-}
-
-/**
- * Get live matches (only matches that are actually live RIGHT NOW)
- */
-export function getLiveMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  return matches
-    .filter((match) => {
-      // Use the Cricket API's ms (match state) field to determine if match is live
-      // ms can be: "fixture" (not started), "live" (currently live), "result" (ended)
-      if (match.ms === "live") return true;
-      
-      // Fallback: if ms field is not provided, use matchStarted/matchEnded flags
-      // This ensures backward compatibility if API doesn't always provide ms
-      if (!match.ms && match.matchStarted && !match.matchEnded) {
-        // Additional check: only show if match is within last 24 hours to avoid stale data
-        const matchDate = new Date(match.dateTimeGMT);
-        const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-        return matchDate >= oneDayAgo;
+  try {
+    const response = await axios.get<CricketApiResponse<any>>(
+      `${CRICKET_API_BASE_URL}/match_points`,
+      {
+        params: {
+          apikey: CRICKET_API_KEY,
+          id: matchId,
+        },
+        timeout: 60000,
       }
-      
-      return false;
-    })
-    .sort((a, b) => {
-      // Sort by start time (earliest first for live matches)
-      return new Date(a.dateTimeGMT).getTime() - new Date(b.dateTimeGMT).getTime();
-    });
-}
+    );
 
-/**
- * Get completed matches
- */
-export function getCompletedMatches(matches: CurrentMatch[]): CurrentMatch[] {
-  return matches
-    .filter((match) => match.matchEnded)
-    .sort((a, b) => {
-      // Sort by date (most recent first for completed matches)
-      return new Date(b.dateTimeGMT).getTime() - new Date(a.dateTimeGMT).getTime();
-    });
+    if (response.data.status !== "success") {
+      throw new Error(`API request failed: ${response.data.status}`);
+    }
+
+    const data = response.data.data;
+    
+    // Cache the response
+    cache.set(cacheKey, data, 30);
+    
+    return data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(`Cricket API Error: ${error.message}`);
+    }
+    throw error;
+  }
 }
