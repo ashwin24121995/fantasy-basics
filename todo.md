@@ -758,3 +758,28 @@
 - [ ] Push to GitHub and verify Railway auto-runs migration
 - [ ] Verify tables are created automatically on Railway
 - [ ] Test login/register after auto-migration completes
+
+
+## Railway Migration Still Not Working - DEBUG 🔧 (December 29, 2025)
+- [ ] User reports: Tables still not created on Railway
+- [ ] Check Railway deployment logs for migration errors
+- [ ] Verify migrate.mjs is being executed
+- [ ] Check if DATABASE_URL is available during migration
+- [ ] Verify drizzle folder with migrations is included in deployment
+- [ ] Check if mysql2 and drizzle-orm are in dependencies (not devDependencies)
+- [ ] Test alternative: Use drizzle-kit push with --force flag
+- [ ] Fix the issue and redeploy
+- [ ] Verify tables are created in Railway MySQL dashboard
+- [ ] Test login/register on production
+
+
+## Authentication Not Working - Session Cookie Issue 🔧 (January 1, 2026)
+- [x] Issue: Login/register redirects to dashboard but shows "Please login to view your dashboard"
+- [x] Root cause: No auth cookie is being set (document.cookie is empty)
+- [x] Checked server/routers.ts auth.login and auth.register procedures - JWT generation works
+- [x] Found issue: sameSite: "none" requires secure: true, but also needs special handling
+- [x] Fixed: Changed sameSite from "none" to "lax" in cookies.ts
+- [x] sameSite: "lax" is correct for same-site authentication (not cross-site)
+- [ ] Restart dev server to test fix locally
+- [ ] Push to GitHub and deploy to Railway
+- [ ] Test login/register again on production after deploy
