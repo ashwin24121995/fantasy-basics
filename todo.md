@@ -810,3 +810,15 @@
 - [x] Add user profile section with editable information
 - [ ] Connect all Dashboard data to MySQL database
 - [ ] Test Dashboard with real user data from Railway
+
+## GitHub Deployment & Production Testing
+
+- [ ] Push authentication fixes to GitHub
+- [ ] Verify Railway auto-deployment triggered
+- [ ] Check Railway logs for deployment errors
+- [ ] Test login on fantasybasics.com
+- [ ] Test register on fantasybasics.com
+- [ ] Verify dashboard access after login
+- [ ] Check browser console for errors
+- [ ] Verify localStorage token is being set
+- [ ] Check database connection on Railway
