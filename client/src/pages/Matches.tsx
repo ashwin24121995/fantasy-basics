@@ -223,9 +223,8 @@ export default function Matches() {
                                   dateStyle: 'medium',
                                   timeStyle: 'short',
                                   timeZone: 'Asia/Kolkata'
-                                })}
+                                })} IST
                               </div>
-                              <div className="text-xs text-muted-foreground">Indian Standard Time (IST)</div>
                             </div>
                           </div>
                           {match.venue && (

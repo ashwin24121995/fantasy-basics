@@ -159,12 +159,13 @@ export default function ContestsList() {
                       
                       <CardDescription className="text-slate-400 flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
-                        {new Date(match.dateTimeGMT).toLocaleDateString('en-IN', {
+                        {new Date(match.dateTimeGMT).toLocaleString('en-IN', {
                           day: 'numeric',
                           month: 'short',
                           hour: '2-digit',
-                          minute: '2-digit'
-                        })}
+                          minute: '2-digit',
+                          timeZone: 'Asia/Kolkata'
+                        })} IST
                       </CardDescription>
                     </CardHeader>
 

@@ -859,4 +859,13 @@
 - [x] Create professional match card design with 20x20 logos and proper spacing
 - [x] Add match type badge between teams in VS divider
 - [x] Test redesigned home page - Team logos displaying perfectly with fallback system
+- [x] Deploy to production - Changes already committed and pushed to GitHub
+
+## Timezone Change GMT to IST
+
+- [x] Find all date/time display locations in the codebase
+- [x] Update Home.tsx match times to IST (added timeZone: 'Asia/Kolkata' and IST suffix)
+- [x] Update ContestsList.tsx match times to IST
+- [x] Update Matches.tsx match times to IST
+- [x] Test timezone display across all pages - Verified IST times showing correctly
 - [ ] Deploy to production

@@ -232,8 +232,9 @@ export default function Home() {
                         day: 'numeric', 
                         year: 'numeric',
                         hour: '2-digit', 
-                        minute: '2-digit' 
-                      })}</span>
+                        minute: '2-digit',
+                        timeZone: 'Asia/Kolkata'
+                      })} IST</span>
                     </div>
 
                     {/* Create Team Button */}
@@ -517,11 +518,11 @@ export default function Home() {
                         <Clock className="w-4 h-4" />
                         <span className="font-semibold">{new Date(match.dateTimeGMT).toLocaleString('en-IN', { 
                           month: 'short', 
-                          day: 'numeric', 
-                          year: 'numeric',
-                          hour: '2-digit', 
-                          minute: '2-digit' 
-                        })}</span>
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          timeZone: 'Asia/Kolkata'
+                        })} IST</span>
                       </div>
                       <div className="text-xs text-muted-foreground font-medium">{match.venue}</div>
                     </div>
