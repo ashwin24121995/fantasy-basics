@@ -4,8 +4,7 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { updateUserProfile, getUserById } from "./db";
 import { registerUser, loginUser } from "./auth";
-import jwt from "jsonwebtoken";
-import { ENV } from "./_core/env";
+import { createAuthToken } from "./_core/simpleAuth";
 import { COOKIE_NAME } from "./_core/cookies";
 import { isStateRestricted, calculateAge, MINIMUM_AGE, INDIAN_STATES } from "../shared/constants";
 import { matchRouter } from "./matchRouter";
@@ -34,19 +33,21 @@ export const appRouter = router({
           throw new Error(result.error || "Registration failed");
         }
 
-        // Create JWT token
-        const token = jwt.sign(
-          { userId: result.userId },
-          ENV.jwtSecret,
-          { expiresIn: "7d" }
-        );
+        // Get the newly created user
+        const user = await getUserById(result.userId!);
+        if (!user) {
+          throw new Error("Failed to retrieve user after registration");
+        }
+
+        // Create JWT token using simpleAuth (consistent with authentication middleware)
+        const token = await createAuthToken(user);
 
         // Set cookie (for backward compatibility)
         const cookieOptions = getSessionCookieOptions(ctx.req);
         ctx.res.cookie(COOKIE_NAME, token, cookieOptions);
 
         // Return token in response for localStorage storage
-        return { success: true, token };
+        return { success: true, token, user };
       }),
 
     login: publicProcedure
@@ -63,12 +64,8 @@ export const appRouter = router({
           throw new Error(result.error || "Login failed");
         }
 
-        // Create JWT token
-        const token = jwt.sign(
-          { userId: result.user!.id },
-          ENV.jwtSecret,
-          { expiresIn: "7d" }
-        );
+        // Create JWT token using simpleAuth (consistent with authentication middleware)
+        const token = await createAuthToken(result.user!);
 
         // Set cookie (for backward compatibility)
         const cookieOptions = getSessionCookieOptions(ctx.req);
