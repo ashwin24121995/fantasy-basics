@@ -849,4 +849,14 @@
 - [x] Keep existing Contests.tsx for /contests/:matchId route (match-specific contests)
 - [x] Add /contests route in App.tsx
 - [x] Test contests page on dev server - Working perfectly with 77+ matches
-- [ ] Deploy fix to production
+- [x] Deploy fix to production - Changes pushed to GitHub, Railway auto-deploying
+
+## Home Page Matches Section Redesign
+
+- [x] Analyze current home page matches design
+- [x] Add team logos to match cards with fallback to shortname circles
+- [x] Improve team name typography and layout with line-clamp-2
+- [x] Create professional match card design with 20x20 logos and proper spacing
+- [x] Add match type badge between teams in VS divider
+- [x] Test redesigned home page - Team logos displaying perfectly with fallback system
+- [ ] Deploy to production

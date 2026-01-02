@@ -160,30 +160,71 @@ export default function Home() {
                       </div>
                       <span className="text-xs text-gray-500">{match.seriesName || 'Cricket Match'}</span>
                     </div>
-
-                    {/* Teams */}
-                    <div className="flex items-center justify-between mb-6">
+                    {/* Team vs Team with Logos */}
+                    <div className="flex items-center justify-between gap-3 mb-6">
+                      {/* Team 1 */}
                       <div className="flex flex-col items-center flex-1">
-                        <div className="w-16 h-16 mb-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg">
-                          {match.teamInfo?.[0]?.shortname || match.teams?.[0]?.substring(0, 3).toUpperCase() || 'TBA'}
+                        <div className="relative w-20 h-20 mb-3">
+                          {match.teamInfo?.[0]?.img ? (
+                            <img 
+                              src={match.teamInfo[0].img} 
+                              alt={match.teamInfo[0].name}
+                              className="w-full h-full object-contain rounded-lg bg-white p-2 shadow-md"
+                              onError={(e) => {
+                                // Fallback to shortname circle if image fails
+                                e.currentTarget.style.display = 'none';
+                                const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'flex';
+                              }}
+                            />
+                          ) : null}
+                          <div 
+                            className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white font-black text-2xl shadow-lg"
+                            style={{ display: match.teamInfo?.[0]?.img ? 'none' : 'flex' }}
+                          >
+                            {match.teamInfo?.[0]?.shortname || match.teams?.[0]?.substring(0, 3).toUpperCase() || 'TBA'}
+                          </div>
                         </div>
-                        <span className="text-sm font-bold text-center line-clamp-1">{match.teamInfo?.[0]?.name || match.teams?.[0] || 'Team A'}</span>
+                        <span className="text-sm font-bold text-center line-clamp-2 leading-tight px-1">
+                          {match.teamInfo?.[0]?.name || match.teams?.[0] || 'Team A'}
+                        </span>
                       </div>
                       
-                      <div className="px-4 text-center">
-                        <span className="text-gray-400 font-bold text-lg">VS</span>
-                        <div className="text-xs text-gray-500 mt-1">{match.matchType || 'T20'}</div>
+                      {/* VS Divider */}
+                      <div className="flex flex-col items-center px-2">
+                        <div className="bg-gradient-to-r from-primary to-secondary text-white font-black text-xs px-3 py-1 rounded-full mb-1">
+                          {match.matchType?.toUpperCase() || 'T20'}
+                        </div>
+                        <span className="text-gray-400 font-black text-xl">VS</span>
                       </div>
                       
+                      {/* Team 2 */}
                       <div className="flex flex-col items-center flex-1">
-                        <div className="w-16 h-16 mb-2 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-black text-xl shadow-lg">
-                          {match.teamInfo?.[1]?.shortname || match.teams?.[1]?.substring(0, 3).toUpperCase() || 'TBB'}
+                        <div className="relative w-20 h-20 mb-3">
+                          {match.teamInfo?.[1]?.img ? (
+                            <img 
+                              src={match.teamInfo[1].img} 
+                              alt={match.teamInfo[1].name}
+                              className="w-full h-full object-contain rounded-lg bg-white p-2 shadow-md"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                                const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'flex';
+                              }}
+                            />
+                          ) : null}
+                          <div 
+                            className="w-full h-full bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white font-black text-2xl shadow-lg"
+                            style={{ display: match.teamInfo?.[1]?.img ? 'none' : 'flex' }}
+                          >
+                            {match.teamInfo?.[1]?.shortname || match.teams?.[1]?.substring(0, 3).toUpperCase() || 'TBB'}
+                          </div>
                         </div>
-                        <span className="text-sm font-bold text-center line-clamp-1">{match.teamInfo?.[1]?.name || match.teams?.[1] || 'Team B'}</span>
+                        <span className="text-sm font-bold text-center line-clamp-2 leading-tight px-1">
+                          {match.teamInfo?.[1]?.name || match.teams?.[1] || 'Team B'}
+                        </span>
                       </div>
-                    </div>
-
-                    {/* Match Time */}
+                    </div>                {/* Match Time */}
                     <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-4">
                       <Clock className="w-4 h-4" />
                       <span>{new Date(match.dateTimeGMT).toLocaleString('en-IN', { 
