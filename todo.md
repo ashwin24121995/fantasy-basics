@@ -783,3 +783,30 @@
 - [ ] Restart dev server to test fix locally
 - [ ] Push to GitHub and deploy to Railway
 - [ ] Test login/register again on production after deploy
+
+
+## Cookie Still Not Being Set - Deeper Investigation 🔍 (January 2, 2026)
+- [ ] sameSite: "lax" fix didn't work - still showing "Please login to view your dashboard"
+- [ ] Check if Railway deployed the latest changes
+- [ ] Verify cookie is being set in response headers (not just in code)
+- [ ] Check if tRPC response handling is stripping cookies
+- [ ] Investigate if httpOnly cookies work with tRPC
+- [ ] Check if cookies need to be set differently for tRPC procedures
+- [ ] Test if cookies are being sent in subsequent requests
+- [ ] Consider alternative: Use localStorage + Authorization header instead of cookies
+- [ ] Or: Set cookie in a separate REST endpoint instead of tRPC
+- [ ] Test the fix thoroughly before deploying
+
+## Authentication & Dashboard Redesign
+
+- [x] Fix authentication cookie issue with localStorage approach
+- [x] Update backend to return JWT token in response
+- [x] Update frontend to store JWT in localStorage and send in Authorization header
+- [x] Test login/register flow with MySQL Railway database
+- [x] Redesign Dashboard with deep detailed information
+- [x] Add user statistics and activity tracking to Dashboard
+- [x] Add user teams display with detailed information
+- [x] Add contest history with results and rankings
+- [x] Add user profile section with editable information
+- [ ] Connect all Dashboard data to MySQL database
+- [ ] Test Dashboard with real user data from Railway

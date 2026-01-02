@@ -11,6 +11,9 @@ export default function Navigation({ activePage = "home" }: NavigationProps) {
   const { isAuthenticated, logout, loading } = useAuth();
 
   const handleLogout = async () => {
+    // Clear JWT token from localStorage
+    localStorage.removeItem('auth_token');
+    
     await logout();
     window.location.href = "/";
   };

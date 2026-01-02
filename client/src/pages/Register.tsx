@@ -39,7 +39,12 @@ export function Register() {
   const passwordStrength = calculatePasswordStrength(formData.password);
 
   const registerMutation = trpc.auth.register.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      // Store JWT token in localStorage
+      if (data.token) {
+        localStorage.setItem('auth_token', data.token);
+      }
+      
       toast.success("Registration successful! Redirecting to dashboard...");
       setTimeout(() => {
         window.location.href = "/dashboard";

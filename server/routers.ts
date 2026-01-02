@@ -41,11 +41,12 @@ export const appRouter = router({
           { expiresIn: "7d" }
         );
 
-        // Set cookie
+        // Set cookie (for backward compatibility)
         const cookieOptions = getSessionCookieOptions(ctx.req);
         ctx.res.cookie(COOKIE_NAME, token, cookieOptions);
 
-        return { success: true };
+        // Return token in response for localStorage storage
+        return { success: true, token };
       }),
 
     login: publicProcedure
@@ -69,11 +70,12 @@ export const appRouter = router({
           { expiresIn: "7d" }
         );
 
-        // Set cookie
+        // Set cookie (for backward compatibility)
         const cookieOptions = getSessionCookieOptions(ctx.req);
         ctx.res.cookie(COOKIE_NAME, token, cookieOptions);
 
-        return { success: true, user: result.user };
+        // Return token in response for localStorage storage
+        return { success: true, user: result.user, token };
       }),
     
     logout: publicProcedure.mutation(({ ctx }) => {

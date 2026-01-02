@@ -25,7 +25,17 @@ export async function verifyAuthToken(token: string): Promise<{ userId: string; 
 }
 
 export async function authenticateRequest(req: Request): Promise<User | null> {
-  const token = req.cookies?.[COOKIE_NAME];
+  // Check Authorization header first (for localStorage-based auth)
+  let token = req.cookies?.[COOKIE_NAME];
+  
+  // If no cookie, check Authorization header
+  if (!token) {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7); // Remove 'Bearer ' prefix
+    }
+  }
+  
   if (!token) return null;
 
   const payload = await verifyAuthToken(token);

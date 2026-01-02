@@ -16,7 +16,12 @@ export function Login() {
   const [password, setPassword] = useState("");
 
   const loginMutation = trpc.auth.login.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      // Store JWT token in localStorage
+      if (data.token) {
+        localStorage.setItem('auth_token', data.token);
+      }
+      
       toast.success("Login successful! Redirecting to dashboard...");
       setTimeout(() => {
         window.location.href = "/dashboard";
