@@ -822,3 +822,11 @@
 - [ ] Check browser console for errors
 - [ ] Verify localStorage token is being set
 - [ ] Check database connection on Railway
+
+## Critical Bug Fix - JWT Token userId null
+
+- [x] Identified issue: registerUser returns userId as null
+- [x] Fixed: Added proper insertId extraction with fallback to getUserByEmail
+- [ ] Test registration with new fix
+- [ ] Push to GitHub
+- [ ] Verify on production

@@ -80,9 +80,22 @@ export async function registerUser(params: {
       isRestricted: false,
     });
 
+    // Get the inserted user ID from MySQL result (same pattern as db.ts)
+    const insertId = (result as any)[0]?.insertId;
+    
+    if (!insertId) {
+      console.error("[Auth] Failed to get insertId from result:", result);
+      // Fallback: fetch the user we just created
+      const newUser = await getUserByEmail(email);
+      if (newUser) {
+        return { success: true, userId: newUser.id };
+      }
+      return { success: false, error: "Failed to retrieve user ID" };
+    }
+
     return { 
       success: true, 
-      userId: Number((result as any).insertId)
+      userId: Number(insertId)
     };
   } catch (error) {
     console.error("[Auth] Registration error:", error);
