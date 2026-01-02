@@ -841,3 +841,12 @@
 - [x] Verify Dashboard loads correctly after login
 - [x] Confirmed JWT token has correct format with userId and email
 - [x] Confirmed Dashboard displays user information correctly
+
+## Contest Page Button Issue
+
+- [x] Investigate why Contest page buttons are not clickable - Found route mismatch
+- [x] Create ContestsList.tsx page for /contests route (shows all contests)
+- [x] Keep existing Contests.tsx for /contests/:matchId route (match-specific contests)
+- [x] Add /contests route in App.tsx
+- [x] Test contests page on dev server - Working perfectly with 77+ matches
+- [ ] Deploy fix to production

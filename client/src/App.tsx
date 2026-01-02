@@ -22,6 +22,7 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import CreateTeam from "./pages/CreateTeam";
 import Contests from "./pages/Contests";
+import ContestsList from "./pages/ContestsList";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -42,6 +43,7 @@ function Router() {
       <Route path="/register" component={Register} />
       <Route path="/create-team/:matchId" component={CreateTeam} />
       <Route path="/contests/:matchId" component={Contests} />
+      <Route path="/contests" component={ContestsList} />
       <Route path="/matches/:matchId/team-builder" component={TeamBuilder} />
       <Route path="/matches/:matchId/live" component={LiveMatch} />
       <Route path="/matches/:matchId" component={MatchDetail} />
