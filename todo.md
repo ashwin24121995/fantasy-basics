@@ -877,4 +877,15 @@
 - [x] Verify match status logic (upcoming vs live) based on IST time - Working correctly
 - [x] Add live score display for ongoing matches - Added score display below team names
 - [x] Test with current live matches to verify scores appear - Tested, will show when matches go live
+- [x] Deploy fixes to production - Changes pushed to GitHub, Railway auto-deploying
+
+## CRITICAL: Button Click Issues on Home & Matches Pages
+
+- [x] Investigate why CREATE TEAM button reloads page instead of navigating - Found window.location.href usage
+- [x] Investigate why VIEW CONTESTS button is not clickable - Wrong route
+- [x] Fix CREATE TEAM button on Home page to navigate properly - Using setLocation now
+- [x] Fix CREATE TEAM button on Matches page to navigate to /matches/:matchId/create-team
+- [x] Fix VIEW CONTESTS button on Matches page to navigate to /contests/:matchId
+- [x] Replace window.location.href with router navigation for smoother UX
+- [ ] Test all buttons on Home and Matches pages
 - [ ] Deploy fixes to production

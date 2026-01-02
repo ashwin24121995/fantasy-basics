@@ -4,13 +4,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { Trophy, Users, TrendingUp, Shield, Clock, Target, CheckCircle, Star, Zap, Award, BarChart3, Globe, Lock } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import ProfileCompletion from "@/components/ProfileCompletion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
   const { data: upcomingMatches, isLoading: matchesLoading } = trpc.matches.getUpcomingMatches.useQuery();
   
   // Helper function to get match status badge
@@ -252,7 +253,11 @@ export default function Home() {
                       className="w-full bg-green-600 hover:bg-green-700 text-white font-bold"
                       onClick={(e) => {
                         e.stopPropagation();
-                        window.location.href = isAuthenticated ? `/matches/${match.id}/create-team` : getLoginUrl();
+                        if (!isAuthenticated) {
+                          window.location.href = getLoginUrl();
+                        } else {
+                          setLocation(`/matches/${match.id}/create-team`);
+                        }
                       }}
                     >
                       <Trophy className="w-4 h-4 mr-2" />

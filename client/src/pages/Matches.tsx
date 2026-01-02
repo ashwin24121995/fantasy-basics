@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 
 export default function Matches() {
   const { user, isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
   const { data: upcomingMatches, isLoading: upcomingLoading } = trpc.matches.getUpcomingMatches.useQuery();
   const { data: liveMatches, isLoading: liveLoading } = trpc.matches.getLiveMatches.useQuery();
   const { data: completedMatches, isLoading: completedLoading } = trpc.matches.getCompletedMatches.useQuery();
@@ -243,7 +244,7 @@ export default function Matches() {
                               if (!isAuthenticated) {
                                 window.location.href = getLoginUrl();
                               } else {
-                                window.location.href = `/create-team/${match.id}`;
+                                setLocation(`/matches/${match.id}/create-team`);
                               }
                             }}
                           >
@@ -252,7 +253,7 @@ export default function Matches() {
                           <Button 
                             variant="outline"
                             className="flex-1 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold"
-                            onClick={() => window.location.href = `/matches/${match.id}`}
+                            onClick={() => setLocation(`/contests/${match.id}`)}
                           >
                             VIEW CONTESTS
                           </Button>
@@ -370,7 +371,7 @@ export default function Matches() {
                               if (!isAuthenticated) {
                                 window.location.href = getLoginUrl();
                               } else {
-                                window.location.href = `/create-team/${match.id}`;
+                                setLocation(`/matches/${match.id}/create-team`);
                               }
                             }}
                           >
