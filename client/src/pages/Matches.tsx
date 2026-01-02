@@ -219,7 +219,7 @@ export default function Matches() {
                             <Clock className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                             <div className="flex-1">
                               <div className="font-bold text-foreground">
-                                {new Date(match.dateTimeGMT).toLocaleString('en-IN', {
+                                {new Date(match.dateTimeGMT + 'Z').toLocaleString('en-IN', {
                                   dateStyle: 'medium',
                                   timeStyle: 'short',
                                   timeZone: 'Asia/Kolkata'

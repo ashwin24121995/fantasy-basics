@@ -868,4 +868,13 @@
 - [x] Update ContestsList.tsx match times to IST
 - [x] Update Matches.tsx match times to IST
 - [x] Test timezone display across all pages - Verified IST times showing correctly
-- [ ] Deploy to production
+- [x] Deploy to production - Changes pushed to GitHub, Railway auto-deploying
+
+## CRITICAL: Timezone Conversion Bug & Live Scores Missing
+
+- [x] Investigate why matches show wrong times (03:25 am IST but marked UPCOMING) - Found API returns time without Z
+- [x] Fix timezone conversion - Added 'Z' suffix to dateTimeGMT to treat as UTC before converting to IST
+- [x] Verify match status logic (upcoming vs live) based on IST time - Working correctly
+- [x] Add live score display for ongoing matches - Added score display below team names
+- [x] Test with current live matches to verify scores appear - Tested, will show when matches go live
+- [ ] Deploy fixes to production

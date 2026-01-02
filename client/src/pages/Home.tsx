@@ -188,6 +188,11 @@ export default function Home() {
                         <span className="text-sm font-bold text-center line-clamp-2 leading-tight px-1">
                           {match.teamInfo?.[0]?.name || match.teams?.[0] || 'Team A'}
                         </span>
+                        {match.score && match.score[0] && (
+                          <div className="text-lg font-black text-primary mt-1">
+                            {match.score[0].r}/{match.score[0].w}
+                          </div>
+                        )}
                       </div>
                       
                       {/* VS Divider */}
@@ -223,11 +228,16 @@ export default function Home() {
                         <span className="text-sm font-bold text-center line-clamp-2 leading-tight px-1">
                           {match.teamInfo?.[1]?.name || match.teams?.[1] || 'Team B'}
                         </span>
+                        {match.score && match.score[1] && (
+                          <div className="text-lg font-black text-primary mt-1">
+                            {match.score[1].r}/{match.score[1].w}
+                          </div>
+                        )}
                       </div>
                     </div>                {/* Match Time */}
                     <div className="flex items-center justify-center gap-2 text-sm text-gray-600 mb-4">
                       <Clock className="w-4 h-4" />
-                      <span>{new Date(match.dateTimeGMT).toLocaleString('en-IN', { 
+                      <span>{new Date(match.dateTimeGMT + 'Z').toLocaleString('en-IN', { 
                         month: 'short', 
                         day: 'numeric', 
                         year: 'numeric',
@@ -516,7 +526,7 @@ export default function Home() {
                     <div className="text-center mb-4">
                       <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-1">
                         <Clock className="w-4 h-4" />
-                        <span className="font-semibold">{new Date(match.dateTimeGMT).toLocaleString('en-IN', { 
+                        <span className="font-semibold">{new Date(match.dateTimeGMT + 'Z').toLocaleString('en-IN', { 
                           month: 'short', 
                           day: 'numeric',
                           hour: '2-digit',
