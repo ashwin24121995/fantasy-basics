@@ -191,14 +191,22 @@ export function AboutPage() {
               <h2 className="text-3xl font-bold text-gray-900">Company Information</h2>
             </div>
             <div className="bg-gray-50 rounded-lg p-6 space-y-3">
-              <div className="flex flex-wrap gap-x-8 gap-y-3">
+              <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <div className="text-sm text-gray-500 mb-1">Company Name</div>
                   <div className="font-bold text-gray-900">KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED</div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 mb-1">Registration</div>
-                  <div className="font-bold text-gray-900">Registered in Karnataka, India</div>
+                  <div className="text-sm text-gray-500 mb-1">CIN</div>
+                  <div className="font-bold text-gray-900">U10792KA2024PTC186508</div>
+                </div>
+                <div className="md:col-span-2">
+                  <div className="text-sm text-gray-500 mb-1">Registered Address</div>
+                  <div className="font-bold text-gray-900">
+                    C/O S K MOHAN, MEKOOR, SIDDAPURA,<br />
+                    Pollibetta, Virajpet, Kodagu- 571215,<br />
+                    Karnataka, India
+                  </div>
                 </div>
                 <div>
                   <div className="text-sm text-gray-500 mb-1">Website</div>

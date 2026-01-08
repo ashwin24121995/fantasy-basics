@@ -96,7 +96,10 @@ export default function Footer() {
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-secondary" />
                 <span className="leading-relaxed">
                   KAVERAMMA COFFEE CURING WORKS PRIVATE LIMITED<br />
-                  Karnataka, India
+                  C/O S K MOHAN, MEKOOR, SIDDAPURA,<br />
+                  Pollibetta, Virajpet, Kodagu- 571215,<br />
+                  Karnataka, India<br />
+                  <span className="text-xs text-gray-500 mt-1 block">CIN: U10792KA2024PTC186508</span>
                 </span>
               </li>
               <li className="flex items-center gap-2 text-gray-400">
