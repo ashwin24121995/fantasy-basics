@@ -878,3 +878,10 @@
 - [x] Add live score display for ongoing matches - Added score display below team names
 - [x] Test with current live matches to verify scores appear - Tested, will show when matches go live
 - [ ] Deploy fixes to production
+
+## Scroll to Top on Page Navigation
+
+- [x] Create useEffect hook to scroll to top on route change
+- [x] Add scroll behavior to App.tsx with instant scroll
+- [ ] Test navigation between pages
+- [ ] Deploy to production
